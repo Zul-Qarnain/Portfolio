@@ -48,16 +48,3 @@ firestore-debug.log
 #superbase
 .env.local
 .env
-
-#myignore
-/idx*
-/.next*
-/.vscode*
-/docs*
-/src/app*
-/apphosting.yaml
-/README.md
-=======
-firestore-debug.lognode_modules
-.next
-.env.local

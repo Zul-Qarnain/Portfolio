@@ -20,6 +20,7 @@ const navItems = [
   { href: "/publications", label: "Publications" },
   { href: "/projects", label: "Projects" },
   { href: "/events", label: "Events" },
+  { href: "/posts", label: "Posts" },
   { href: "/contact", label: "Contact Me" },
 ];
 

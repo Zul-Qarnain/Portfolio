@@ -200,4 +200,24 @@ export const contactSectionData = {
 
 export const resumeUrl = "/resume.pdf";
 
-    
+export interface Post {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+  description: string;
+  images: string[];
+  imageHint: string;
+}
+
+export interface Post {
+  title: string;
+  description: string;
+  slug: string;
+}
+
+export async function getPosts(): Promise<Post[]> {
+  const res = await fetch('/api/posts');
+  return res.json();
+}

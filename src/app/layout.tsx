@@ -1,10 +1,9 @@
-
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
+import { Footer } from '../components/Footer'; // ← CHANGE TO RELATIVE IMPORT
 import { ThemeProvider } from '@/components/providers/theme-provider';
-import { Toaster } from "@/components/ui/toaster"; // For contact form messages
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: {

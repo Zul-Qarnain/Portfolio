@@ -7,3 +7,11 @@ export const contactFormSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+export const postSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  slug: z.string(),
+});
+
+export const postsSchema = z.array(postSchema);
