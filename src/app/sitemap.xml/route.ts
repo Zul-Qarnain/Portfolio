@@ -2,27 +2,9 @@ import { createServerSupabaseClient } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const supabase = await createServerSupabaseClient();
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
-
-export async function GET() {
-  const cookieStore = cookies()
-  
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    }
-  )
-
   try {
+    const supabase = await createServerSupabaseClient();
+    
     // Get all published posts
     const { data: posts, error } = await supabase
       .from('blog_posts')
@@ -35,7 +17,7 @@ export async function GET() {
       return new NextResponse('Error generating sitemap', { status: 500 });
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shihab.vercel.app/';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shihab.vercel.app';
 
     // Generate sitemap XML
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -47,38 +29,38 @@ export async function GET() {
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>${baseUrl}posts</loc>
+    <loc>${baseUrl}/posts</loc>
     <lastmod>${posts && posts.length > 0 ? posts[0].updated_at : new Date().toISOString()}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>${baseUrl}publications</loc>
+    <loc>${baseUrl}/publications</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${baseUrl}projects</loc>
+    <loc>${baseUrl}/projects</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${baseUrl}events</loc>
+    <loc>${baseUrl}/events</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>${baseUrl}contact</loc>
+    <loc>${baseUrl}/contact</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   ${posts ? posts.map(post => `
   <url>
-    <loc>${baseUrl}posts/${post.slug}</loc>
+    <loc>${baseUrl}/posts/${post.slug}</loc>
     <lastmod>${post.updated_at}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
