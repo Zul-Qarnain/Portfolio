@@ -54,7 +54,6 @@ firestore-debug.log
 /.next*
 /.vscode*
 /docs*
-/src/app*
 /apphosting.yaml
 /README.md
 =======
