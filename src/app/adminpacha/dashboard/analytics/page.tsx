@@ -1,9 +1,34 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase';
+
+interface PostData {
+  id: string;
+  title: string;
+  slug: string;
+  status: 'draft' | 'published' | 'archived';
+  views_count: number;
+  created_at: string;
+}
+
+interface AnalyticsData {
+  totalPosts: number;
+  publishedPosts: number;
+  draftPosts: number;
+  totalViews: number;
+  topPosts: PostData[];
+  recentActivity: PostData[];
+}
+
+interface StatCardProps {
+  title: string;
+  value: string | number;
+  icon: string;
+  color: string;
+}
 
 export default function AnalyticsPage() {
-  const [analytics, setAnalytics] = useState({
+  const [analytics, setAnalytics] = useState<AnalyticsData>({
     totalPosts: 0,
     publishedPosts: 0,
     draftPosts: 0,
@@ -12,7 +37,7 @@ export default function AnalyticsPage() {
     recentActivity: [],
   });
   const [loading, setLoading] = useState(true);
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   useEffect(() => {
     fetchAnalytics();
@@ -197,7 +222,7 @@ export default function AnalyticsPage() {
         }
 
         .status {
-          background: ${post => post.status === 'published' ? '#50fa7b' : '#ffb86c'};
+          background: ${(post: any) => post.status === 'published' ? '#50fa7b' : '#ffb86c'};
           color: #282a36;
           padding: 0.25rem 0.5rem;
           border-radius: 4px;
@@ -224,7 +249,7 @@ export default function AnalyticsPage() {
   );
 }
 
-const StatCard = ({ title, value, icon, color }) => (
+const StatCard = ({ title, value, icon, color }: StatCardProps) => (
   <div className="stat-card">
     <div className="stat-header">
       <span className="stat-icon">{icon}</span>

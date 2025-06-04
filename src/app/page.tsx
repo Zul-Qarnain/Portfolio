@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { SkillBar } from '@/components/home/SkillBar';
 import { skillsData, profileLinks, educationData, experienceData, resumeUrl } from '@/lib/data';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createBrowserClient } from '@supabase/ssr';
 import type { Skill } from '@/lib/data';
 import {
   Flame, Smile, Sigma, Braces, Code2, FileText, Atom, Triangle,
@@ -80,7 +80,12 @@ const updatedSkillsData: Skill[] = [
 export default function HomePage() {
   const [posts, setPosts] = React.useState<BlogPost[]>([]);
   const [postsLoading, setPostsLoading] = React.useState(true);
-  const supabase = createClientComponentClient();
+  
+  // Create Supabase client for browser use
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
   
   const EducationIcon = iconComponents[educationData.icon];
   const ExperienceIcon = iconComponents[experienceData.icon];
@@ -158,10 +163,10 @@ export default function HomePage() {
               </h1>
               <div className="mt-6 text-lg text-muted-foreground max-w-2xl space-y-4">
                 <p>
-                  I'm an aspiring AI researcher and software developer with a strong foundation in deep learning, quantum computing, full-stack web development, and cybersecurity. Over the past year, I've built various projects using Python and Java, gaining hands-on experience with machine learning, PyTorch, and large language models (LLMs). I also co-authored a research paper exploring the intersection of AI and LLMs.
+                  I'm an aspiring AI researcher and software developer with a strong foundation in deep learning, quantum computing, full-stack web development, and cybersecurity. Over the past years, I've worked on numerous projects spanning machine learning, web development, and mobile applications.
                 </p>
                 <p>
-                  Currently pursuing a B.Sc. in Computer Science at American International University-Bangladesh (AIUB), I'm focused on advancing intelligent systems that have real-world impact. I'm especially interested in using the synergy between AI and quantum physics—Quantum AI—to address challenges in areas like cancer treatment, renewable energy, and human health.
+                  Currently pursuing a B.Sc. in Computer Science at American International University-Bangladesh (AIUB), I'm focused on advancing intelligent systems that have real-world impact. My research interests include computer vision, natural language processing, and distributed systems.
                 </p>
                 <p>
                   Fluent in 14 programming languages, I'm driven by a passion for building technologies that contribute to a better, smarter future.
@@ -197,7 +202,7 @@ export default function HomePage() {
           <div className="md:col-span-1 flex flex-col items-center space-y-6 animate-fade-in-right mt-8 md:mt-0 order-1 md:order-2">
             <div className="relative w-48 h-48 sm:w-60 sm:h-60 lg:w-72 lg:h-72 rounded-full overflow-hidden border-4 border-primary shadow-lg">
               <Image
-                src="/handsome.jpeg"
+                src="/Test.jpeg"
                 alt="Mohammad Shihab Hossain - Profile Picture"
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'top' }}

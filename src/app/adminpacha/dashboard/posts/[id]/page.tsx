@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase';
 import RichTextEditor from '../../../../../components/RichTextEditor';
 
 // Define types directly in this file for now
@@ -34,7 +34,7 @@ export default function EditPostPage() {
   const router = useRouter();
   const params = useParams();
   const postId = params?.id as string;
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   // Auto-generate slug from title
   const generateSlug = (title: string): string => {
@@ -137,8 +137,14 @@ export default function EditPostPage() {
       // Trigger sitemap regeneration if published
       if (status === 'published') {
         try {
-          await fetch('/api/sitemap/regenerate', { method: 'POST' });
-          await fetch('/api/seo/ping-google', { method: 'POST' });
+          await fetch('/api/sitemap/regenerate', { 
+            method: 'POST',
+            credentials: 'include'
+          });
+          await fetch('/api/seo/ping-google', { 
+            method: 'POST',
+            credentials: 'include'
+          });
         } catch (seoError) {
           console.warn('SEO operations failed:', seoError);
         }

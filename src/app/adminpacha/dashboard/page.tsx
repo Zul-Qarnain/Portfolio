@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import type { User } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 // BlogPost interface
 interface BlogPost {
@@ -38,7 +38,7 @@ const AdminDashboard: React.FC = () => {
   const [loadingDrafts, setLoadingDrafts] = useState(false);
   const [loadingPublished, setLoadingPublished] = useState(false);
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   // Move these functions outside useEffect so they can be reused
   const loadStats = async () => {
@@ -259,8 +259,14 @@ const AdminDashboard: React.FC = () => {
       
       // Trigger sitemap regeneration since a published post was deleted
       try {
-        await fetch('/api/sitemap/regenerate', { method: 'POST' });
-        await fetch('/api/seo/ping-google', { method: 'POST' });
+        await fetch('/api/sitemap/regenerate', { 
+          method: 'POST',
+          credentials: 'include'
+        });
+        await fetch('/api/seo/ping-google', { 
+          method: 'POST',
+          credentials: 'include'
+        });
       } catch (seoError) {
         console.warn('SEO operations failed:', seoError);
       }

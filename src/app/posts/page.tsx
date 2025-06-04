@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase';
 
 // BlogPost interface matching your exact database schema
 interface BlogPost {
@@ -26,11 +26,13 @@ interface BlogPost {
   tags: string[];
 }
 
+// Create Supabase client
+const supabase = createClient();
+
 const PostsPage: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const supabase = createClientComponentClient();
 
   useEffect(() => {
     fetchPosts();
@@ -106,7 +108,7 @@ const PostsPage: React.FC = () => {
           placeholder="Search articles..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400"
+          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
         />
       </div>
 
@@ -167,7 +169,7 @@ const PostsPage: React.FC = () => {
                       {post.tags.slice(0, 3).map((tag, index) => (
                         <span
                           key={index}
-                          className="inline-block bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors cursor-pointer"
+                          className="inline-block bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800"
                         >
                           #{tag}
                         </span>
@@ -186,7 +188,7 @@ const PostsPage: React.FC = () => {
                   </p>
                   <Link 
                     href={`/posts/${post.slug}`} 
-                    className="inline-flex items-center px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-purple-800 transition-all duration-200 hover:shadow-md"
+                    className="inline-flex items-center px-4 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
                     Read more <span className="ml-2 text-lg">→</span>
                   </Link>
