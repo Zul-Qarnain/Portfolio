@@ -57,3 +57,7 @@ firestore-debug.log
 /src/app*
 /apphosting.yaml
 /README.md
+=======
+firestore-debug.lognode_modules
+.next
+.env.local
