@@ -1,34 +1,48 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 const AdminLoginPage = () => {
+  const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
-  const supabase = createClient();
+  
+  // Only create client on mount to avoid SSR issues
+  const [supabase, setSupabase] = useState<any>(null);
 
-  // Check if user is already logged in
   useEffect(() => {
-    const checkUser = async () => {
+    // Create client only in browser
+    const client = createClient();
+    setSupabase(client);
+
+    const getUser = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await client.auth.getUser();
+        setUser(user);
+        setLoading(false);
+        
         if (user) {
-          router.push("/adminpacha/dashboard");
+          router.push('/adminpacha/dashboard');
         }
       } catch (error) {
-        console.error("Error checking user:", error);
+        console.error('Auth error:', error);
+        setLoading(false);
       }
     };
-    checkUser();
+
+    getUser();
   }, [router]);
 
-  const handleLogin = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!supabase) return;
+
     setLoading(true);
     setError("");
 
@@ -57,6 +71,64 @@ const AdminLoginPage = () => {
     setShowPassword(!showPassword);
   };
 
+  // Show loading state
+  if (loading && !supabase) {
+    return (
+      <div className="login-container">
+        <div className="login-card">
+          <div className="login-header">
+            <div className="logo-circle">
+              <span className="logo-icon">🧛‍♂️</span>
+            </div>
+            <h1 className="login-title">
+              <span className="title-gradient">LOADING...</span>
+            </h1>
+          </div>
+        </div>
+        <style jsx>{`
+          .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #282a36 0%, #44475a 50%, #6272a4 100%);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+          }
+          .login-card {
+            background: linear-gradient(145deg, #282a36 0%, #1e1f29 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+          }
+          .login-header { text-align: center; }
+          .logo-circle {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff79c6 0%, #bd93f9 100%);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease-in-out infinite;
+          }
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+          .logo-icon { font-size: 2.5rem; }
+          .login-title { margin: 0; font-size: 2.2rem; font-weight: 800; }
+          .title-gradient {
+            background: linear-gradient(135deg, #ff79c6 0%, #bd93f9 50%, #8be9fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   return (
     <div className="login-container">
       {/* Animated background elements */}
@@ -78,7 +150,7 @@ const AdminLoginPage = () => {
           <p className="login-subtitle">Welcome back, <span className="username">Zul-Qarnain</span></p>
           <div className="datetime">
             <span className="date-icon">🌙</span>
-            2025-06-03 20:21:17 UTC
+            2025-06-04 10:46:09 UTC
           </div>
         </div>
 
