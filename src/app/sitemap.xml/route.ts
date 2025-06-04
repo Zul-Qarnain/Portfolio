@@ -1,11 +1,18 @@
-import { createServerSupabaseClient } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const supabase = await createServerSupabaseClient();
-
   try {
-    // Get all published posts
+    // Create a simple Supabase client without cookies for static generation
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    // Get all published posts without authentication
     const { data: posts, error } = await supabase
       .from('blog_posts')
       .select('slug, updated_at, created_at')
@@ -14,7 +21,7 @@ export async function GET() {
 
     if (error) {
       console.error('Error fetching posts:', error);
-      return new NextResponse('Error generating sitemap', { status: 500 });
+      // Continue with basic sitemap if database fails
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shihab.vercel.app/';
