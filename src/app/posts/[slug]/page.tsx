@@ -1,8 +1,10 @@
 import { createServerSupabaseClient } from '@/lib/supabase';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 
 // BlogPost interface matching your database
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface BlogPost {
   id: string;
   title: string;
@@ -92,7 +94,7 @@ const PostPage = async ({ params }: PostProps) => {
       <div className="w-full max-w-4xl">
         {/* Back arrow and category section */}
         <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
-          <a href="/posts" className="hover:underline">&larr; Back to Posts</a>
+          <Link href="/posts" className="hover:underline">&larr; Back to Posts</Link>
           <span className="mx-2">|</span>
           <span>{formatTags(post.tags)}</span>
         </div>

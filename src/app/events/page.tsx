@@ -3,7 +3,7 @@
 
 import { useState, useMemo } from 'react';
 import { EventCard } from '@/components/events/EventCard';
-import { eventsData, type Event } from '@/lib/data';
+import { eventsData } from '@/lib/data';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -12,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import type { Metadata } from 'next'; // Keep for potential static metadata if needed later
 
 // Note: Metadata export is for static generation, dynamic title/desc would need different approach
 // export const metadata: Metadata = {
@@ -26,7 +25,7 @@ const getYearFromDate = (dateString: string): string => {
     if (!isNaN(date.getFullYear())) {
       return date.getFullYear().toString();
     }
-  } catch (e) {
+  } catch {
     const yearMatch = dateString.match(/\b\d{4}\b/);
     if (yearMatch) return yearMatch[0];
   }

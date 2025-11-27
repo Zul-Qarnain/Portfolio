@@ -4,6 +4,11 @@
 
 body {
   font-family: var(--font-inter), sans-serif; /* Default to Inter, will be overridden by tailwind config */
+  background-color: transparent;
+}
+
+html {
+  background-color: #0d1117; /* Fallback color matching galaxy */
 }
 
 @layer base {
@@ -49,42 +54,42 @@ body {
   }
 
   .dark {
-    /* Dracula Theme - with Monokai Purple as Primary */
-    --background: 231 15% 18%; /* Dracula BG: #282a36 */
-    --foreground: 60 30% 95%; /* Dracula FG: #f8f8f2 */
-    --card: 231 15% 18%; /* Dracula BG for cards too, matching screenshot */
-    --card-foreground: 60 30% 95%; /* Dracula FG */
-    --popover: 232 14% 31%; /* Dracula Current Line for popovers: #44475a */
-    --popover-foreground: 60 30% 95%; /* Dracula FG */
-    --primary: 271 89% 84%; /* Dracula Purple (was Yellow): #bd93f9 */
-    --primary-foreground: 231 15% 18%; /* Dracula BG for text on Purple (was Yellow) */
-    --secondary: 232 14% 31%; /* Dracula Current Line for secondary elements: #44475a */
-    --secondary-foreground: 60 30% 95%; /* Dracula FG */
-    --muted: 225 29% 51%; /* Dracula Comment for less prominent: #6272a4 */
-    --muted-foreground: 60 30% 95%; /* Dracula FG for text on muted */
-    --accent: 321 100% 74%; /* Dracula Pink for hover/interactive: #ff79c6 */
-    --accent-foreground: 231 15% 18%; /* Dracula BG for text on Pink */
-    --destructive: 0 100% 67%; /* Dracula Red: #ff5555 */
-    --destructive-foreground: 60 30% 95%; /* Dracula FG */
-    --border: 232 14% 25%; /* Slightly darker than current line for distinct borders if needed */
-    --input: 230 15% 12%; /* Darker for input fields like search: #191A21 */
-    --ring: 271 89% 84%; /* Dracula Purple for focus rings: #bd93f9 */
+    /* Dracula Theme */
+    --background: 231 15% 18%; /* #282a36 */
+    --foreground: 60 30% 96%; /* #f8f8f2 */
+    --card: 231 15% 22%; /* Slightly lighter than bg */
+    --card-foreground: 60 30% 96%;
+    --popover: 231 15% 18%;
+    --popover-foreground: 60 30% 96%;
+    --primary: 326 100% 74%; /* Pink #ff79c6 */
+    --primary-foreground: 231 15% 18%;
+    --secondary: 231 15% 31%; /* Current Line #44475a */
+    --secondary-foreground: 60 30% 96%;
+    --muted: 231 15% 31%;
+    --muted-foreground: 225 27% 51%; /* Comment #6272a4 */
+    --accent: 265 89% 78%; /* Purple #bd93f9 */
+    --accent-foreground: 231 15% 18%;
+    --destructive: 0 100% 67%; /* Red #ff5555 */
+    --destructive-foreground: 60 30% 96%;
+    --border: 231 15% 31%; /* Current Line */
+    --input: 231 15% 31%;
+    --ring: 326 100% 74%; /* Pink */
 
-    --chart-1: 321 100% 74%; /* Dracula Pink */
-    --chart-2: 145 95% 64%; /* Dracula Green */
-    --chart-3: 192 96% 77%; /* Dracula Cyan */
-    --chart-4: 33 100% 71%; /* Dracula Orange */
-    --chart-5: 271 89% 84%; /* Dracula Purple (was Yellow) */
+    --chart-1: 326 100% 74%; /* Pink */
+    --chart-2: 265 89% 78%; /* Purple */
+    --chart-3: 135 94% 65%; /* Green */
+    --chart-4: 31 100% 71%; /* Orange */
+    --chart-5: 191 97% 74%; /* Cyan */
 
-    /* Sidebar variables for Dracula dark theme */
-    --sidebar-background: 231 15% 18%; /* Dracula BG */
-    --sidebar-foreground: 60 30% 95%; /* Dracula FG */
-    --sidebar-primary: 271 89% 84%; /* Dracula Purple (was Yellow) */
-    --sidebar-primary-foreground: 231 15% 18%; /* Dracula BG (for contrast on purple) */
-    --sidebar-accent: 232 14% 31%; /* Dracula Current Line (as hover/selected) */
-    --sidebar-accent-foreground: 60 30% 95%; /* Dracula FG */
-    --sidebar-border: 232 14% 25%; 
-    --sidebar-ring: 271 89% 84%; /* Dracula Purple */
+    /* Sidebar variables */
+    --sidebar-background: 231 15% 18%;
+    --sidebar-foreground: 60 30% 96%;
+    --sidebar-primary: 326 100% 74%;
+    --sidebar-primary-foreground: 231 15% 18%;
+    --sidebar-accent: 231 15% 31%;
+    --sidebar-accent-foreground: 60 30% 96%;
+    --sidebar-border: 231 15% 31%;
+    --sidebar-ring: 326 100% 74%;
   }
 }
 
@@ -99,6 +104,33 @@ body {
   ::selection {
     @apply bg-primary/70 text-primary-foreground;
   }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
 }
 
 /* Custom scrollbar for a modern feel */
@@ -201,4 +233,40 @@ section {
 .animate-fade-in-up.animation-delay-400,
 .animate-fade-in-up.animation-delay-600 {
   opacity: 0;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Typing Cursor */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-start infinite;
+  color: #ff79c6;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-nav {
+  background: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }

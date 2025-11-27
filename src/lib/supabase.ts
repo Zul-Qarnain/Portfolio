@@ -21,17 +21,19 @@ export const createServerSupabaseClient = async () => {
         get(name: string) {
           return cookieStore.get(name)?.value;
         },
-        set(name: string, value: string, options: any) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        set(name: string, value: string, options: { [key: string]: any }) {
           try {
             cookieStore.set({ name, value, ...options });
-          } catch (error) {
+          } catch {
             // Ignore errors when called from Server Component
           }
         },
-        remove(name: string, options: any) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        remove(name: string, options: { [key: string]: any }) {
           try {
             cookieStore.set({ name, value: '', ...options });
-          } catch (error) {
+          } catch {
             // Ignore errors when called from Server Component
           }
         },

@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
 
 // Dynamically import the ContactForm component, ensuring it's client-side only
 const ContactForm = dynamic(() =>

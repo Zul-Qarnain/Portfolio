@@ -189,6 +189,7 @@ export default function EditPostPage() {
     if (postId) {
       loadPost();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
 
   if (loading) {
@@ -227,7 +228,7 @@ export default function EditPostPage() {
     return (
       <div className="error-container">
         <h1>Post Not Found</h1>
-        <p>The post you're looking for doesn't exist or you don't have permission to access it.</p>
+        <p>The post you&apos;re looking for doesn&apos;t exist or you don&apos;t have permission to access it.</p>
         <button onClick={() => router.push('/adminpacha/dashboard')}>← Back to Dashboard</button>
       </div>
     );
@@ -363,6 +364,7 @@ export default function EditPostPage() {
               {post.featured_image_url && (
                 <div className="detail-section">
                   <h3>Featured Image</h3>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={post.featured_image_url} alt={post.title} className="featured-image-preview" />
                 </div>
               )}

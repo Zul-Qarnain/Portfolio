@@ -102,30 +102,32 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   );
 }
 
+import Link from 'next/link';
+
 const AdminSidebar = () => (
   <aside className="admin-sidebar">
     <div className="sidebar-header">
       <h2>🧛‍♂️ Admin Portal</h2>
     </div>
     <nav className="sidebar-nav">
-      <a href="/adminpacha/dashboard" className="nav-item">
+      <Link href="/adminpacha/dashboard" className="nav-item">
         📊 Dashboard
-      </a>
-      <a href="/posts" className="nav-item" target="_blank" rel="noopener noreferrer">
+      </Link>
+      <Link href="/posts" className="nav-item" target="_blank" rel="noopener noreferrer">
         📝 Blog Posts
-      </a>
-      <a href="/adminpacha/dashboard/posts" className="nav-item">
+      </Link>
+      <Link href="/adminpacha/dashboard/posts" className="nav-item">
         🛠️ Manage Posts
-      </a>
-      <a href="/adminpacha/dashboard/posts/new" className="nav-item">
+      </Link>
+      <Link href="/adminpacha/dashboard/posts/new" className="nav-item">
         ➕ New Post
-      </a>
-      <a href="/adminpacha/dashboard/analytics" className="nav-item">
+      </Link>
+      <Link href="/adminpacha/dashboard/analytics" className="nav-item">
         📈 Analytics
-      </a>
-      <a href="/adminpacha/dashboard/seo" className="nav-item">
+      </Link>
+      <Link href="/adminpacha/dashboard/seo" className="nav-item">
         🔍 SEO Tools
-      </a>
+      </Link>
     </nav>
     <style jsx>{`
       .admin-sidebar {

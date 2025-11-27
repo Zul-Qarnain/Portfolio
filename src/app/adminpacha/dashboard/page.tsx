@@ -148,6 +148,7 @@ const AdminDashboard: React.FC = () => {
     );
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, supabase]);
 
   const formatDate = (dateString: string) => {

@@ -15,7 +15,6 @@ interface RichTextEditorProps {
 export default function RichTextEditor({ 
   content, 
   onChange, 
-  placeholder = "Start writing your blog post..." 
 }: RichTextEditorProps) {
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');

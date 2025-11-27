@@ -1,17 +1,36 @@
+import { Github, Linkedin, Twitter, Mail, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { profileLinks } from '@/lib/data';
 
 export function Footer() {
+  const iconComponents: { [key: string]: React.ElementType } = {
+    Github, Linkedin, Twitter, Mail
+  };
+
   return (
-    <footer className="bg-muted text-muted-foreground dark:bg-card dark:text-card-foreground py-8">
-      <div className="section-container text-center">
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} Persona. Built with Next.js and Tailwind CSS.
+    <footer className="border-t border-border bg-background py-8">
+      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p className="text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} Mohammad Shihab Hossain. All rights reserved.
         </p>
-        <p className="text-xs mt-1">
-          Designed by{' '}
-          <a href="https://github.com/Zul-Qarnain" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-            Zul-Qarnain
-          </a>
-        </p>
+        
+        <div className="flex items-center gap-4">
+          {profileLinks.map((link) => {
+            const Icon = iconComponents[link.icon] || ExternalLink;
+            return (
+              <Link 
+                key={link.name} 
+                href={link.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label={link.ariaLabel}
+              >
+                <Icon className="w-5 h-5" />
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </footer>
   );

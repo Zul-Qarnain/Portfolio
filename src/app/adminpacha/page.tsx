@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
-import type { User } from "@supabase/supabase-js";
 
 const AdminLoginPage = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +12,7 @@ const AdminLoginPage = () => {
   const router = useRouter();
   
   // Only create client on mount to avoid SSR issues
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [supabase, setSupabase] = useState<any>(null);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const AdminLoginPage = () => {
     const getUser = async () => {
       try {
         const { data: { user } } = await client.auth.getUser();
-        setUser(user);
         setLoading(false);
         
         if (user) {
@@ -60,7 +58,7 @@ const AdminLoginPage = () => {
       if (data.user) {
         router.push("/adminpacha/dashboard");
       }
-    } catch (err) {
+    } catch {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
@@ -220,7 +218,7 @@ const AdminLoginPage = () => {
         <div className="footer-info">
           <p className="security-text">
             <span className="security-icon">🛡️</span>
-            Protected by Dracula's Magic & Supabase
+            Protected by Dracula&apos;s Magic & Supabase
           </p>
         </div>
       </div>

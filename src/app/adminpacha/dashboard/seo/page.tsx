@@ -1,12 +1,10 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 const SEOToolsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSitemapLoading, setIsSitemapLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const router = useRouter();
 
   const handlePingSearchEngines = async () => {
     setIsLoading(true);
@@ -60,13 +58,13 @@ const SEOToolsPage = () => {
     <div className="seo-tools-page">
       <div className="header-section">
         <h1>🔍 SEO Tools</h1>
-        <p>Manage your site's search engine optimization</p>
+        <p>Manage your site&apos;s search engine optimization</p>
       </div>
 
       <div className="tools-grid">
         <div className="tool-card">
           <h3>🗺️ Sitemap Management</h3>
-          <p>View and manage your site's sitemap</p>
+          <p>View and manage your site&apos;s sitemap</p>
           <div className="tool-actions">
             <button 
               onClick={handleViewSitemap}

@@ -39,10 +39,6 @@ export default function AnalyticsPage() {
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, []);
-
   const fetchAnalytics = async () => {
     try {
       // Get post counts
@@ -75,6 +71,11 @@ export default function AnalyticsPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchAnalytics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) {
     return <div className="loading">📊 Loading analytics...</div>;
@@ -131,7 +132,7 @@ export default function AnalyticsPage() {
             <div key={post.id} className="activity-item">
               <div className="activity-info">
                 <h4>{post.title}</h4>
-                <span className="status">{post.status}</span>
+                <span className="status" style={{ background: post.status === 'published' ? '#50fa7b' : '#ffb86c' }}>{post.status}</span>
               </div>
               <span className="date">
                 {new Date(post.created_at).toLocaleDateString()}
@@ -222,7 +223,6 @@ export default function AnalyticsPage() {
         }
 
         .status {
-          background: ${(post: any) => post.status === 'published' ? '#50fa7b' : '#ffb86c'};
           color: #282a36;
           padding: 0.25rem 0.5rem;
           border-radius: 4px;

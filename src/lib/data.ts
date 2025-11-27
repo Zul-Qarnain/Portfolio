@@ -1,6 +1,4 @@
 
-import type { Github, Linkedin, GraduationCap, FlaskConical, Briefcase, Settings2, School } from 'lucide-react';
-
 export interface Skill {
   name: string;
   percentage: number;
@@ -22,11 +20,11 @@ export const skillsData: Skill[] = [
   { name: 'Scikit-learn', percentage: 50, category: 'Data Science', icon: 'TrendingUp', color: 'bg-orange-500', iconClasses: 'text-orange-600' },
   
   // Programming Languages
-  { name: 'JavaScript', percentage: 70, category: 'Programming Languages', icon: 'Braces', color: 'bg-yellow-400', iconClasses: 'text-yellow-400' },
-  { name: 'Python', percentage: 90, category: 'Programming Languages', icon: 'Code2', color: 'bg-indigo-500', iconClasses: 'text-green-500' },
-  { name: 'TypeScript', percentage: 50, category: 'Programming Languages', icon: 'FileText', color: 'bg-sky-400', iconClasses: 'text-blue-500' },
-  { name: 'Java', percentage: 70, category: 'Programming Languages', icon: 'Coffee', color: 'bg-red-500', iconClasses: 'text-red-600' },
-  { name: 'C++', percentage: 90, category: 'Programming Languages', icon: 'Settings2', color: 'bg-blue-700', iconClasses: 'text-blue-700' },
+  { name: 'JavaScript', percentage: 70, category: 'PL', icon: 'Braces', color: 'bg-yellow-400', iconClasses: 'text-yellow-400' },
+  { name: 'Python', percentage: 90, category: 'PL', icon: 'Code2', color: 'bg-indigo-500', iconClasses: 'text-green-500' },
+  { name: 'TypeScript', percentage: 50, category: 'PL', icon: 'FileText', color: 'bg-sky-400', iconClasses: 'text-blue-500' },
+  { name: 'Java', percentage: 70, category: 'PL', icon: 'Coffee', color: 'bg-red-500', iconClasses: 'text-red-600' },
+  { name: 'C++', percentage: 90, category: 'PL', icon: 'Settings2', color: 'bg-blue-700', iconClasses: 'text-blue-700' },
   
   // Frontend
   { name: 'React', percentage: 60, category: 'Frontend', icon: 'Atom', color: 'bg-purple-500', iconClasses: 'text-sky-500' },
