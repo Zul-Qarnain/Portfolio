@@ -3,11 +3,12 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.*
+.pnp.js
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
+!.yarn/sdks
 !.yarn/versions
 
 # testing
@@ -30,6 +31,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+
 # vercel
 .vercel
 
@@ -37,26 +47,37 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.genkit/*
-.env*
-
-
 # firebase
 firebase-debug.log
 firestore-debug.log
+ui-debug.log
 
-#superbase
-.env.local
-.env
+# supabase
+supabase/functions/**/.env
 
-#myignore
+# editor directories and files
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.sw?
+
+# os specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Genkit
+.genkit/
+
+# Project specific
 /idx*
-/.next*
-/.vscode*
-/docs*
-/apphosting.yaml
-/README.md
-=======
-firestore-debug.lognode_modules
-.next
-.env.local

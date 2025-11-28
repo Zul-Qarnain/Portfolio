@@ -66,7 +66,7 @@ html {
     --secondary: 231 15% 31%; /* Current Line #44475a */
     --secondary-foreground: 60 30% 96%;
     --muted: 231 15% 31%;
-    --muted-foreground: 225 27% 51%; /* Comment #6272a4 */
+    --muted-foreground: 225 27% 70%; /* Comment #6272a4 - Lightened for better contrast */
     --accent: 265 89% 78%; /* Purple #bd93f9 */
     --accent-foreground: 231 15% 18%;
     --destructive: 0 100% 67%; /* Red #ff5555 */
@@ -269,4 +269,45 @@ section {
   background: rgba(13, 17, 23, 0.7);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+@layer components {
+  .prose img {
+    @apply rounded-lg shadow-md mx-auto my-8 max-w-full h-auto;
+  }
+  
+  .prose pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
+  }
+  
+  .prose code {
+    @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono text-pink-600 dark:text-pink-400;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent text-inherit p-0 text-base;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-primary pl-4 italic text-gray-700 dark:text-gray-300 my-6;
+  }
+  
+  .prose a {
+    @apply text-primary hover:underline;
+  }
+  
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4;
+  }
+  
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  .prose ul {
+    @apply list-disc list-inside mb-4;
+  }
+  
+  .prose ol {
+    @apply list-decimal list-inside mb-4;
+  }
 }

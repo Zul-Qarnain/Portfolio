@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
+import { marked } from 'marked';
 import RichTextEditor from '../../../../../components/RichTextEditor';
 
 // Define types directly in this file for now
@@ -76,6 +77,31 @@ export default function NewPostPage() {
       ...post,
       tags: tagsArray
     });
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.md')) {
+      setError('Please upload a .md file');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const text = event.target?.result;
+      if (typeof text === 'string') {
+        try {
+          const html = await marked.parse(text);
+          setPost(prev => ({ ...prev, content: html }));
+        } catch (err) {
+          setError('Error parsing markdown file');
+          console.error(err);
+        }
+      }
+    };
+    reader.readAsText(file);
   };
 
   const savePost = async (status: 'draft' | 'published'): Promise<void> => {
@@ -187,6 +213,22 @@ export default function NewPostPage() {
           <small className="input-hint">
             📍 Your post will be available at: /blog/{post.slug || 'your-slug'}
           </small>
+        </div>
+
+        <div className="form-section">
+          <label className="form-label">Import Markdown</label>
+          <div className="file-upload-wrapper">
+            <input
+              type="file"
+              accept=".md"
+              onChange={handleFileUpload}
+              className="file-input"
+              disabled={saving}
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              Upload a .md file to automatically convert and populate the content editor.
+            </p>
+          </div>
         </div>
 
         <div className="form-section">
@@ -374,9 +416,24 @@ export default function NewPostPage() {
           border-radius: 8px;
           color: #f8f8f2;
           font-size: 1rem;
-          min-height: 80px;
+          min-height: 100px;
           resize: vertical;
           font-family: inherit;
+        }
+
+        .file-input {
+          padding: 0.75rem;
+          background: #1e1f29;
+          border: 2px dashed #44475a;
+          border-radius: 8px;
+          color: #f8f8f2;
+          cursor: pointer;
+          width: 100%;
+        }
+        
+        .file-input:hover {
+          border-color: #bd93f9;
+          background: #282a36;
         }
 
         .input-hint, .char-count {

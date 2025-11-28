@@ -5,8 +5,6 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { 
   Github, 
   Linkedin, 
@@ -25,12 +23,13 @@ import {
 import { SkillsTree } from '@/components/home/SkillsTree';
 import { profileLinks, educationData, experienceData, resumeUrl, projectsData, eventsData, publicationsData } from '@/lib/data';
 import { useTypewriter } from '@/hooks/use-typewriter';
+import ContactFormLoader from '@/components/contact/ContactFormLoader';
 
 export default function HomePage() {
   const typeWriterText = useTypewriter([
-    "Aspiring AI Developer",
-    "Software Developer",
-    "Problem Solver"
+    "an Aspiring AI Developer",
+    "a Software Developer",
+    "a Problem Solver"
   ]);
 
   const iconComponents: { [key: string]: React.ElementType } = {
@@ -41,12 +40,12 @@ export default function HomePage() {
     <div className="min-h-screen text-foreground overflow-x-hidden relative">
       
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center justify-between gap-12">
+      <section className="container mx-auto px-6 py-20 md:py-32 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
         <div className="flex-1 space-y-8 text-center md:text-left">
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-bold font-headline leading-tight">
               Hi, I&apos;m <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ff79c6] via-[#bd93f9] to-[#8be9fd] animate-gradient-x">Mohammad Shihab Hossain.</span> <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8be9fd] to-[#50fa7b]">I am a <span className="typing-cursor">{typeWriterText}</span></span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8be9fd] to-[#50fa7b]">I am <span className="typing-cursor">{typeWriterText}</span></span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto md:mx-0">
               I build accessible, pixel-perfect, performant, and responsible web experiences. Fluent in <span className="text-[#ff79c6] font-semibold">14 programming languages</span>, I&apos;m driven by a passion for building technologies that contribute to a <span className="text-[#8be9fd] font-semibold">better, smarter future</span>.
@@ -109,8 +108,8 @@ export default function HomePage() {
           {/* Education Card */}
           <div className="bg-card p-8 rounded-2xl border border-border hover:border-primary/50 transition-colors">
             <h3 className="text-xl font-bold mb-2">Education</h3>
-            <p className="text-muted-foreground mb-4">{educationData.university}</p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-[#cbd5e1] mb-4">{educationData.university}</p>
+            <p className="text-[#cbd5e1] leading-relaxed">
               {educationData.major}
             </p>
           </div>
@@ -118,8 +117,8 @@ export default function HomePage() {
           {/* Experience Card */}
           <div className="bg-card p-8 rounded-2xl border border-border hover:border-primary/50 transition-colors">
             <h3 className="text-xl font-bold mb-2">Experience</h3>
-            <p className="text-muted-foreground mb-4">Researcher & Developer</p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-[#cbd5e1] mb-4">Researcher & Developer</p>
+            <p className="text-[#cbd5e1] leading-relaxed">
               {experienceData.summary}
             </p>
           </div>
@@ -145,7 +144,7 @@ export default function HomePage() {
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
                   <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground mb-6 flex-grow">
+                  <p className="text-[#cbd5e1] mb-6 flex-grow">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -254,22 +253,7 @@ export default function HomePage() {
             </p>
           </div>
           
-          <form className="space-y-6">
-            <div className="space-y-2">
-              <Input placeholder="Your Name" className="bg-secondary/50 border-transparent focus:border-primary h-12 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Input type="email" placeholder="Your Email" className="bg-secondary/50 border-transparent focus:border-primary h-12 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Textarea placeholder="Your Message" className="bg-secondary/50 border-transparent focus:border-primary min-h-[150px] rounded-xl resize-none" />
-            </div>
-            <div className="flex justify-center">
-              <Button className="rounded-full px-8 py-6 text-base bg-white text-black hover:bg-gray-200 w-full md:w-auto">
-                Send Message
-              </Button>
-            </div>
-          </form>
+          <ContactFormLoader />
         </div>
       </section>
 
