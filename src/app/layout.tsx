@@ -13,6 +13,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], variable: "--font-source-code-pro" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://shihab.vercel.com'),
   title: {
     default: 'Mohammad Shihab Hossain',
     template: '%s | Mohammad Shihab Hossain',
