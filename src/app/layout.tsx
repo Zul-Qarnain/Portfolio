@@ -18,19 +18,38 @@ export const metadata: Metadata = {
     template: '%s | Mohammad Shihab Hossain',
   },
   description: 'Personal portfolio for Mohammad Shihab Hossain, showcasing his skills, projects, publications, and events.',
+  keywords: ['Mohammad Shihab Hossain', 'Shihab Hossain', 'Software Developer', 'AI Developer', 'Portfolio', 'Web Developer', 'React', 'Next.js'],
+  authors: [{ name: 'Mohammad Shihab Hossain', url: 'https://shihab.vercel.com' }],
+  creator: 'Mohammad Shihab Hossain',
+  publisher: 'Mohammad Shihab Hossain',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/mypic.jpeg',
+    apple: '/mypic.jpeg',
+  },
   openGraph: {
     title: 'Mohammad Shihab Hossain - Personal Portfolio',
     description: 'Explore the professional journey of Mohammad Shihab Hossain.',
     type: 'website',
     locale: 'en_US',
     url: 'https://shihab.vercel.com', // Replace with actual domain
-    siteName: 'Persona',
-     images: [ // Add a default OG image if available
+    siteName: 'Mohammad Shihab Hossain',
+    images: [
       {
-        url: 'https://shihab.vercel.com/hadnsomee.jpeg',
-      width: 1200,
-    height: 630,
-     alt: 'Persona Portfolio',
+        url: 'https://shihab.vercel.com/mypic.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Mohammad Shihab Hossain',
       },
     ],
   },
@@ -44,7 +63,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
         {/* Script to prevent flash of incorrect theme */}
         <script dangerouslySetInnerHTML={{
           __html: `(function() {
@@ -55,7 +73,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${sourceCodePro.variable} font-body antialiased flex flex-col min-h-screen relative overflow-x-hidden`}>
         <GalaxyBackground />
-        
+
         <ThemeProvider
           defaultTheme="dark" /* Set to dark to make Dracula the default */
         >

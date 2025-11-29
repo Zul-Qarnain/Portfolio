@@ -5,10 +5,10 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Github, 
-  Linkedin, 
-  ExternalLink, 
+import {
+  Github,
+  Linkedin,
+  ExternalLink,
   ChevronRight,
   Code2,
   GraduationCap,
@@ -38,7 +38,29 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen text-foreground overflow-x-hidden relative">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Mohammad Shihab Hossain',
+            url: 'https://shihab.vercel.com',
+            image: 'https://shihab.vercel.com/mypic.jpeg',
+            sameAs: [
+              'https://github.com/shihab-2021', // Replace with actual links if available in data
+              'https://www.linkedin.com/in/shihab-hossain',
+            ],
+            jobTitle: 'Software Developer',
+            worksFor: {
+              '@type': 'Organization',
+              name: 'Self-Employed',
+            },
+            description: 'Aspiring AI Developer, Software Developer, and Problem Solver.',
+          }),
+        }}
+      />
+
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-20 md:py-32 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
         <div className="flex-1 space-y-8 text-center md:text-left">
@@ -51,7 +73,7 @@ export default function HomePage() {
               I build accessible, pixel-perfect, performant, and responsible web experiences. Fluent in <span className="text-[#ff79c6] font-semibold">14 programming languages</span>, I&apos;m driven by a passion for building technologies that contribute to a <span className="text-[#8be9fd] font-semibold">better, smarter future</span>.
             </p>
           </div>
-          
+
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
             <Button asChild className="rounded-full px-8 py-6 text-base bg-white text-black hover:bg-gray-200">
               <Link href={resumeUrl} target="_blank" rel="noopener noreferrer">
@@ -85,7 +107,7 @@ export default function HomePage() {
                 priority
               />
             </div>
-            
+
             {/* Status Badge */}
             <div className="absolute bottom-0 right-0 md:right-4 translate-y-1/2 bg-[#1e1e2e]/90 backdrop-blur-md border border-[#bd93f9]/30 p-3 rounded-xl shadow-xl flex items-center gap-3 animate-fade-in-up animation-delay-600 z-10">
               <div className="relative">
@@ -136,8 +158,8 @@ export default function HomePage() {
         <h2 className="text-3xl font-bold font-headline text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-[#ffb86c] to-[#ff79c6]">Featured Projects</h2>
         <div className="grid md:grid-cols-2 gap-8">
           {projectsData.map((project) => {
-             const Icon = iconComponents[project.icon] || Code2;
-             return (
+            const Icon = iconComponents[project.icon] || Code2;
+            return (
               <div key={project.id} className="group relative bg-card/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--primary),0.2)] hover:-translate-y-1 flex flex-col">
                 <div className="h-48 bg-gradient-to-br from-primary/10 to-secondary/10 group-hover:from-primary/20 group-hover:to-secondary/20 transition-colors flex items-center justify-center">
                   <Icon className="w-16 h-16 text-primary/50 group-hover:text-primary transition-colors duration-300 transform group-hover:scale-110" />
@@ -161,7 +183,7 @@ export default function HomePage() {
                   </Button>
                 </div>
               </div>
-             );
+            );
           })}
         </div>
       </section>
@@ -226,9 +248,9 @@ export default function HomePage() {
                   <Badge variant="outline">{pub.type}</Badge>
                 </div>
                 <div className="flex items-start">
-                   <Button asChild variant="outline" size="sm">
-                    <Link href={pub.link} target="_blank">Read Paper <ExternalLink className="ml-2 w-4 h-4"/></Link>
-                   </Button>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={pub.link} target="_blank">Read Paper <ExternalLink className="ml-2 w-4 h-4" /></Link>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -252,7 +274,7 @@ export default function HomePage() {
               Have a project in mind or just want to say hi? Feel free to reach out.
             </p>
           </div>
-          
+
           <ContactFormLoader />
         </div>
       </section>
