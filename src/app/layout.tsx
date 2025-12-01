@@ -13,14 +13,14 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], variable: "--font-source-code-pro" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shihab.vercel.com'),
+  metadataBase: new URL('https://shihab.vercel.app'),
   title: {
     default: 'Mohammad Shihab Hossain',
     template: '%s | Mohammad Shihab Hossain',
   },
   description: 'Personal portfolio for Mohammad Shihab Hossain, showcasing his skills, projects, publications, and events.',
   keywords: ['Mohammad Shihab Hossain', 'Shihab Hossain', 'Software Developer', 'AI Developer', 'Portfolio', 'Web Developer', 'React', 'Next.js'],
-  authors: [{ name: 'Mohammad Shihab Hossain', url: 'https://shihab.vercel.com' }],
+  authors: [{ name: 'Mohammad Shihab Hossain', url: 'https://shihab.vercel.app' }],
   creator: 'Mohammad Shihab Hossain',
   publisher: 'Mohammad Shihab Hossain',
   robots: {
@@ -43,11 +43,11 @@ export const metadata: Metadata = {
     description: 'Explore the professional journey of Mohammad Shihab Hossain.',
     type: 'website',
     locale: 'en_US',
-    url: 'https://shihab.vercel.com', // Replace with actual domain
+    url: 'https://shihab.vercel.app', // Replace with actual domain
     siteName: 'Mohammad Shihab Hossain',
     images: [
       {
-        url: 'https://shihab.vercel.com/mypic.jpeg',
+        url: 'https://shihab.vercel.app/mypic.jpeg',
         width: 1200,
         height: 630,
         alt: 'Mohammad Shihab Hossain',
