@@ -57,6 +57,13 @@ export default function HomePage() {
               name: 'Self-Employed',
             },
             description: 'Aspiring AI Developer, Software Developer, and Problem Solver.',
+            alternateName: [
+              'Shihab Hossain',
+              'Mohammad Shihab',
+              'Md Shihab Hossain',
+              'Md Shihab',
+              'Shihab'
+            ],
           }),
         }}
       />
