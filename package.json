@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "indexnow": "npx tsx src/scripts/submit-indexnow.ts"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.8.0",
