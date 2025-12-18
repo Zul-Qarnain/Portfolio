@@ -30,12 +30,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             .select('slug, updated_at')
             .eq('status', 'published');
 
-        const postRoutes = posts?.map((post) => ({
-            url: `${baseUrl}/posts/${post.slug}`,
-            lastModified: new Date(post.updated_at),
-            changeFrequency: 'weekly' as const,
-            priority: 0.8,
-        })) || [];
+
+        const postRoutes = posts?.map((post) => {
+            let lastModified = new Date();
+            if (post.updated_at) {
+                const date = new Date(post.updated_at);
+                if (!isNaN(date.getTime())) {
+                    lastModified = date;
+                }
+            }
+
+            return {
+                url: `${baseUrl}/posts/${post.slug}`,
+                lastModified,
+                changeFrequency: 'weekly' as const,
+                priority: 0.8,
+            };
+        }) || [];
 
         return [...routes, ...postRoutes];
     } catch (error) {
