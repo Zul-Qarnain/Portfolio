@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Mohammad Shihab Hossain',
     template: '%s | Mohammad Shihab Hossain',
   },
-  description: 'Personal portfolio for Mohammad Shihab Hossain, showcasing his skills, projects, publications, and events.',
+  description: 'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer. Discover his latest projects, research publications, and expertise in machine learning, full-stack web development, and problem solving.',
   keywords: [
     'Mohammad Shihab Hossain',
     'Shihab Hossain',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Mohammad Shihab Hossain - Personal Portfolio',
-    description: 'Explore the professional journey of Mohammad Shihab Hossain.',
+    description: 'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer. Discover his latest projects, research publications, and expertise in machine learning, full-stack web development, and problem solving.',
     type: 'website',
     locale: 'en_US',
     url: 'https://shihab.vercel.app', // Replace with actual domain
