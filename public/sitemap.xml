@@ -1,75 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-
-    <loc>https://shihab.vercel.app</loc>
-
-    <changefreq>daily</changefreq>
-
-    <priority>1.0</priority>
-
-  </url>
-
-  <url>
-
-    <loc>https://shihab.vercel.app/posts</loc>
-
-    <changefreq>daily</changefreq>
-
-    <priority>0.8</priority>
-
-  </url>
-
-  <url>
-
-    <loc>https://shihab.vercel.app/projects</loc>
-
-    <changefreq>daily</changefreq>
-
-    <priority>0.8</priority>
-
-  </url>
-
-  <url>
-
-    <loc>https://shihab.vercel.app/publications</loc>
-
-    <changefreq>daily</changefreq>
-
-    <priority>0.8</priority>
-
-  </url>
-
-  <url>
-
-    <loc>https://shihab.vercel.app/events</loc>
-
-    <changefreq>daily</changefreq>
-
-    <priority>0.8</priority>
-
-  </url>
-
-  <url>
-
-    <loc>https://shihab.vercel.app/contact</loc>
-
-    <changefreq>daily</changefreq>
-
-    <priority>0.8</priority>
-
-  </url>
-
-  <url>
-
-    <loc>https://shihab.vercel.app/posts/ai-vs-jobs-is-the-future-human-or-machine</loc>
-
-    <changefreq>weekly</changefreq>
-
-    <priority>0.8</priority>
-
-  </url>
-
+  <url><loc>https://shihab.vercel.app</loc><priority>1.0</priority></url>
+  <url><loc>https://shihab.vercel.app/posts</loc><priority>0.8</priority></url>
+  <url><loc>https://shihab.vercel.app/projects</loc><priority>0.8</priority></url>
+  <url><loc>https://shihab.vercel.app/publications</loc><priority>0.8</priority></url>
+  <url><loc>https://shihab.vercel.app/events</loc><priority>0.8</priority></url>
+  <url><loc>https://shihab.vercel.app/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://shihab.vercel.app/posts/ai-vs-jobs-is-the-future-human-or-machine</loc><priority>0.8</priority></url>
 </urlset>
