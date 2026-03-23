@@ -114,6 +114,28 @@ export default function RootLayout({
           <Toaster />
           <ScrollToTop />
         </ThemeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Mohammad Shihab Hossain",
+              "url": "https://shihab.vercel.app",
+              "image": "https://shihab.vercel.app/mypic.jpeg",
+              "jobTitle": "Computer Science Student & Software Developer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "American International University-Bangladesh"
+              },
+              "alumniOf": "American International University-Bangladesh",
+              "sameAs": [
+                "https://github.com/Zul-Qarnain",
+                "https://www.linkedin.com/in/zul-qarnain20/"
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );
