@@ -131,7 +131,24 @@ export default function RootLayout({
               "alumniOf": "American International University-Bangladesh",
               "sameAs": [
                 "https://github.com/Zul-Qarnain",
-                "https://www.linkedin.com/in/zul-qarnain20/"
+                "https://www.linkedin.com/in/zul-qarnain20/",
+                "https://orcid.org/0009-0007-0212-6562",
+                "https://www.researchgate.net/profile/Mohammad-Hossian-2",
+                "https://aiub.academia.edu/MohammadShihabHossian",
+                "https://scholar.google.com/citations?user=RebPXvAAAAAJ",
+                "https://www.semanticscholar.org/author/Mohammad-Shihab-Hossain/2354509770",
+                "https://stackoverflow.com/users/14467410/mohammod-shihab-hossain",
+                "https://sciprofiles.com/profile/mdshihab",
+                "https://loop.frontiersin.org/people/3299583/overview",
+                "https://dev.to/zulqarnain_15",
+                "https://medium.com/@mdshihab.dev",
+                "https://www.kaggle.com/shihabdev20",
+                "https://www.credly.com/users/shihab",
+                "https://gitlab.com/Zul-Qarnain02",
+                "https://gravatar.com/zulqarnain20",
+                "https://linktr.ee/shihab.dev",
+                "https://about.me/mdshihab.dev",
+                "https://index.ieomsociety.org/index.cfm/author/view/ID/3B8DAFF4-CD92-2CE9-624E9D4FBE3B654C"
               ]
             })
           }}
