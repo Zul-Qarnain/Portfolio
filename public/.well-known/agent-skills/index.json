@@ -1,0 +1,26 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0",
+  "skills": [
+    {
+      "name": "contact-form",
+      "type": "action",
+      "description": "Submit a contact message to Mohammad Shihab Hossain",
+      "url": "https://shihab.vercel.app/.well-known/agent-skills/contact-form.json",
+      "sha256": ""
+    },
+    {
+      "name": "get-publications",
+      "type": "query",
+      "description": "Retrieve research publications and papers",
+      "url": "https://shihab.vercel.app/.well-known/agent-skills/get-publications.json",
+      "sha256": ""
+    },
+    {
+      "name": "get-projects",
+      "type": "query",
+      "description": "Retrieve portfolio projects",
+      "url": "https://shihab.vercel.app/.well-known/agent-skills/get-projects.json",
+      "sha256": ""
+    }
+  ]
+}

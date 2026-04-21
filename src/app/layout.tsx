@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import GalaxyBackground from '@/components/GalaxyBackground';
+import { WebMCPProvider } from '@/components/WebMCPProvider';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
@@ -106,6 +107,7 @@ export default function RootLayout({
         <ThemeProvider
           defaultTheme="dark" /* Set to dark to make Dracula the default */
         >
+          <WebMCPProvider />
           <Navbar />
           <main className="flex-grow pt-20"> {/* pt-20 for fixed navbar height */}
             {children}

@@ -81,3 +81,7 @@ Thumbs.db
 
 # Project specific
 /idx*
+
+# AI Assistant Project Analysis
+.project-analysis.md
+.agent-ready-implementation.md

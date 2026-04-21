@@ -1,0 +1,15 @@
+{
+  "serverInfo": {
+    "name": "shihab-portfolio",
+    "version": "1.0.0",
+    "description": "MCP server for Mohammad Shihab Hossain's portfolio"
+  },
+  "transport": {
+    "type": "http",
+    "endpoint": "https://shihab.vercel.app/api/mcp"
+  },
+  "capabilities": {
+    "tools": ["contact", "get-publications", "get-projects", "get-posts"],
+    "resources": ["profile", "resume"]
+  }
+}

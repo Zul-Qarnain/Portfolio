@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /adminpacha/
+
+Sitemap: https://shihab.vercel.app/sitemap.xml
+
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
