@@ -81,6 +81,11 @@ Thumbs.db
 
 # Project specific
 /idx*
+.modified
+.blackboxrules
+.gemini/
+.ai/
+memory/
 
 # AI Assistant Project Analysis
 .project-analysis.md
