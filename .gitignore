@@ -91,6 +91,9 @@ memory/
 .project-analysis.md
 .agent-ready-implementation.md
 
-#error pics
+# Ignore all .md files except README.md
+*.md
+!README.md
 
+# Error pics or data assets that shouldn't be committed
 data/

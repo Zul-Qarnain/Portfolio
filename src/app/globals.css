@@ -273,22 +273,79 @@ section {
 @layer components {
   .prose img {
     @apply rounded-lg shadow-md mx-auto my-8 max-w-full h-auto;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .prose img:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  }
+
+  /* Support GitBook style aligned images in tailwind prose */
+  .prose .blog-image-left {
+    float: left !important;
+    margin: 0.5rem 1.5rem 0.5rem 0 !important;
+    display: inline !important;
+    max-width: 50% !important;
+  }
+  .prose .blog-image-right {
+    float: right !important;
+    margin: 0.5rem 0 0.5rem 1.5rem !important;
+    display: inline !important;
+    max-width: 50% !important;
+  }
+  .prose .blog-image-center {
+    display: block !important;
+    float: none !important;
+    margin: 2rem auto !important;
+    max-width: 100% !important;
+  }
+  
+  @media (max-width: 640px) {
+    .prose .blog-image-left,
+    .prose .blog-image-right {
+      float: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 1.5rem auto !important;
+      display: block !important;
+    }
   }
   
   .prose pre {
-    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
+    @apply text-gray-100 p-6 rounded-xl overflow-x-auto my-6;
+    background-color: #0b0f19 !important;
+    border: 1px solid #1e293b !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    position: relative;
+  }
+
+  .prose pre::before {
+    content: "code block";
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
   
   .prose code {
-    @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono text-pink-600 dark:text-pink-400;
+    @apply bg-[#0b0f19] px-1.5 py-0.5 rounded text-sm font-mono text-pink-500 dark:text-pink-400 border border-[#1e293b]/50;
   }
   
   .prose pre code {
-    @apply bg-transparent text-inherit p-0 text-base;
+    @apply bg-transparent text-inherit p-0 text-base border-0;
+    background-color: transparent !important;
   }
   
   .prose blockquote {
-    @apply border-l-4 border-primary pl-4 italic text-gray-700 dark:text-gray-300 my-6;
+    @apply border-l-4 border-blue-500 pl-6 italic text-gray-600 dark:text-gray-300 my-8 py-2 bg-blue-500/5 rounded-r-lg;
+    font-size: 1.15rem;
+    line-height: 1.8;
   }
   
   .prose a {

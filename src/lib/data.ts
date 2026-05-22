@@ -64,7 +64,7 @@ export const educationData = {
 
 export const experienceData = {
   icon: 'Briefcase',
-  summary: "Skilled in Cybersecurity Engineering, AI/ML Engineering, and Research. Dedicated to leveraging these expertises to develop innovative solutions and contribute to impactful projects.",
+  summary: "Skilled in Cybersecurity Engineering, AI/ML Engineering, and Research. Dedicated to leveraging this expertise to develop innovative solutions and contribute to impactful projects.",
 };
 
 export const skillsSectionData = {
@@ -85,7 +85,7 @@ export interface Publication {
 export const publicationsData: Publication[] = [
   {
     id: '1',
-    title: 'A large Language Model is not the Right Path to Bring Artificial General Intelligence',
+    title: 'A Large Language Model is Not the Right Path to Bring Artificial General Intelligence',
     authors: 'Md. Mobin Chowdhury, Mohammad Shihab Hossain, Md. Faruk Abdullah Al Sohan',
     venue: '7th IEOM Bangladesh International Conference on Industrial Engineering and Operations Management, AIUB Campus, Dhaka',
     date: 'December 2024',
@@ -207,12 +207,6 @@ export interface Post {
   description: string;
   images: string[];
   imageHint: string;
-}
-
-export interface Post {
-  title: string;
-  description: string;
-  slug: string;
 }
 
 export async function getPosts(): Promise<Post[]> {

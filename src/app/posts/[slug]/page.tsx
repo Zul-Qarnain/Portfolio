@@ -2,6 +2,7 @@ import { createServerSupabaseClient } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import BlogContent from '@/components/BlogContent';
 
 // BlogPost interface matching your database
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -90,8 +91,8 @@ const PostPage = async ({ params }: PostProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center py-8 px-4">
-      <div className="w-full max-w-4xl">
+    <div className="flex flex-col items-center py-8 px-4 font-body">
+      <div className="w-full max-w-[760px]">
         {/* Back arrow and category section */}
         <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
           <Link href="/posts" className="hover:underline">&larr; Back to Posts</Link>
@@ -126,9 +127,9 @@ const PostPage = async ({ params }: PostProps) => {
           </div>
         )}
 
-        {/* Post Content */}
-        <div className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 leading-relaxed text-lg">
-          <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+        {/* Post Content with Syntax Highlighting */}
+        <div className="mt-6 mb-12">
+          <BlogContent content={post.content} />
         </div>
 
         {/* Tags Section */}

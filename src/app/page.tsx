@@ -77,7 +77,7 @@ export default function HomePage() {
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8be9fd] to-[#50fa7b]">I am <span className="typing-cursor">{typeWriterText}</span></span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto md:mx-0">
-              I build accessible, pixel-perfect, performant, and responsible web experiences. Fluent in <span className="text-[#ff79c6] font-semibold">14 programming languages</span>, I&apos;m driven by a passion for building technologies that contribute to a <span className="text-[#8be9fd] font-semibold">better, smarter future</span>.
+              I build accessible, pixel-perfect, performant, and responsive web experiences. Fluent in <span className="text-[#ff79c6] font-semibold">14 programming languages</span>, I&apos;m driven by a passion for building technologies that contribute to a <span className="text-[#8be9fd] font-semibold">better, smarter future</span>.
             </p>
           </div>
 

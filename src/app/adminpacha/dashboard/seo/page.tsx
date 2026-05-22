@@ -50,9 +50,7 @@ const SEOToolsPage = () => {
     }
   };
 
-  const handleViewSitemap = () => {
-    window.open('/sitemap.xml', '_blank');
-  };
+
 
   return (
     <div className="seo-tools-page">
@@ -66,12 +64,14 @@ const SEOToolsPage = () => {
           <h3>🗺️ Sitemap Management</h3>
           <p>View and manage your site&apos;s sitemap</p>
           <div className="tool-actions">
-            <button 
-              onClick={handleViewSitemap}
+            <a 
+              href="/sitemap.xml"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-primary"
             >
               View Sitemap
-            </button>
+            </a>
             <button 
               onClick={handleUpdateSitemap}
               disabled={isSitemapLoading}
@@ -116,18 +116,22 @@ const SEOToolsPage = () => {
           <h3>🔗 Quick Links</h3>
           <p>Useful SEO resources and tools</p>
           <div className="tool-actions">
-            <button 
-              onClick={() => window.open('https://search.google.com/search-console?utm_source=about-page&resource_id=https://shihab.vercel.app/', '_blank')}
+            <a 
+              href="https://search.google.com/search-console?utm_source=about-page&resource_id=https://shihab.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-outline"
             >
               Google Search Console
-            </button>
-            <button 
-              onClick={() => window.open('https://www.bing.com/webmasters/sitemaps?siteUrl=https://shihab.vercel.app/', '_blank')}
+            </a>
+            <a 
+              href="https://www.bing.com/webmasters/sitemaps?siteUrl=https://shihab.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-outline"
             >
               Bing Webmaster Tools
-            </button>
+            </a>
           </div>
         </div>
       </div>
