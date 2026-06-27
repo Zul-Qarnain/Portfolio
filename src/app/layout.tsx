@@ -49,23 +49,37 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: '/',
+  },
   icons: {
-    icon: '/mypic.jpeg',
-    apple: '/mypic.jpeg',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '192x192' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   openGraph: {
     title: 'Mohammad Shihab Hossain - Personal Portfolio',
     description: 'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer. Discover his latest projects, research publications, and expertise in machine learning, full-stack web development, and problem solving.',
     type: 'website',
     locale: 'en_US',
-    url: 'https://shihab.vercel.app', // Replace with actual domain
+    url: 'https://shihab.vercel.app',
     siteName: 'Mohammad Shihab Hossain',
     images: [
       {
-        url: 'https://shihab.vercel.app/mypic.jpeg',
-        width: 1200,
-        height: 630,
+        url: 'https://shihab.vercel.app/mypic-square.jpeg',
+        width: 1023,
+        height: 1023,
         alt: 'Mohammad Shihab Hossain',
+      },
+      {
+        url: 'https://shihab.vercel.app/mypic.jpeg',
+        width: 1023,
+        height: 1537,
+        alt: 'Mohammad Shihab Hossain (Portrait)',
       },
     ],
   },
@@ -123,8 +137,20 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Mohammad Shihab Hossain",
+              "alternateName": [
+                "shihab hossain",
+                "Md. Shihab Hossain",
+                "Shihab hossain",
+                "Shihab Hossain",
+                "Mohammad Shihab",
+                "Md. Shihab",
+                "Md Shihab Hossain",
+                "Md Shihab",
+                "Shihab",
+                "shihab.dev"
+              ],
               "url": "https://shihab.vercel.app",
-              "image": "https://shihab.vercel.app/mypic.jpeg",
+              "image": "https://shihab.vercel.app/mypic-square.jpeg",
               "jobTitle": "Computer Science Student & Software Developer",
               "worksFor": {
                 "@type": "Organization",
@@ -152,6 +178,29 @@ export default function RootLayout({
                 "https://about.me/mdshihab.dev",
                 "https://index.ieomsociety.org/index.cfm/author/view/ID/3B8DAFF4-CD92-2CE9-624E9D4FBE3B654C"
               ]
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Mohammad Shihab Hossain",
+              "alternateName": [
+                "shihab hossain",
+                "Md. Shihab Hossain",
+                "Shihab hossain",
+                "Shihab Hossain",
+                "Mohammad Shihab",
+                "Md. Shihab",
+                "Md Shihab Hossain",
+                "Md Shihab",
+                "Shihab",
+                "shihab.dev"
+              ],
+              "url": "https://shihab.vercel.app"
             })
           }}
         />

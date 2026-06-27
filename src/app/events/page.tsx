@@ -5,6 +5,9 @@ import EventsFilterClient from '@/components/events/EventsFilterClient';
 export const metadata: Metadata = {
   title: 'Events',
   description: "Notable events and achievements in Mohammad Shihab Hossain's journey.",
+  alternates: {
+    canonical: '/events',
+  },
 };
 
 export default function EventsPage() {

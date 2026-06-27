@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Posts',
   description:
     'Articles on Machine Learning, Advanced Math, and Programming by Mohammad Shihab Hossain.',
+  alternates: {
+    canonical: '/posts',
+  },
 };
 
 // Server-side Supabase client (no cookies needed for public read)

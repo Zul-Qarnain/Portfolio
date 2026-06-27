@@ -45,24 +45,29 @@ export default function HomePage() {
             '@context': 'https://schema.org',
             '@type': 'Person',
             name: 'Mohammad Shihab Hossain',
-            url: 'https://shihab.vercel.com',
-            image: 'https://shihab.vercel.com/mypic.jpeg',
+            url: 'https://shihab.vercel.app',
+            image: 'https://shihab.vercel.app/mypic-square.jpeg',
             sameAs: [
-              'https://github.com/shihab-2021', // Replace with actual links if available in data
-              'https://www.linkedin.com/in/shihab-hossain',
+              'https://github.com/Zul-Qarnain',
+              'https://www.linkedin.com/in/zul-qarnain20/',
             ],
-            jobTitle: 'Software Developer',
+            jobTitle: 'Computer Science Student & Software Developer',
             worksFor: {
               '@type': 'Organization',
-              name: 'Self-Employed',
+              name: 'American International University-Bangladesh',
             },
             description: 'Aspiring AI Developer, Software Developer, and Problem Solver.',
             alternateName: [
+              'shihab hossain',
+              'Md. Shihab Hossain',
+              'Shihab hossain',
               'Shihab Hossain',
               'Mohammad Shihab',
+              'Md. Shihab',
               'Md Shihab Hossain',
               'Md Shihab',
-              'Shihab'
+              'Shihab',
+              'shihab.dev'
             ],
           }),
         }}

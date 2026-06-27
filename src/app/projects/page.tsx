@@ -5,6 +5,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Projects',
   description: 'Discover a selection of my projects, showcasing my skills in software development and problem-solving.',
+  alternates: {
+    canonical: '/projects',
+  },
 };
 
 export default function ProjectsPage() {

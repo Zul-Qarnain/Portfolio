@@ -7,6 +7,9 @@ import ContactFormLoader from '@/components/contact/ContactFormLoader'; // Impor
 export const metadata: Metadata = {
   title: 'Contact Me',
   description: 'Get in touch with me. Send a message through the contact form for inquiries, collaborations, or just to say hi.',
+  alternates: {
+    canonical: '/contact',
+  },
 };
 
 export default function ContactPage() {

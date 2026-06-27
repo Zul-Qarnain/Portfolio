@@ -5,6 +5,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Publications',
   description: 'Explore a curated list of my published research and conference papers.',
+  alternates: {
+    canonical: '/publications',
+  },
 };
 
 export default function PublicationsPage() {
