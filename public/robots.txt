@@ -1,7 +1,69 @@
+# ==============================================================================
+#  _ __ ___  _ __  ___ 
+# | '__/ _ \| '_ \/ __|  Mohammad Shihab Hossain
+# | | | (_) | |_) \__ \  Portfolio Robots.txt
+# |_|  \___/| .__/|___/  https://shihab.vercel.app/
+#           |_|        
+# ==============================================================================
+# Welcome, web crawler!
+
+# ------------------------------------------------------------------------------
+# SECTION 1: SEARCH ENGINES (Google, Bing, Yahoo, DuckDuckGo, etc.)
+# ------------------------------------------------------------------------------
 User-agent: *
+Allow: /
+Disallow: /adminpacha/  # Keep admin dashboard private
+
+# ------------------------------------------------------------------------------
+# SECTION 2: AI AGENTS & LLMs (Allowed for training, search, and assistant context)
+# ------------------------------------------------------------------------------
+# Explicitly allowing AI agents to crawl the website, learn, and use the content
+# to provide accurate answers and citations about Mohammad Shihab Hossain.
+
+User-agent: GPTBot
 Allow: /
 Disallow: /adminpacha/
 
-Sitemap: https://shihab.vercel.app/sitemap.xml
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /adminpacha/
 
+User-agent: Google-Extended
+Allow: /
+Disallow: /adminpacha/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /adminpacha/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /adminpacha/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /adminpacha/
+
+User-agent: CCBot
+Allow: /
+Disallow: /adminpacha/
+
+User-agent: FacebookBot
+Allow: /
+Disallow: /adminpacha/
+
+User-agent: cohere-ai
+Allow: /
+Disallow: /adminpacha/
+
+# ------------------------------------------------------------------------------
+# SECTION 3: CONTENT SIGNALS (AI Permissions)
+# ------------------------------------------------------------------------------
+# Signalling consent for AI training, search engines, and AI input
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# ------------------------------------------------------------------------------
+# SITEMAP & HOST
+# ------------------------------------------------------------------------------
+Host: https://shihab.vercel.app
+Sitemap: https://shihab.vercel.app/sitemap.xml
