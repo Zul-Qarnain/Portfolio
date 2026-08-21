@@ -1,29 +1,9 @@
 import { createServerSupabaseClient } from '@/lib/supabase';
+import { getPublishedPostBySlug } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import BlogContent from '@/components/BlogContent';
-
-// BlogPost interface matching your database
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  content: string;
-  excerpt?: string;
-  meta_description?: string;
-  featured_image_url?: string;
-  author_id: string;
-  status: 'draft' | 'published' | 'archived';
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
-  views_count?: number;
-  reading_time?: number;
-  featured?: boolean;
-  tags: string[];
-}
 
 interface PostProps {
   params: Promise<{
@@ -59,22 +39,15 @@ async function incrementViewCount(postId: string) {
 
 const PostPage = async ({ params }: PostProps) => {
   const { slug } = await params;
-  const supabase = await createServerSupabaseClient();
+  const post = await getPublishedPostBySlug(slug);
 
-  // Fetch the post from Supabase
-  const { data: post, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single();
-
-  if (error || !post) {
+  if (!post) {
     notFound();
   }
 
-  // Increment view count (you might want to do this client-side to avoid blocking)
-  await incrementViewCount(post.id);
+  if (post.id) {
+    await incrementViewCount(post.id);
+  }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -199,14 +172,7 @@ export default PostPage;
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PostProps) {
   const { slug } = await params;
-  const supabase = await createServerSupabaseClient();
-  
-  const { data: post } = await supabase
-    .from('blog_posts')
-    .select('title, meta_description, featured_image_url')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single();
+  const post = await getPublishedPostBySlug(slug);
 
   if (!post) {
     return {

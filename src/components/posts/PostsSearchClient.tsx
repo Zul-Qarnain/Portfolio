@@ -4,26 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  content: string;
-  excerpt?: string;
-  meta_description?: string;
-  meta_keywords?: string;
-  featured_image_url?: string;
-  author_id: string;
-  status: 'draft' | 'published' | 'archived';
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
-  views_count: number;
-  reading_time: number;
-  featured: boolean;
-  tags: string[];
-}
+import type { BlogPost } from '@/types/blog';
 
 interface PostsSearchClientProps {
   posts: BlogPost[];
@@ -54,7 +35,7 @@ export default function PostsSearchClient({ posts }: PostsSearchClientProps) {
       (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (post.meta_description &&
         post.meta_description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      (post.tags || []).some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -94,10 +75,10 @@ export default function PostsSearchClient({ posts }: PostsSearchClientProps) {
           <div className="flex flex-col gap-10">
             {filteredPosts.map((post) => (
               <Card
-                key={post.id}
+                key={post.slug}
                 className="w-full max-w-2xl mx-auto overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
-                {post.featured_image_url && (
+                {post.featured_image_url ? (
                   <div className="relative w-full h-60">
                     <Image
                       src={post.featured_image_url}
@@ -112,15 +93,15 @@ export default function PostsSearchClient({ posts }: PostsSearchClientProps) {
                       </div>
                     )}
                   </div>
-                )}
+                ) : null}
                 <CardHeader>
                   <CardTitle className="hover:text-purple-600 transition-colors duration-200">
                     {post.title}
                   </CardTitle>
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
                     <span>{formatDate(post.published_at!)}</span>
-                    {post.reading_time > 0 && <span>• {post.reading_time} min read</span>}
-                    {post.views_count > 0 && <span>• {post.views_count} views</span>}
+                    {(post.reading_time ?? 0) > 0 && <span>• {post.reading_time} min read</span>}
+                    {(post.views_count ?? 0) > 0 && <span>• {post.views_count} views</span>}
                   </div>
                   {/* Tags */}
                   {post.tags && post.tags.length > 0 && (

@@ -1,10 +1,12 @@
-import { Github, Linkedin, Twitter, Mail, ExternalLink } from 'lucide-react';
+import type { ElementType } from 'react';
+import { Github, Linkedin, Twitter, Mail, ExternalLink, GraduationCap, FlaskConical } from 'lucide-react';
 import Link from 'next/link';
 import { profileLinks } from '@/lib/data';
+import { HuggingFaceIcon, KaggleIcon } from '@/components/SocialIcons';
 
 export function Footer() {
-  const iconComponents: { [key: string]: React.ElementType } = {
-    Github, Linkedin, Twitter, Mail
+  const iconComponents: { [key: string]: ElementType } = {
+    Github, Linkedin, Twitter, Mail, GraduationCap, FlaskConical, Kaggle: KaggleIcon, HuggingFace: HuggingFaceIcon
   };
 
   return (

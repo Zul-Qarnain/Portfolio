@@ -7,12 +7,12 @@ import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import GalaxyBackground from '@/components/GalaxyBackground';
+import { SiteBackground } from '@/components/SiteBackground';
 import { WebMCPProvider } from '@/components/WebMCPProvider';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
-const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], variable: "--font-source-code-pro" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", display: "swap" });
+const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], variable: "--font-source-code-pro", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://shihab.vercel.app'),
@@ -33,7 +33,9 @@ export const metadata: Metadata = {
     'Portfolio',
     'Web Developer',
     'React',
-    'Next.js'
+    'Next.js',
+    'Machine Learning',
+    'Data Science',
   ],
   authors: [{ name: 'Mohammad Shihab Hossain', url: 'https://shihab.vercel.app' }],
   creator: 'Mohammad Shihab Hossain',
@@ -83,6 +85,12 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mohammad Shihab Hossain - AI & Software Developer',
+    description: 'Explore the professional portfolio of Mohammad Shihab Hossain. Projects, research publications, achievements, and technical expertise.',
+    images: ['https://shihab.vercel.app/mypic-square.jpeg'],
+  },
 };
 
 export default function RootLayout({
@@ -96,20 +104,20 @@ export default function RootLayout({
         {/* Script to prevent flash of incorrect theme */}
         <script dangerouslySetInnerHTML={{
           __html: `(function() {
-            const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            document.documentElement.classList.add(theme);
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.classList.add(theme === 'dark' ? 'dark' : 'light');
           })();`
         }} />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${sourceCodePro.variable} font-body antialiased flex flex-col min-h-screen relative overflow-x-hidden`}>
-        <GalaxyBackground />
+        <SiteBackground />
 
-        {/* Google Analytics */}
+        {/* Google Analytics (lazy loaded for maximum page performance) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-CD4EGC56J2"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -118,12 +126,10 @@ export default function RootLayout({
           `}
         </Script>
 
-        <ThemeProvider
-          defaultTheme="dark" /* Set to dark to make Dracula the default */
-        >
+        <ThemeProvider defaultTheme="light" storageKey="theme">
           <WebMCPProvider />
           <Navbar />
-          <main className="flex-grow pt-20"> {/* pt-20 for fixed navbar height */}
+          <main className="flex-grow">
             {children}
           </main>
           <Footer />
@@ -171,6 +177,7 @@ export default function RootLayout({
                 "https://dev.to/zulqarnain_15",
                 "https://medium.com/@mdshihab.dev",
                 "https://www.kaggle.com/shihabdev20",
+                "https://huggingface.co/Zulqarnain",
                 "https://www.credly.com/users/shihab",
                 "https://gitlab.com/Zul-Qarnain02",
                 "https://gravatar.com/zulqarnain20",

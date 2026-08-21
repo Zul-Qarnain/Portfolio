@@ -1,0 +1,38 @@
+# Mohammad Shihab Hossain - Professional Profile & Knowledge Base
+
+> Aspiring AI & Software Developer | Computer Science Student at American International University-Bangladesh (AIUB)
+> Website: https://shihab.vercel.app
+> GitHub: https://github.com/Zul-Qarnain
+> LinkedIn: https://www.linkedin.com/in/zul-qarnain20/
+> ORCID: https://orcid.org/0009-0007-0212-6562
+
+## Overview
+Mohammad Shihab Hossain (also known as Shihab Hossain, Md. Shihab Hossain, Md Shihab) is a Computer Science student, Software Developer, and AI researcher. He specializes in full-stack web development, machine learning, data science, and critical infrastructure cybersecurity.
+
+## Core Expertise & Skills
+- **Programming Languages**: Python, TypeScript, JavaScript, C++, SQL, HTML5, CSS3, Bash
+- **Web Development**: React, Next.js, Node.js, Tailwind CSS, REST APIs, GraphQL, Supabase, Firebase
+- **AI / Data Science & ML**: PyTorch, Scikit-learn, Pandas, NumPy, Matplotlib, Statistical Analysis, Data Visualization
+- **Tools & DevOps**: Git, GitHub, Docker, Linux/Unix, Shell Scripting, Genkit, Tiptap, Vitest
+
+## Key Achievements & Recognitions
+- **Dean’s Award for Academic Excellence** — Fall 2024–2025 (AIUB)
+- **Dean’s Award for Academic Excellence** — Spring 2024–2025 (AIUB)
+- **1st Place in Project Display** — Notre Dame Science Club (Mar 2022)
+- **1st Place in Project Display** — Govt. Science College Science Club (Jan 2022)
+- **3rd Place in Web Designing** — Notre Dame Science Club (Mar 2022)
+- **IEOM 7th Bangladeshi International Conference Presentation Recognition** — IEOM Society International (Dec 2024)
+- **Certified Certifications**: OPSWAT ICIP, HackerRank Certified Python Developer, HackerRank Certified JavaScript Developer, IBM Blockchain Foundation V2, Cisco Cybersecurity Essentials, TryHackMe Advent of Cyber.
+
+## Research & Publications
+- Conference presentations & publications in international proceedings (IEOM Society International).
+- Focus areas: Applied AI in industrial engineering, system optimization, software reliability, and cybersecurity.
+
+## Portfolio Links
+- Achievements: https://shihab.vercel.app/achievements
+- Events: https://shihab.vercel.app/events
+- Projects: https://shihab.vercel.app/projects
+- Publications: https://shihab.vercel.app/publications
+- Skills: https://shihab.vercel.app/skills
+- Contact: https://shihab.vercel.app/contact
+- API MCP Endpoint: https://shihab.vercel.app/api/mcp

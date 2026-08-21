@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import { createClient } from '@supabase/supabase-js';
 import PostsSearchClient from '@/components/posts/PostsSearchClient';
+import { getPublishedPosts } from '@/lib/posts';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Posts',
@@ -11,29 +13,8 @@ export const metadata: Metadata = {
   },
 };
 
-// Server-side Supabase client (no cookies needed for public read)
-async function fetchPublishedPosts() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching posts:', error);
-    return [];
-  }
-
-  return data || [];
-}
-
 export default async function PostsPage() {
-  const posts = await fetchPublishedPosts();
+  const posts = await getPublishedPosts();
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -45,7 +26,6 @@ export default async function PostsPage() {
         enjoy them!
       </p>
 
-      {/* Client component handles search interactivity; posts HTML is in the server-rendered page */}
       <PostsSearchClient posts={posts} />
     </div>
   );

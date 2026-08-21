@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { profileLinks, educationData, experienceData, skillsData, projectsData, publicationsData } from '@/lib/data'
+import { profileLinks, educationData, experienceData, skillCategoryOrder, skillsData, projectsData, publicationsData } from '@/lib/data'
 
 export async function GET() {
   const markdown = `# Mohammad Shihab Hossain
@@ -14,7 +14,7 @@ ${educationData.university}
 ${educationData.major}
 
 ## Skills
-${skillsData.map(s => `- ${s.name}: ${s.percentage}%`).join('\n')}
+${skillCategoryOrder.map((category) => `### ${category}\n${skillsData.filter((s) => s.category === category).map((s) => `- ${s.name}`).join('\n')}`).join('\n\n')}
 
 ## Projects
 ${projectsData.map(p => `### ${p.title}\n${p.description}\n**Tech:** ${p.techStack.join(', ')}\n[GitHub](${p.githubLink})`).join('\n\n')}

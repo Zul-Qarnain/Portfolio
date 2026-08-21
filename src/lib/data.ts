@@ -1,44 +1,69 @@
-
 export interface Skill {
   name: string;
-  percentage: number;
   category: string;
-  color: string; // Tailwind CSS background color class for the progress bar fill
-  icon: string; // Lucide icon name
-  iconClasses: string; // Tailwind CSS classes for icon color
+  color: string;
+  icon: string;
+  iconClasses: string;
+  href?: string;
 }
 
+export const skillCategoryOrder = [
+  'Programming Languages',
+  'Data Science & ML Libraries',
+  'Core Analytical Skills',
+  'Web Frameworks (Frontend & Backend)',
+  'Databases',
+  'Tools & Platforms',
+] as const;
+
 export const skillsData: Skill[] = [
-  // Machine Learning
-  { name: 'PyTorch', percentage: 60, category: 'Machine Learning', icon: 'Flame', color: 'bg-teal-400', iconClasses: 'text-orange-500' },
-  { name: 'Hugging Face', percentage: 50, category: 'Machine Learning', icon: 'Smile', color: 'bg-green-400', iconClasses: 'text-yellow-400' },
-  
-  // Data Science
-  { name: 'NumPy', percentage: 70, category: 'Data Science', icon: 'Sigma', color: 'bg-blue-500', iconClasses: 'text-blue-500' },
-  { name: 'Matplotlib', percentage: 60, category: 'Data Science', icon: 'PieChart', color: 'bg-blue-600', iconClasses: 'text-blue-600' },
-  { name: 'Pandas', percentage: 70, category: 'Data Science', icon: 'Table', color: 'bg-purple-500', iconClasses: 'text-purple-600' },
-  { name: 'Scikit-learn', percentage: 50, category: 'Data Science', icon: 'TrendingUp', color: 'bg-orange-500', iconClasses: 'text-orange-600' },
-  
-  // Programming Languages
-  { name: 'JavaScript', percentage: 70, category: 'PL', icon: 'Braces', color: 'bg-yellow-400', iconClasses: 'text-yellow-400' },
-  { name: 'Python', percentage: 90, category: 'PL', icon: 'Code2', color: 'bg-indigo-500', iconClasses: 'text-green-500' },
-  { name: 'TypeScript', percentage: 50, category: 'PL', icon: 'FileText', color: 'bg-sky-400', iconClasses: 'text-blue-500' },
-  { name: 'Java', percentage: 70, category: 'PL', icon: 'Coffee', color: 'bg-red-500', iconClasses: 'text-red-600' },
-  { name: 'C++', percentage: 90, category: 'PL', icon: 'Settings2', color: 'bg-blue-700', iconClasses: 'text-blue-700' },
-  
-  // Frontend
-  { name: 'React', percentage: 60, category: 'Frontend', icon: 'Atom', color: 'bg-purple-500', iconClasses: 'text-sky-500' },
-  { name: 'Next.js', percentage: 55, category: 'Frontend', icon: 'Triangle', color: 'bg-emerald-500', iconClasses: 'text-foreground dark:text-white' },
-  { name: 'HTML5/CSS3', percentage: 80, category: 'Frontend', icon: 'Layout', color: 'bg-orange-400', iconClasses: 'text-orange-500' },
-  { name: 'Tailwind CSS', percentage: 60, category: 'Frontend', icon: 'Palette', color: 'bg-pink-400', iconClasses: 'text-purple-500' },
-  
-  // Backend
-  { name: 'Node.js', percentage: 70, category: 'Backend', icon: 'BoxSelect', color: 'bg-lime-500', iconClasses: 'text-green-600' },
-  { name: 'Express', percentage: 70, category: 'Backend', icon: 'Server', color: 'bg-slate-400', iconClasses: 'text-neutral-400' },
-  
-  // Database
-  { name: 'MongoDB', percentage: 50, category: 'Database', icon: 'Database', color: 'bg-cyan-500', iconClasses: 'text-green-500' },
-  { name: 'PostgreSQL', percentage: 70, category: 'Database', icon: 'DatabaseZap', color: 'bg-sky-600', iconClasses: 'text-blue-600' },
+  { name: 'Python', category: 'Programming Languages', icon: 'Code2', color: 'bg-primary', iconClasses: 'text-green-500' },
+  { name: 'C#', category: 'Programming Languages', icon: 'Braces', color: 'bg-primary', iconClasses: 'text-violet-600' },
+  { name: 'C++', category: 'Programming Languages', icon: 'Settings2', color: 'bg-primary', iconClasses: 'text-blue-700' },
+  { name: 'Java', category: 'Programming Languages', icon: 'Coffee', color: 'bg-primary', iconClasses: 'text-red-600' },
+  { name: 'JavaScript', category: 'Programming Languages', icon: 'Braces', color: 'bg-primary', iconClasses: 'text-yellow-400' },
+  { name: 'SQL', category: 'Programming Languages', icon: 'Database', color: 'bg-primary', iconClasses: 'text-sky-600' },
+  { name: 'T-SQL', category: 'Programming Languages', icon: 'DatabaseZap', color: 'bg-primary', iconClasses: 'text-red-400' },
+
+  { name: 'PyTorch', category: 'Data Science & ML Libraries', icon: 'Flame', color: 'bg-primary', iconClasses: 'text-orange-500' },
+  { name: 'Scikit-learn', category: 'Data Science & ML Libraries', icon: 'TrendingUp', color: 'bg-primary', iconClasses: 'text-orange-600' },
+  { name: 'Pandas', category: 'Data Science & ML Libraries', icon: 'Table', color: 'bg-primary', iconClasses: 'text-purple-600' },
+  { name: 'NumPy', category: 'Data Science & ML Libraries', icon: 'Sigma', color: 'bg-primary', iconClasses: 'text-blue-500' },
+  { name: 'Matplotlib', category: 'Data Science & ML Libraries', icon: 'PieChart', color: 'bg-primary', iconClasses: 'text-blue-600' },
+
+  { name: 'Statistical Analysis', category: 'Core Analytical Skills', icon: 'Sigma', color: 'bg-primary', iconClasses: 'text-indigo-500' },
+  { name: 'Data Visualization', category: 'Core Analytical Skills', icon: 'PieChart', color: 'bg-primary', iconClasses: 'text-fuchsia-500' },
+
+  { name: '.NET', category: 'Web Frameworks (Frontend & Backend)', icon: 'Server', color: 'bg-primary', iconClasses: 'text-violet-600' },
+  { name: 'Node.js', category: 'Web Frameworks (Frontend & Backend)', icon: 'BoxSelect', color: 'bg-primary', iconClasses: 'text-green-600' },
+  { name: 'Hono.js', category: 'Web Frameworks (Frontend & Backend)', icon: 'Server', color: 'bg-primary', iconClasses: 'text-orange-500' },
+  { name: 'React', category: 'Web Frameworks (Frontend & Backend)', icon: 'Atom', color: 'bg-primary', iconClasses: 'text-sky-500' },
+  { name: 'Next.js', category: 'Web Frameworks (Frontend & Backend)', icon: 'Triangle', color: 'bg-primary', iconClasses: 'text-foreground' },
+
+  { name: 'SQL Server', category: 'Databases', icon: 'DatabaseZap', color: 'bg-primary', iconClasses: 'text-red-500' },
+  { name: 'MySQL', category: 'Databases', icon: 'Database', color: 'bg-primary', iconClasses: 'text-sky-600' },
+  { name: 'SQLite', category: 'Databases', icon: 'Database', color: 'bg-primary', iconClasses: 'text-blue-400' },
+
+  { name: 'Git', category: 'Tools & Platforms', icon: 'Settings2', color: 'bg-primary', iconClasses: 'text-orange-600' },
+  { name: 'GitHub', category: 'Tools & Platforms', icon: 'Code2', color: 'bg-primary', iconClasses: 'text-foreground' },
+  { name: 'VS Code', category: 'Tools & Platforms', icon: 'Code2', color: 'bg-primary', iconClasses: 'text-sky-500' },
+  { name: 'Visual Studio', category: 'Tools & Platforms', icon: 'Code2', color: 'bg-primary', iconClasses: 'text-violet-500' },
+  {
+    name: 'Kaggle',
+    category: 'Tools & Platforms',
+    icon: 'TrendingUp',
+    color: 'bg-primary',
+    iconClasses: 'text-sky-400',
+    href: 'https://www.kaggle.com/shihabdev20',
+  },
+  {
+    name: 'Hugging Face',
+    category: 'Tools & Platforms',
+    icon: 'Smile',
+    color: 'bg-primary',
+    iconClasses: 'text-yellow-400',
+    href: 'https://huggingface.co/Zulqarnain',
+  },
 ];
 
 
@@ -54,6 +79,70 @@ export const profileLinks: ProfileLink[] = [
   { name: 'GitHub', url: 'https://github.com/Zul-Qarnain', icon: 'Github', ariaLabel: 'View GitHub profile for Mohammad Shihab Hossain' },
   { name: 'ResearchGate', url: 'https://www.researchgate.net/profile/Mohammad-Hossian-2?ev=hdr_xprf', icon: 'FlaskConical', ariaLabel: 'View ResearchGate profile for Mohammad Shihab Hossain' },
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/zul-qarnain20/', icon: 'Linkedin', ariaLabel: 'View LinkedIn profile for Mohammad Shihab Hossain' },
+  { name: 'Kaggle', url: 'https://www.kaggle.com/shihabdev20', icon: 'Kaggle', ariaLabel: 'View Kaggle profile for Mohammad Shihab Hossain' },
+  { name: 'Hugging Face', url: 'https://huggingface.co/Zulqarnain', icon: 'HuggingFace', ariaLabel: 'View Hugging Face profile for Mohammad Shihab Hossain' },
+];
+
+export const contactEmail = 'shihab.dev@proton.me';
+
+export const locationData = {
+  city: 'Dhaka',
+  country: 'Bangladesh',
+  availability: 'Available for remote work',
+};
+
+export const statsData = [
+  { id: 'projects', value: '15+', label: 'Projects Completed', icon: 'FolderKanban' },
+  { id: 'experience', value: '8+', label: 'Years Experience', icon: 'Briefcase' },
+  { id: 'technologies', value: '35+', label: 'Technologies', icon: 'Code2' },
+  { id: 'achievements', value: '20+', label: 'Achievements', icon: 'Trophy' },
+];
+
+export interface FeaturedSkill {
+  name: string;
+  slug: string;
+  category: 'Frontend' | 'Backend' | 'Database' | 'Languages' | 'Tools';
+}
+
+export const featuredSkills: FeaturedSkill[] = [
+  { name: 'HTML', slug: 'html', category: 'Frontend' },
+  { name: 'CSS', slug: 'css', category: 'Frontend' },
+  { name: 'JavaScript', slug: 'javascript', category: 'Languages' },
+  { name: 'TypeScript', slug: 'typescript', category: 'Languages' },
+  { name: 'React', slug: 'react', category: 'Frontend' },
+  { name: 'Node.js', slug: 'nodejs', category: 'Backend' },
+  { name: 'Python', slug: 'python', category: 'Languages' },
+  { name: 'SQL', slug: 'sql', category: 'Database' },
+];
+
+export const skillFilters = ['All', 'Frontend', 'Backend', 'Database', 'Languages', 'Tools'] as const;
+
+export const otherTechnologies = [
+  'Tailwind CSS',
+  'Git & GitHub',
+  'Firebase',
+  'Express',
+  'PostgreSQL',
+  'Next.js',
+  'PyTorch',
+  'Pandas',
+];
+
+export const learningTechnologies = [
+  { name: 'Next.js', color: 'bg-zinc-800' },
+  { name: 'MongoDB', color: 'bg-emerald-500' },
+  { name: 'Docker', color: 'bg-sky-500' },
+  { name: 'GraphQL', color: 'bg-pink-500' },
+  { name: 'AWS', color: 'bg-orange-400' },
+];
+
+export const heroSocialLinks = [
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/zul-qarnain20/', icon: 'Linkedin', ariaLabel: 'LinkedIn' },
+  { name: 'GitHub', url: 'https://github.com/Zul-Qarnain', icon: 'Github', ariaLabel: 'GitHub' },
+  { name: 'Kaggle', url: 'https://www.kaggle.com/shihabdev20', icon: 'Kaggle', ariaLabel: 'Kaggle' },
+  { name: 'Hugging Face', url: 'https://huggingface.co/Zulqarnain', icon: 'HuggingFace', ariaLabel: 'Hugging Face' },
+  { name: 'Email', url: 'mailto:shihab.dev@proton.me', icon: 'Mail', ariaLabel: 'Email' },
+  { name: 'Medium', url: 'https://medium.com/@mdshihab.dev', icon: 'BookOpen', ariaLabel: 'Medium' },
 ];
 
 export const educationData = {
@@ -100,7 +189,9 @@ export interface Project {
   description: string;
   techStack: string[];
   githubLink: string;
-  icon: string; 
+  liveUrl?: string;
+  image?: string;
+  icon: string;
 }
 
 export const projectsData: Project[] = [
@@ -108,25 +199,31 @@ export const projectsData: Project[] = [
     id: '1',
     title: 'AI & Robotics Landing Page',
     description: 'A modern landing page showcasing concepts in Artificial Intelligence and Robotics, built with Next.js and Tailwind CSS.',
-    techStack: ['Next.js', 'React', 'Tailwind CSS'],
+    techStack: ['React', 'TailwindCSS'],
     githubLink: 'https://github.com/VirsysX/landingpage',
-    icon: 'Bot' 
+    liveUrl: 'https://github.com/VirsysX/landingpage',
+    image: 'https://opengraph.githubassets.com/1/VirsysX/landingpage',
+    icon: 'Bot',
   },
   {
     id: '2',
     title: 'VirsysNFT Marketplace Demo',
     description: 'A demonstration NFT marketplace website, exploring digital asset trading. Built with Next.js and Tailwind CSS.',
-    techStack: ['Next.js', 'React', 'Tailwind CSS'],
+    techStack: ['Next.js', 'React'],
     githubLink: 'https://github.com/VirsysX/virsysnft',
-    icon: 'GalleryHorizontalEnd'
+    liveUrl: 'https://github.com/VirsysX/virsysnft',
+    image: 'https://opengraph.githubassets.com/1/VirsysX/virsysnft',
+    icon: 'GalleryHorizontalEnd',
   },
   {
     id: '3',
     title: 'PixelRacer 2D Game',
     description: 'A fast-paced, top-down 2D car dodging game built with Three.js. Avoid traffic, collect coins, and chase high scores!',
-    techStack: ['Three.js', 'JavaScript', 'HTML5'],
+    techStack: ['Three.js', 'JavaScript'],
     githubLink: 'https://github.com/Zul-Qarnain/PixelRacer',
-    icon: 'Gamepad2'
+    liveUrl: 'https://github.com/Zul-Qarnain/PixelRacer',
+    image: 'https://opengraph.githubassets.com/1/Zul-Qarnain/PixelRacer',
+    icon: 'Gamepad2',
   },
   {
     id: '4',
@@ -134,7 +231,9 @@ export const projectsData: Project[] = [
     description: "An AI-powered Discord bot with a 'savage' personality, designed to reply to users with witty and sharp tones. Built with Python.",
     techStack: ['Python', 'Discord.py'],
     githubLink: 'https://github.com/Zul-Qarnain/Sanda-AI',
-    icon: 'MessageSquare'
+    liveUrl: 'https://github.com/Zul-Qarnain/Sanda-AI',
+    image: 'https://opengraph.githubassets.com/1/Zul-Qarnain/Sanda-AI',
+    icon: 'MessageSquare',
   },
 ];
 
@@ -197,19 +296,3 @@ export const contactSectionData = {
 };
 
 export const resumeUrl = "/resume.pdf";
-
-export interface Post {
-  id: string;
-  slug: string;
-  title: string;
-  date: string;
-  content: string;
-  description: string;
-  images: string[];
-  imageHint: string;
-}
-
-export async function getPosts(): Promise<Post[]> {
-  const res = await fetch('/api/posts');
-  return res.json();
-}

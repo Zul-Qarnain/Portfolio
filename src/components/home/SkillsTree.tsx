@@ -105,7 +105,7 @@ export function SkillsTree() {
                 ? "opacity-100 translate-y-0 max-h-[1000px]" 
                 : "opacity-0 -translate-y-4 max-h-0 overflow-hidden"
             )}>
-              {groupedSkills[category].map((skill) => {
+              {expandedCategory === category && groupedSkills[category].map((skill) => {
                 const Icon = iconMap[skill.icon] || Code2;
                 return (
                   <div 
@@ -116,17 +116,7 @@ export function SkillsTree() {
                       <Icon className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex justify-between mb-1">
-                        <span className="font-medium text-sm">{skill.name}</span>
-                      </div>
-                      <div className="h-4 w-full bg-secondary/30 rounded-full overflow-hidden relative">
-                        <div 
-                          className={cn("h-full rounded-full transition-all duration-1000 flex items-center justify-end px-2", skill.color)}
-                          style={{ width: `${skill.percentage}%` }}
-                        >
-                          <span className="text-[10px] font-bold text-white drop-shadow-md">{skill.percentage}%</span>
-                        </div>
-                      </div>
+                      <span className="font-medium text-sm">{skill.name}</span>
                     </div>
                   </div>
                 );

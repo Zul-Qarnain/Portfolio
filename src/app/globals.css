@@ -8,31 +8,30 @@ body {
 }
 
 html {
-  background-color: #0d1117; /* Fallback color matching galaxy */
+  background-color: hsl(var(--background));
 }
 
 @layer base {
   :root {
-    /* Tokyo Night & Monokai Light Mix */
-    --background: 240 20% 97%; /* Soft very light lavender-grey (#f0f0f7) */
-    --foreground: 227 23% 28%; /* Dark muted blue/grey (#343b58) */
-    --card: 0 0% 100%; /* White (#FFFFFF) */
-    --card-foreground: 227 23% 28%; /* Dark muted blue/grey */
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 227 23% 28%; /* Dark muted blue/grey */
-    --primary: 339 95% 54%; /* Monokai Pink (#f92672) */
-    --primary-foreground: 0 0% 100%; /* White */
-    --secondary: 81 78% 53%; /* Monokai Green (#a6e22e) */
-    --secondary-foreground: 0 0% 12%; /* Dark text for contrast on green (#1e1e1e) */
-    --muted: 240 20% 90%; /* Lighter grey (#e6e6f0) */
-    --muted-foreground: 232 17% 56%; /* Medium grey (#787c99) */
-    --accent: 55 69% 68%; /* Monokai Yellow (#e6db74) */
-    --accent-foreground: 0 0% 12%; /* Dark text for contrast on yellow (#1e1e1e) */
-    --destructive: 0 84.2% 60.2%; /* Original Red */
-    --destructive-foreground: 0 0% 98%; /* White text on red */
-    --border: 240 20% 87%; /* Light grey border (#dcdcef) */
-    --input: 0 0% 100%; /* White input background */
-    --ring: 339 95% 54%; /* Monokai Pink for focus rings */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 262 30% 96%;
+    --secondary-foreground: 262 47% 28%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 262 83% 96%;
+    --accent-foreground: 262 47% 28%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;
+    --input: 0 0% 100%;
+    --ring: 262 83% 58%;
     
     --chart-1: 339 95% 54%; /* Monokai Pink */
     --chart-2: 81 78% 53%; /* Monokai Green */
@@ -40,7 +39,7 @@ html {
     --chart-4: 30 100% 65%; /* Monokai Orange (#fd971f) */
     --chart-5: 55 69% 68%; /* Monokai Yellow */
     
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     /* Sidebar variables for Tokyo Night/Monokai light theme */
     --sidebar-background: 240 20% 95%; /* Slightly darker than main bg for sidebar */
@@ -54,26 +53,25 @@ html {
   }
 
   .dark {
-    /* Dracula Theme */
-    --background: 231 15% 18%; /* #282a36 */
-    --foreground: 60 30% 96%; /* #f8f8f2 */
-    --card: 231 15% 22%; /* Slightly lighter than bg */
-    --card-foreground: 60 30% 96%;
-    --popover: 231 15% 18%;
-    --popover-foreground: 60 30% 96%;
-    --primary: 326 100% 74%; /* Pink #ff79c6 */
-    --primary-foreground: 231 15% 18%;
-    --secondary: 231 15% 31%; /* Current Line #44475a */
-    --secondary-foreground: 60 30% 96%;
-    --muted: 231 15% 31%;
-    --muted-foreground: 225 27% 70%; /* Comment #6272a4 - Lightened for better contrast */
-    --accent: 265 89% 78%; /* Purple #bd93f9 */
-    --accent-foreground: 231 15% 18%;
-    --destructive: 0 100% 67%; /* Red #ff5555 */
-    --destructive-foreground: 60 30% 96%;
-    --border: 231 15% 31%; /* Current Line */
-    --input: 231 15% 31%;
-    --ring: 326 100% 74%; /* Pink */
+    --background: 220 22% 6%;
+    --foreground: 210 20% 98%;
+    --card: 222 20% 10%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222 20% 10%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 262 83% 64%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 16% 14%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 222 16% 14%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 262 40% 18%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 100% 67%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 222 16% 18%;
+    --input: 222 16% 14%;
+    --ring: 262 83% 64%;
 
     --chart-1: 326 100% 74%; /* Pink */
     --chart-2: 265 89% 78%; /* Purple */
@@ -250,7 +248,7 @@ section {
 .typing-cursor::after {
   content: '|';
   animation: blink 1s step-start infinite;
-  color: #ff79c6;
+  color: hsl(var(--primary));
   margin-left: 2px;
 }
 
