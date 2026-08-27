@@ -20,7 +20,7 @@ interface ThemeProviderState {
 }
 
 const initialState: ThemeProviderState = {
-  theme: "light",
+  theme: "dark",
   setTheme: () => null,
   toggleTheme: () => null,
 };
@@ -29,7 +29,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "dark",
   storageKey = "theme",
   ...props
 }: ThemeProviderProps) {
@@ -43,7 +43,7 @@ export function ThemeProvider({
         return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
     }
-    return defaultTheme as Theme;
+    return (defaultTheme || "dark") as Theme;
   });
 
   useEffect(() => {

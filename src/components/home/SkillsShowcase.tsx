@@ -17,7 +17,7 @@ const categoryMeta: Record<
 
 function SkillChip({ skill }: { skill: Skill }) {
   const chipClass =
-    'inline-flex items-center rounded-full border border-border/80 bg-background/50 px-3 py-1.5 text-[13px] font-medium tracking-tight text-foreground/90 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary';
+    'inline-flex items-center rounded-full border border-white/10 bg-background/60 backdrop-blur-md px-3.5 py-1.5 text-[13px] font-medium tracking-tight text-foreground/90 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/15 hover:text-primary hover:shadow-md hover:shadow-primary/10';
 
   if (skill.href) {
     return (
@@ -40,11 +40,14 @@ export function SkillsShowcase() {
   return (
     <section id="skills" className="section-container scroll-mt-20">
       <div className="mb-10 max-w-2xl">
-        <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-primary/80">
           Stack
         </p>
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-          Skills & <span className="text-primary">Technologies</span>
+        <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+          Skills &{' '}
+          <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent">
+            Technologies
+          </span>
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
           Libraries stay with libraries. Concepts stay with concepts. A clean map of the tools I actually use.
@@ -56,16 +59,16 @@ export function SkillsShowcase() {
           <article
             key={category}
             className={cn(
-              'group relative overflow-hidden rounded-3xl border border-border/70 bg-card/40 p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card/70',
+              'group relative overflow-hidden rounded-3xl border border-white/10 bg-card/50 p-6 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card/75 hover:shadow-xl hover:shadow-primary/10',
               span
             )}
           >
-            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
             <div className="mb-5 flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-2xl border border-border/70 bg-background/40 text-muted-foreground transition-colors group-hover:border-primary/30 group-hover:text-primary">
+              <span className="flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-primary/10 text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/20">
                 <Icon className="h-4 w-4" />
               </span>
-              <h3 className="text-sm font-semibold tracking-tight text-foreground md:text-[15px]">
+              <h3 className="text-sm font-bold tracking-tight text-foreground md:text-[15px]">
                 {category}
               </h3>
             </div>

@@ -57,37 +57,37 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-background/60 backdrop-blur-xl shadow-lg shadow-violet-500/5 transition-all">
       <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5">
-          <span className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-primary/25 ring-offset-2 ring-offset-background">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5 group">
+          <span className="relative h-9 w-9 overflow-hidden rounded-full ring-2 ring-primary/40 ring-offset-2 ring-offset-background transition-transform group-hover:scale-105">
             <Image
               src="/mypic-square.jpeg"
               alt="Mohammad Shihab Hossain"
               fill
               className="object-cover object-top"
-              sizes="32px"
+              sizes="36px"
             />
           </span>
-          <span className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
+          <span className="text-sm font-bold tracking-tight text-foreground sm:text-base group-hover:text-primary transition-colors">
             Shihab Hossain
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 xl:flex">
+        <nav className="hidden items-center gap-6 xl:flex">
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               onClick={(event) => handleNavClick(event, item.href)}
               className={cn(
-                'relative text-sm font-medium transition-colors hover:text-primary',
-                isActive(item.href, pathname || '') ? 'text-primary' : 'text-muted-foreground'
+                'relative text-sm font-medium transition-all hover:text-primary hover:-translate-y-0.5',
+                isActive(item.href, pathname || '') ? 'text-primary font-semibold' : 'text-muted-foreground'
               )}
             >
               {item.label}
               {isActive(item.href, pathname || '') && (
-                <span className="absolute -bottom-2 left-0 right-0 h-0.5 rounded-full bg-primary" />
+                <span className="absolute -bottom-2 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
               )}
             </Link>
           ))}
@@ -98,7 +98,7 @@ export function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="xl:hidden"
+            className="xl:hidden border border-white/10 bg-card/40 backdrop-blur-md"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-label="Toggle menu"
           >
@@ -108,18 +108,18 @@ export function Navbar() {
       </div>
 
       {isMenuOpen && (
-        <div className="border-t border-border bg-background px-4 py-4 xl:hidden">
-          <div className="grid grid-cols-2 gap-2">
+        <div className="border-t border-white/10 bg-background/90 backdrop-blur-2xl px-4 py-4 xl:hidden shadow-2xl animate-fade-in-up">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={(event) => handleNavClick(event, item.href)}
                 className={cn(
-                  'rounded-lg px-3 py-2 text-sm font-medium',
+                  'rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all text-center border border-transparent',
                   isActive(item.href, pathname || '')
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    ? 'border-primary/30 bg-primary/15 text-primary shadow-sm'
+                    : 'text-muted-foreground hover:bg-card/60 hover:text-foreground hover:border-white/10'
                 )}
               >
                 {item.label}

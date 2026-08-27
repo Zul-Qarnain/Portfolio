@@ -66,17 +66,17 @@ export default function HomePage() {
 
       <section id="publications" className="section-container">
         <div className="mb-8 flex items-end justify-between gap-4">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Publications</h2>
-          <Link href="/publications" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+          <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">Publications</h2>
+          <Link href="/publications" className="group inline-flex items-center gap-1 text-sm font-bold text-primary hover:underline">
             View All Publications
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
         <div className="space-y-4">
           {publicationsData.map((pub) => (
             <article
               key={pub.id}
-              className="flex flex-col justify-between gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm md:flex-row md:items-center"
+              className="flex flex-col justify-between gap-4 rounded-3xl border border-white/10 bg-card/50 p-6 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card/75 hover:shadow-xl md:flex-row md:items-center"
             >
               <div>
                 <h3 className="mb-1 text-lg font-bold">{pub.title}</h3>
@@ -84,9 +84,9 @@ export default function HomePage() {
                 <p className="mb-3 text-sm text-muted-foreground">
                   {pub.venue} • {pub.date}
                 </p>
-                <Badge variant="outline">{pub.type}</Badge>
+                <Badge variant="outline" className="border-white/10 bg-primary/10 text-primary">{pub.type}</Badge>
               </div>
-              <Button asChild variant="outline" className="shrink-0 rounded-xl">
+              <Button asChild variant="outline" className="shrink-0 rounded-xl border-white/15 bg-card/60 backdrop-blur-md hover:bg-card/90 hover:border-primary/40">
                 <Link href={pub.link} target="_blank" rel="noopener noreferrer">
                   Read Paper <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>
@@ -97,9 +97,9 @@ export default function HomePage() {
       </section>
 
       <section id="contact" className="section-container mb-16">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card p-8 shadow-sm md:p-12">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-card/50 p-8 shadow-xl backdrop-blur-2xl md:p-12">
           <div className="mb-8 text-center">
-            <h2 className="mb-2 text-3xl font-bold">Let&apos;s Connect</h2>
+            <h2 className="mb-2 text-3xl font-extrabold">Let&apos;s Connect</h2>
             <p className="text-muted-foreground">
               Have a project in mind or just want to say hi? Feel free to reach out.
             </p>

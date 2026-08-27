@@ -32,12 +32,12 @@ export function InfoCards() {
         {cards.map((card) => {
           const Icon = card.icon;
           const content = (
-            <div className="flex h-full items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="flex h-full items-start gap-4 rounded-2xl border border-white/10 bg-card/50 p-5 shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card/75 hover:shadow-xl hover:shadow-primary/10">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-violet-500/20 text-primary border border-primary/20">
                 <Icon className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <h3 className="mb-1 text-sm font-semibold text-foreground">{card.title}</h3>
+                <h3 className="mb-1 text-sm font-bold text-foreground">{card.title}</h3>
                 {card.lines.map((line) => (
                   <p key={line} className="text-sm leading-relaxed text-muted-foreground">
                     {line}

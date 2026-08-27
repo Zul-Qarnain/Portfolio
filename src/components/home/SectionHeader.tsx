@@ -12,13 +12,15 @@ export function SectionHeader({
 }) {
   return (
     <div className="mb-8 flex items-end justify-between gap-4">
-      <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{title}</h2>
+      <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
+        {title}
+      </h2>
       <Link
         href={href}
-        className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+        className="group inline-flex items-center gap-1.5 text-sm font-bold text-primary transition-all hover:underline"
       >
         {linkLabel}
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
       </Link>
     </div>
   );

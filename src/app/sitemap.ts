@@ -17,8 +17,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error generating dynamic sitemap posts:', error);
   }
 
-  const staticPages = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
+  const staticPages: MetadataRoute.Sitemap = [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
+      images: [
+        `${baseUrl}/mypic-square.jpeg`,
+        `${baseUrl}/mypic.jpeg`,
+      ],
+    },
     { url: `${baseUrl}/posts`, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.8 },
     { url: `${baseUrl}/projects`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
     { url: `${baseUrl}/skills`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },

@@ -101,11 +101,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Direct Google Search Thumbnail Link Signals */}
+        <meta name="thumbnail" content="https://shihab.vercel.app/mypic-square.jpeg" />
+        <link rel="image_src" href="https://shihab.vercel.app/mypic-square.jpeg" />
+        <link rel="thumbnail" href="https://shihab.vercel.app/mypic-square.jpeg" />
+
         {/* Script to prevent flash of incorrect theme */}
         <script dangerouslySetInnerHTML={{
           __html: `(function() {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.classList.add(theme === 'dark' ? 'dark' : 'light');
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.classList.add(theme === 'light' ? 'light' : 'dark');
           })();`
         }} />
       </head>
@@ -126,7 +131,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        <ThemeProvider defaultTheme="light" storageKey="theme">
+        <ThemeProvider defaultTheme="dark" storageKey="theme">
           <WebMCPProvider />
           <Navbar />
           <main className="flex-grow">
@@ -141,73 +146,87 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Mohammad Shihab Hossain",
-              "alternateName": [
-                "shihab hossain",
-                "Md. Shihab Hossain",
-                "Shihab hossain",
-                "Shihab Hossain",
-                "Mohammad Shihab",
-                "Md. Shihab",
-                "Md Shihab Hossain",
-                "Md Shihab",
-                "Shihab",
-                "shihab.dev"
-              ],
-              "url": "https://shihab.vercel.app",
-              "image": "https://shihab.vercel.app/mypic-square.jpeg",
-              "jobTitle": "Computer Science Student & Software Developer",
-              "worksFor": {
-                "@type": "Organization",
-                "name": "American International University-Bangladesh"
-              },
-              "alumniOf": "American International University-Bangladesh",
-              "sameAs": [
-                "https://github.com/Zul-Qarnain",
-                "https://www.linkedin.com/in/zul-qarnain20/",
-                "https://orcid.org/0009-0007-0212-6562",
-                "https://www.researchgate.net/profile/Mohammad-Hossian-2",
-                "https://aiub.academia.edu/MohammadShihabHossian",
-                "https://scholar.google.com/citations?user=RebPXvAAAAAJ",
-                "https://www.semanticscholar.org/author/Mohammad-Shihab-Hossain/2354509770",
-                "https://stackoverflow.com/users/14467410/mohammod-shihab-hossain",
-                "https://sciprofiles.com/profile/mdshihab",
-                "https://loop.frontiersin.org/people/3299583/overview",
-                "https://dev.to/zulqarnain_15",
-                "https://medium.com/@mdshihab.dev",
-                "https://www.kaggle.com/shihabdev20",
-                "https://huggingface.co/Zulqarnain",
-                "https://www.credly.com/users/shihab",
-                "https://gitlab.com/Zul-Qarnain02",
-                "https://gravatar.com/zulqarnain20",
-                "https://linktr.ee/shihab.dev",
-                "https://about.me/mdshihab.dev",
-                "https://index.ieomsociety.org/index.cfm/author/view/ID/3B8DAFF4-CD92-2CE9-624E9D4FBE3B654C"
+              "@graph": [
+                {
+                  "@type": "ProfilePage",
+                  "@id": "https://shihab.vercel.app/#profilepage",
+                  "url": "https://shihab.vercel.app/",
+                  "name": "Mohammad Shihab Hossain - Personal Portfolio",
+                  "primaryImageOfPage": {
+                    "@type": "ImageObject",
+                    "@id": "https://shihab.vercel.app/#primaryimage",
+                    "url": "https://shihab.vercel.app/mypic-square.jpeg",
+                    "contentUrl": "https://shihab.vercel.app/mypic-square.jpeg",
+                    "caption": "Mohammad Shihab Hossain",
+                    "width": 1023,
+                    "height": 1023
+                  },
+                  "mainEntity": {
+                    "@type": "Person",
+                    "@id": "https://shihab.vercel.app/#person",
+                    "name": "Mohammad Shihab Hossain",
+                    "alternateName": [
+                      "shihab hossain",
+                      "Md. Shihab Hossain",
+                      "Shihab hossain",
+                      "Shihab Hossain",
+                      "Mohammad Shihab",
+                      "Md. Shihab",
+                      "Md Shihab Hossain",
+                      "Md Shihab",
+                      "Shihab",
+                      "shihab.dev"
+                    ],
+                    "url": "https://shihab.vercel.app",
+                    "image": {
+                      "@type": "ImageObject",
+                      "@id": "https://shihab.vercel.app/#primaryimage",
+                      "url": "https://shihab.vercel.app/mypic-square.jpeg",
+                      "contentUrl": "https://shihab.vercel.app/mypic-square.jpeg",
+                      "caption": "Mohammad Shihab Hossain",
+                      "width": 1023,
+                      "height": 1023
+                    },
+                    "jobTitle": "Computer Science Student & Software Developer",
+                    "worksFor": {
+                      "@type": "Organization",
+                      "name": "American International University-Bangladesh"
+                    },
+                    "alumniOf": "American International University-Bangladesh",
+                    "sameAs": [
+                      "https://github.com/Zul-Qarnain",
+                      "https://www.linkedin.com/in/zul-qarnain20/",
+                      "https://orcid.org/0009-0007-0212-6562",
+                      "https://www.researchgate.net/profile/Mohammad-Hossian-2",
+                      "https://aiub.academia.edu/MohammadShihabHossian",
+                      "https://scholar.google.com/citations?user=RebPXvAAAAAJ",
+                      "https://www.semanticscholar.org/author/Mohammad-Shihab-Hossain/2354509770",
+                      "https://stackoverflow.com/users/14467410/mohammod-shihab-hossain",
+                      "https://sciprofiles.com/profile/mdshihab",
+                      "https://loop.frontiersin.org/people/3299583/overview",
+                      "https://dev.to/zulqarnain_15",
+                      "https://medium.com/@mdshihab.dev",
+                      "https://www.kaggle.com/shihabdev20",
+                      "https://huggingface.co/Zulqarnain",
+                      "https://www.credly.com/users/shihab",
+                      "https://gitlab.com/Zul-Qarnain02",
+                      "https://gravatar.com/zulqarnain20",
+                      "https://linktr.ee/shihab.dev",
+                      "https://about.me/mdshihab.dev",
+                      "https://index.ieomsociety.org/index.cfm/author/view/ID/3B8DAFF4-CD92-2CE9-624E9D4FBE3B654C"
+                    ]
+                  }
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://shihab.vercel.app/#website",
+                  "url": "https://shihab.vercel.app",
+                  "name": "Mohammad Shihab Hossain",
+                  "publisher": {
+                    "@id": "https://shihab.vercel.app/#person"
+                  }
+                }
               ]
-            })
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "Mohammad Shihab Hossain",
-              "alternateName": [
-                "shihab hossain",
-                "Md. Shihab Hossain",
-                "Shihab hossain",
-                "Shihab Hossain",
-                "Mohammad Shihab",
-                "Md. Shihab",
-                "Md Shihab Hossain",
-                "Md Shihab",
-                "Shihab",
-                "shihab.dev"
-              ],
-              "url": "https://shihab.vercel.app"
             })
           }}
         />
