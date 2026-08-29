@@ -89,6 +89,43 @@ html {
     --sidebar-border: 231 15% 31%;
     --sidebar-ring: 326 100% 74%;
   }
+
+  .anime-retro {
+    --background: 265 70% 4%; /* #070312 Deep midnight purple */
+    --foreground: 280 100% 98%; /* White text */
+    --card: 268 60% 8%; /* #0e0720 Deep purple card background */
+    --card-foreground: 280 100% 98%;
+    --popover: 268 60% 8%;
+    --popover-foreground: 280 100% 98%;
+    --primary: 272 90% 65%; /* #a855f7 Vivid Neon Purple */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 285 90% 75%; /* #c084fc Electric Lilac/Magenta */
+    --secondary-foreground: 265 70% 4%;
+    --muted: 268 45% 14%;
+    --muted-foreground: 275 40% 75%;
+    --accent: 142 70% 55%; /* #4ade80 Cyber Green */
+    --accent-foreground: 265 70% 4%;
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 272 70% 45%; /* Glowing purple border */
+    --input: 268 50% 10%;
+    --ring: 272 90% 65%;
+
+    --chart-1: 272 90% 65%;
+    --chart-2: 285 90% 75%;
+    --chart-3: 142 70% 55%;
+    --chart-4: 35 100% 60%;
+    --chart-5: 195 100% 55%;
+
+    --sidebar-background: 268 65% 6%;
+    --sidebar-foreground: 280 100% 98%;
+    --sidebar-primary: 272 90% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 268 40% 16%;
+    --sidebar-accent-foreground: 280 100% 98%;
+    --sidebar-border: 272 70% 45%;
+    --sidebar-ring: 272 90% 65%;
+  }
 }
 
 @layer base {
@@ -436,3 +473,88 @@ section {
     @apply list-decimal list-inside mb-4;
   }
 }
+
+/* ==========================================================================
+   ANIME RETRO VIBE STYLES (MATCHING ANIME.PNG DESIGN)
+   ========================================================================== */
+
+/* Slow Spin Animation for Cyber / Portal Icons */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+/* Global anime-retro class active styling */
+html.anime-retro body {
+  background-color: #070312 !important;
+  font-family: var(--font-vt323), var(--font-press-start-2p), var(--font-source-code-pro), monospace !important;
+}
+
+html.anime-retro p,
+html.anime-retro span,
+html.anime-retro div,
+html.anime-retro a,
+html.anime-retro button,
+html.anime-retro input,
+html.anime-retro textarea {
+  font-family: var(--font-vt323), var(--font-source-code-pro), monospace;
+}
+
+html.anime-retro h1,
+html.anime-retro h2,
+html.anime-retro h3,
+html.anime-retro h4 {
+  font-family: var(--font-press-start-2p), var(--font-vt323), var(--font-source-code-pro), monospace !important;
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.7), 0 0 24px rgba(192, 132, 252, 0.4);
+}
+
+html.anime-retro .bg-card\/50,
+html.anime-retro .bg-card\/60,
+html.anime-retro .bg-card\/75,
+html.anime-retro article,
+html.anime-retro .glass-card {
+  background-color: rgba(14, 7, 32, 0.88) !important;
+  border-color: rgba(168, 85, 247, 0.45) !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2), inset 0 0 12px rgba(192, 132, 252, 0.08) !important;
+}
+
+html.anime-retro article:hover,
+html.anime-retro .bg-card\/50:hover,
+html.anime-retro .glass-card:hover {
+  border-color: rgba(192, 132, 252, 0.85) !important;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.5), 0 0 45px rgba(192, 132, 252, 0.35) !important;
+}
+
+/* Retro Green Tag Badge (matches > WELCOME TO MY PORTFOLIO < in anime.png) */
+html.anime-retro .retro-green-tag {
+  background-color: rgba(6, 40, 20, 0.8) !important;
+  border: 1px solid rgba(74, 222, 128, 0.6) !important;
+  color: #4ade80 !important;
+  font-family: var(--font-vt323), var(--font-source-code-pro), monospace !important;
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+}
+
+/* Retro Portal Ring for Profile Image */
+html.anime-retro .retro-portal-ring {
+  border: 4px solid #a855f7 !important;
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.8), inset 0 0 25px rgba(192, 132, 252, 0.4) !important;
+}
+
+/* Retro CTA Purple Button */
+html.anime-retro .retro-purple-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-press-start-2p), var(--font-vt323), monospace !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6) !important;
+  border: 1px solid rgba(216, 180, 254, 0.5) !important;
+}
+
+html.anime-retro .retro-purple-btn:hover {
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.9), 0 0 40px rgba(192, 132, 252, 0.6) !important;
+  transform: scale(1.03);
+}
+

@@ -1,4 +1,6 @@
-import type { ElementType } from 'react';
+'use client';
+
+import { useEffect, useState, type ElementType } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -16,6 +18,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { heroSocialLinks, resumeUrl, statsData } from '@/lib/data';
 import { HuggingFaceIcon, KaggleIcon } from '@/components/SocialIcons';
+import { useTheme } from '@/components/providers/theme-provider';
 
 const socialIcons: Record<string, ElementType> = {
   Github,
@@ -34,16 +37,31 @@ const statIcons: Record<string, ElementType> = {
 };
 
 export function HeroSection() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isRetro = mounted && theme === 'anime-retro';
+
   return (
     <section className="section-container !pt-8 !pb-12 md:!pt-12 md:!pb-16">
       <div className="grid items-center gap-10 isolate lg:grid-cols-[minmax(0,1.15fr)_minmax(0,20rem)_minmax(0,0.9fr)] lg:gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,22rem)_minmax(0,0.85fr)] xl:gap-8">
         <div className="relative z-10 space-y-6 text-center lg:text-left">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-600 backdrop-blur-md dark:border-emerald-500/40 dark:bg-emerald-500/15 dark:text-emerald-400 shadow-sm">
+          <div
+            className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold backdrop-blur-md shadow-sm transition-all ${
+              isRetro
+                ? 'retro-green-tag border border-emerald-500/60 bg-emerald-950/70 text-emerald-400 font-mono tracking-wider'
+                : 'border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:border-emerald-500/40 dark:bg-emerald-500/15 dark:text-emerald-400'
+            }`}
+          >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            Available for opportunities
+            {isRetro ? '> WELCOME TO MY PORTFOLIO <' : 'Available for opportunities'}
           </div>
 
           <div className="space-y-3">
@@ -63,10 +81,17 @@ export function HeroSection() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-            <Button asChild className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-5 text-white shadow-lg shadow-violet-500/25 transition-all hover:scale-[1.02] hover:shadow-violet-500/40 active:scale-[0.98]">
+            <Button
+              asChild
+              className={`rounded-xl px-5 text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] ${
+                isRetro
+                  ? 'retro-purple-btn font-mono font-bold tracking-wide'
+                  : 'bg-gradient-to-r from-violet-600 to-indigo-600 shadow-violet-500/25 hover:shadow-violet-500/40'
+              }`}
+            >
               <Link href={resumeUrl} target="_blank" rel="noopener noreferrer">
                 <Download className="h-4 w-4" />
-                View My CV
+                {isRetro ? '> View My Work <' : 'View My CV'}
               </Link>
             </Button>
             <Button asChild variant="outline" className="rounded-xl border-white/20 bg-card/60 backdrop-blur-md hover:bg-card/90 hover:border-primary/40 shadow-sm">
@@ -108,7 +133,11 @@ export function HeroSection() {
             <div 
               itemScope 
               itemType="https://schema.org/Person" 
-              className="relative z-10 h-full w-full overflow-hidden rounded-full border-4 border-background/80 shadow-[0_0_35px_rgba(168,85,247,0.3)] backdrop-blur-md"
+              className={`relative z-10 h-full w-full overflow-hidden rounded-full border-4 shadow-xl backdrop-blur-md transition-all ${
+                isRetro
+                  ? 'retro-portal-ring border-purple-500 shadow-[0_0_35px_rgba(168,85,247,0.85)]'
+                  : 'border-background/80 shadow-[0_0_35px_rgba(168,85,247,0.3)]'
+              }`}
             >
               <Image
                 src="/mypic.jpeg"
@@ -121,12 +150,18 @@ export function HeroSection() {
             </div>
 
             {/* Floating Glass Badge */}
-            <div className="absolute -bottom-2 -right-2 z-20 flex items-center gap-1.5 rounded-2xl border border-emerald-500/40 bg-slate-900/80 px-3.5 py-2 text-xs font-bold text-emerald-400 shadow-xl backdrop-blur-xl animate-float-reverse">
+            <div
+              className={`absolute -bottom-2 -right-2 z-20 flex items-center gap-1.5 rounded-2xl px-3.5 py-2 text-xs font-bold shadow-xl backdrop-blur-xl animate-float-reverse ${
+                isRetro
+                  ? 'retro-green-tag border border-emerald-500/60 bg-slate-950/90 text-emerald-400 font-mono'
+                  : 'border border-emerald-500/40 bg-slate-900/80 text-emerald-400'
+              }`}
+            >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Open to Work
+              {isRetro ? '> AVAILABLE FOR HIRE <' : 'Open to Work'}
             </div>
           </div>
         </div>

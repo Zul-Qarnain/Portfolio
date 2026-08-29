@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Space_Grotesk, Source_Code_Pro } from "next/font/google";
+import { Inter, Space_Grotesk, Source_Code_Pro, Press_Start_2P, VT323 } from "next/font/google";
 import Script from 'next/script';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
@@ -13,6 +13,8 @@ import { WebMCPProvider } from '@/components/WebMCPProvider';
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", display: "swap" });
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], variable: "--font-source-code-pro", display: "swap" });
+const pressStart2P = Press_Start_2P({ weight: "400", subsets: ["latin"], variable: "--font-press-start-2p", display: "swap" });
+const vt323 = VT323({ weight: "400", subsets: ["latin"], variable: "--font-vt323", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://shihab.vercel.app'),
@@ -114,7 +116,7 @@ export default function RootLayout({
           })();`
         }} />
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} ${sourceCodePro.variable} font-body antialiased flex flex-col min-h-screen relative overflow-x-hidden`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${sourceCodePro.variable} ${pressStart2P.variable} ${vt323.variable} font-body antialiased flex flex-col min-h-screen relative overflow-x-hidden`}>
         <SiteBackground />
 
         {/* Google Analytics (lazy loaded for maximum page performance) */}

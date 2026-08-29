@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = "light" | "dark" | "system";
+export type Theme = "light" | "dark" | "system" | "anime-retro";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -48,7 +48,7 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
+    root.classList.remove("light", "dark", "anime-retro");
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -56,7 +56,11 @@ export function ThemeProvider({
       return;
     }
 
-    root.classList.add(theme);
+    if (theme === "anime-retro") {
+      root.classList.add("dark", "anime-retro");
+    } else {
+      root.classList.add(theme);
+    }
   }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
@@ -67,7 +71,9 @@ export function ThemeProvider({
   };
   
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('anime-retro');
+    else setTheme('light');
   };
 
   const value = {

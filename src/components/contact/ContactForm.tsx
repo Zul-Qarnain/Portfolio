@@ -13,13 +13,28 @@ import { useEffect, useActionState, useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2, Send, Loader2 } from 'lucide-react';
 
+import { useTheme } from '@/components/providers/theme-provider';
+
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isRetro = mounted && theme === 'anime-retro';
+
   return (
     <Button 
       type="submit" 
       disabled={pending} 
-      className="w-full sm:w-auto bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" 
+      className={`w-full sm:w-auto transition-all duration-300 transform hover:-translate-y-0.5 ${
+        isRetro
+          ? 'retro-purple-btn font-mono font-bold tracking-wide w-full justify-center text-base py-3'
+          : 'bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl'
+      }`} 
       size="lg"
     >
       {pending ? (
@@ -29,8 +44,8 @@ function SubmitButton() {
         </>
       ) : (
         <>
-          Send Message
-          <Send className="ml-2 h-4 w-4" />
+          {isRetro ? '> Send Message <' : 'Send Message'}
+          {!isRetro && <Send className="ml-2 h-4 w-4" />}
         </>
       )}
     </Button>
