@@ -156,6 +156,52 @@ export const experienceData = {
   summary: "Skilled in Cybersecurity Engineering, AI/ML Engineering, and Research. Dedicated to leveraging this expertise to develop innovative solutions and contribute to impactful projects.",
 };
 
+export interface WorkExperienceItem {
+  id: string;
+  role: string;
+  company: string;
+  location: string;
+  period: string;
+  bullets: string[];
+}
+
+export interface ResearchExperienceItem {
+  id: string;
+  role: string;
+  domain: string;
+  period: string;
+  bullets: string[];
+}
+
+export const workExperienceData: WorkExperienceItem[] = [
+  {
+    id: 'bd-chefs',
+    role: 'Executive, Vendor Verification and Security Management',
+    company: 'BD Chefs',
+    location: 'Dhaka, Bangladesh',
+    period: '2023–2025',
+    bullets: [
+      'Verified vendor information and supported the onboarding of home chefs and sellers.',
+      'Maintained vendor records and reviewed submitted information for accuracy and compliance.',
+      'Supported security procedures and coordinated with vendors to resolve account-related issues.',
+    ],
+  },
+];
+
+export const researchExperienceData: ResearchExperienceItem[] = [
+  {
+    id: 'aiub-researcher',
+    role: 'Undergraduate Researcher',
+    domain: 'Artificial Intelligence and Data Science Domain, AIUB',
+    period: '2024–Present',
+    bullets: [
+      'Exploring applied machine learning approaches for real-world prediction and classification tasks.',
+      'Studying natural language processing techniques for conversational AI and text understanding.',
+      'Supporting research documentation, experimentation, and result analysis for academic reporting.',
+    ],
+  },
+];
+
 export const skillsSectionData = {
   icon: 'Settings2', 
 };
@@ -235,6 +281,15 @@ export const projectsData: Project[] = [
     image: 'https://opengraph.githubassets.com/1/Zul-Qarnain/Sanda-AI',
     icon: 'MessageSquare',
   },
+  {
+    id: '5',
+    title: 'ExoDiscover AI — NASA Space Apps 2025',
+    description: 'An advanced machine learning platform using TabNet and NASA exoplanet datasets (Kepler, K2, TESS) to automate exoplanet discovery and feature importance ranking.',
+    techStack: ['PyTorch', 'TabNet', 'React', 'TypeScript', 'TailwindCSS'],
+    githubLink: 'https://www.spaceappschallenge.org/2025/find-a-team/virsys/?tab=project',
+    liveUrl: 'https://www.spaceappschallenge.org/2025/find-a-team/virsys/?tab=project',
+    icon: 'Sparkles',
+  },
 ];
 
 export interface Event {
@@ -246,9 +301,21 @@ export interface Event {
   location: string;
   description: string;
   story: string;
+  link?: string;
 }
 
 export const eventsData: Event[] = [
+  {
+    id: 'nasa-space-apps-2025-event',
+    title: 'NASA International Space Apps Challenge 2025',
+    images: [],
+    imageHint: 'NASA Space Apps Challenge 2025 - Team Virsys',
+    date: 'October 2025',
+    location: 'NASA International Space Apps Challenge',
+    description: 'Participated in the NASA Space Apps Challenge 2025 with ExoDiscover AI (Team Virsys), building an ML platform for exoplanet discovery.',
+    story: 'Participated in the NASA International Space Apps Challenge 2025 under the theme "A World Away: Hunting for Exoplanets with AI". Our team, Virsys, developed ExoDiscover AI — an advanced machine learning platform designed to accelerate the discovery of exoplanets using NASA\'s datasets from Kepler, K2, and TESS.\n\nThe platform trains a PyTorch TabNet deep learning model with ONNX Runtime for browser-based inference to classify candidate exoplanets and highlight key astronomical feature importance (such as orbital period, planet radius, and stellar temperature).',
+    link: 'https://www.spaceappschallenge.org/2025/find-a-team/virsys/?tab=project',
+  },
   {
     id: '5',
     title: 'Presentation on Paper',

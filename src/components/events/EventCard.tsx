@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { Event } from '@/lib/data';
-import { CalendarDays, MapPin, ArrowRight, Sparkles } from 'lucide-react';
+import { CalendarDays, MapPin, ArrowRight, Sparkles, ExternalLink } from 'lucide-react';
 
 interface EventCardProps {
   event: Event;
@@ -110,6 +110,20 @@ export function EventCard({ event }: EventCardProps) {
             {event.story}
           </p>
         </ScrollArea>
+
+        {event.link && (
+          <div className="pt-3 mt-3 border-t border-border flex-shrink-0">
+            <a
+              href={event.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-indigo-700 transition-colors shadow-sm"
+            >
+              <ExternalLink className="h-4 w-4" />
+              View Project on NASA Space Apps
+            </a>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );

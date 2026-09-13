@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { profileLinks, educationData, experienceData, skillCategoryOrder, skillsData, projectsData, publicationsData } from '@/lib/data'
+import { profileLinks, educationData, experienceData, workExperienceData, researchExperienceData, skillCategoryOrder, skillsData, projectsData, publicationsData } from '@/lib/data'
 
 export async function GET() {
   const markdown = `# Mohammad Shihab Hossain
@@ -8,6 +8,12 @@ export async function GET() {
 
 ## About
 ${experienceData.summary}
+
+## Work Experience
+${workExperienceData.map(w => `### ${w.role} (${w.period})\n**${w.company}** - ${w.location}\n${w.bullets.map(b => `- ${b}`).join('\n')}`).join('\n\n')}
+
+## Research Experience
+${researchExperienceData.map(r => `### ${r.role} (${r.period})\n**${r.domain}**\n${r.bullets.map(b => `- ${b}`).join('\n')}`).join('\n\n')}
 
 ## Education
 ${educationData.university}

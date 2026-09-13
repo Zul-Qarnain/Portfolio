@@ -241,6 +241,17 @@ export const achievementsData: Achievement[] = [
     category: 'conference',
     icon: 'presentation',
   },
+  {
+    id: 'nasa-space-apps-2025',
+    title: 'Certificate of Appreciation — NASA International Space Apps Challenge 2025',
+    organization: 'NASA International Space Apps Challenge',
+    issued: 'Oct 2025',
+    url: cleanExternalUrl(
+      'https://drive.google.com/file/d/1T-QN2oz19hhlvtVmW8Vgq4I9V0rKiSgv/view?usp=sharing'
+    ),
+    category: 'competition',
+    icon: 'award',
+  },
 ];
 
 export const achievementFilters: Array<{ id: AchievementFilterId; label: string }> = [

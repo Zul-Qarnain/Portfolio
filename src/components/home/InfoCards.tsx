@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { GraduationCap, MapPin, Briefcase, Mail } from 'lucide-react';
-import { contactEmail, educationData, experienceData, locationData } from '@/lib/data';
+import { contactEmail, educationData, experienceData, locationData, workExperienceData, researchExperienceData } from '@/lib/data';
 import { useTheme } from '@/components/providers/theme-provider';
 
 const cards = [
@@ -80,6 +80,83 @@ export function InfoCards() {
       <p className="mt-6 max-w-4xl text-sm leading-relaxed text-muted-foreground md:text-base">
         {experienceData.summary}
       </p>
+
+      {/* Detailed Work & Research Experience Section */}
+      <div className="mt-8 grid gap-6 md:grid-cols-2">
+        {/* Work Experience */}
+        <div className={`rounded-3xl border p-6 shadow-lg backdrop-blur-xl transition-all duration-300 ${
+          isRetro
+            ? 'border-purple-500/40 bg-[#0e0720]/90 shadow-[0_0_18px_rgba(168,85,247,0.2)]'
+            : 'border-white/10 bg-card/50'
+        }`}>
+          <div className="mb-5 flex items-center gap-3">
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
+              isRetro
+                ? 'border-purple-400/50 bg-purple-500/20 text-purple-300'
+                : 'bg-primary/10 text-primary border-primary/20'
+            }`}>
+              <Briefcase className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-foreground">Work Experience</h3>
+              <p className="text-xs text-muted-foreground">Industry roles & security management</p>
+            </div>
+          </div>
+          {workExperienceData.map((work) => (
+            <div key={work.id} className="space-y-2">
+              <div className="flex flex-wrap items-baseline justify-between gap-1">
+                <h4 className="text-sm font-bold text-foreground">{work.role}</h4>
+                <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                  {work.period}
+                </span>
+              </div>
+              <p className="text-xs font-medium text-muted-foreground">{work.company} • {work.location}</p>
+              <ul className="mt-2.5 space-y-1.5 text-xs leading-relaxed text-muted-foreground list-disc list-inside">
+                {work.bullets.map((bullet, idx) => (
+                  <li key={idx} className="marker:text-primary">{bullet}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Research Experience */}
+        <div className={`rounded-3xl border p-6 shadow-lg backdrop-blur-xl transition-all duration-300 ${
+          isRetro
+            ? 'border-purple-500/40 bg-[#0e0720]/90 shadow-[0_0_18px_rgba(168,85,247,0.2)]'
+            : 'border-white/10 bg-card/50'
+        }`}>
+          <div className="mb-5 flex items-center gap-3">
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
+              isRetro
+                ? 'border-purple-400/50 bg-purple-500/20 text-purple-300'
+                : 'bg-violet-500/10 text-violet-500 border-violet-500/20'
+            }`}>
+              <GraduationCap className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-foreground">Research Experience</h3>
+              <p className="text-xs text-muted-foreground">Applied AI, Machine Learning & NLP</p>
+            </div>
+          </div>
+          {researchExperienceData.map((res) => (
+            <div key={res.id} className="space-y-2">
+              <div className="flex flex-wrap items-baseline justify-between gap-1">
+                <h4 className="text-sm font-bold text-foreground">{res.role}</h4>
+                <span className="rounded-full bg-violet-500/10 px-2.5 py-0.5 text-xs font-semibold text-violet-500">
+                  {res.period}
+                </span>
+              </div>
+              <p className="text-xs font-medium text-muted-foreground">{res.domain}</p>
+              <ul className="mt-2.5 space-y-1.5 text-xs leading-relaxed text-muted-foreground list-disc list-inside">
+                {res.bullets.map((bullet, idx) => (
+                  <li key={idx} className="marker:text-violet-500">{bullet}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

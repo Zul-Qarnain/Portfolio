@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { projectsData, publicationsData, skillsData } from '@/lib/data';
+import { projectsData, publicationsData, skillsData, workExperienceData, researchExperienceData } from '@/lib/data';
 import { achievementsData } from '@/lib/achievements';
 
 const profileData = {
@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
             { name: 'get-publications', description: 'Get research publications and academic papers', inputSchema: { type: 'object', properties: {} } },
             { name: 'get-achievements', description: 'Get awards, honors, and certifications', inputSchema: { type: 'object', properties: {} } },
             { name: 'get-skills', description: 'Get technical skills categorized by domain', inputSchema: { type: 'object', properties: {} } },
+            { name: 'get-experience', description: 'Get work and research experience history', inputSchema: { type: 'object', properties: {} } },
           ],
         });
 
@@ -46,6 +47,9 @@ export async function POST(request: NextRequest) {
         }
         if (params?.name === 'get-skills') {
           return NextResponse.json({ content: [{ type: 'text', text: JSON.stringify(skillsData) }] });
+        }
+        if (params?.name === 'get-experience') {
+          return NextResponse.json({ content: [{ type: 'text', text: JSON.stringify({ work: workExperienceData, research: researchExperienceData }) }] });
         }
         break;
     }
