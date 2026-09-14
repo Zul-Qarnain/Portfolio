@@ -103,6 +103,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Performance Preconnect Resource Hints */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
         {/* Direct Google Search Thumbnail Link Signals */}
         <meta name="thumbnail" content="https://shihab.vercel.app/mypic-square.jpeg" />
         <link rel="image_src" href="https://shihab.vercel.app/mypic-square.jpeg" />

@@ -86,6 +86,7 @@ export default function PostsSearchClient({ posts }: PostsSearchClientProps) {
                       fill
                       style={{ objectFit: 'cover' }}
                       className="rounded-t-md"
+                      sizes="(max-width: 768px) 100vw, 672px"
                     />
                     {post.featured && (
                       <div className="absolute top-4 left-4 bg-purple-600 text-white px-2 py-1 rounded-full text-xs font-semibold">

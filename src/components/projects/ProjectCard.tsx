@@ -18,6 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             alt={project.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-gradient-to-br from-violet-600/30 to-cyan-500/30" />
