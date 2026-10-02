@@ -1,6 +1,14 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase';
+import {
+  DEFAULT_RECENT_LIMIT,
+  EMPTY_SITE_VISIT_STATS,
+  RECENT_LIMIT_OPTIONS,
+  VISIT_RETENTION_DAYS,
+  fetchSiteVisitStats,
+  type SiteVisitStats,
+} from '@/lib/visits';
 
 interface PostData {
   id: string;
@@ -37,7 +45,44 @@ export default function AnalyticsPage() {
     recentActivity: [],
   });
   const [loading, setLoading] = useState(true);
+  const [visits, setVisits] = useState<SiteVisitStats>(EMPTY_SITE_VISIT_STATS);
+  const [visitsLoading, setVisitsLoading] = useState(true);
+  const [visitsError, setVisitsError] = useState<string | null>(null);
+  const [recentLimit, setRecentLimit] = useState<number>(DEFAULT_RECENT_LIMIT);
   const supabase = createClient();
+
+  const loadVisits = async (limit: number) => {
+    setVisitsLoading(true);
+    setVisitsError(null);
+
+    try {
+      setVisits(await fetchSiteVisitStats(supabase, limit));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+
+      if (message.includes('[PGRST202]')) {
+        // Expected until the migration is applied. The banner states it plainly,
+        // so keep it out of console.error to avoid Next's dev error overlay.
+        console.warn('Site visit tracking is not provisioned yet:', message);
+        setVisitsError(
+          'Visit tracking is not set up in this database yet. Run supabase/migrations/0001_site_visits.sql in the Supabase SQL editor, then refresh this page.'
+        );
+      } else if (/authentication required/i.test(message)) {
+        console.warn('Site visit stats blocked by admin session:', message);
+        setVisitsError('Your admin session expired — sign in again to load visit stats.');
+      } else {
+        console.error('Error fetching site visits:', message);
+        setVisitsError(`Could not load site visits: ${message}`);
+      }
+    } finally {
+      setVisitsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadVisits(recentLimit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recentLimit]);
 
   const fetchAnalytics = async () => {
     try {
@@ -142,6 +187,103 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
+      <section className="visits-section">
+        <div className="section-head">
+          <h2>🌐 Site Visits</h2>
+          <p className="section-note">
+            Unique visitors count each IP once per UTC day. Rows older than {VISIT_RETENTION_DAYS} days are pruned automatically.
+          </p>
+        </div>
+
+        {visitsError && <p className="visits-error">⚠️ {visitsError}</p>}
+
+        {visitsLoading ? (
+          <p className="visits-loading">Loading visit stats...</p>
+        ) : (
+          <>
+            <div className="stats-grid">
+              <StatCard
+                title="Total Page Loads"
+                value={visits.total_page_loads}
+                icon="👁️"
+                color="#8be9fd"
+              />
+              <StatCard
+                title="Loads Today"
+                value={visits.loads_today}
+                icon="⚡"
+                color="#ffb86c"
+              />
+              <StatCard
+                title="Unique Today"
+                value={visits.unique_visitors_today}
+                icon="🧍"
+                color="#50fa7b"
+              />
+              <StatCard
+                title={`Unique ${VISIT_RETENTION_DAYS}d`}
+                value={visits.unique_visitors_30d}
+                icon="📅"
+                color="#bd93f9"
+              />
+            </div>
+
+            <div className="analytics-grid">
+              <div className="top-posts">
+                <h3>📄 Traffic by page</h3>
+                {visits.by_path.length === 0 ? (
+                  <p className="empty-row">No page traffic recorded yet.</p>
+                ) : (
+                  visits.by_path.map(entry => (
+                    <div key={entry.path} className="visit-row">
+                      <span className="visit-path" title={entry.path}>{entry.path}</span>
+                      <span className="visit-metrics">
+                        <span>{entry.loads} loads</span>
+                        <span>{entry.unique_visitors} unique</span>
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <div className="recent-activity">
+                <div className="recent-head">
+                  <h3>🕒 Recent visitors</h3>
+                  <div className="limit-picker">
+                    <span className="limit-label">Show</span>
+                    {RECENT_LIMIT_OPTIONS.map(option => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => setRecentLimit(option)}
+                        className={option === recentLimit ? 'limit-active' : undefined}
+                        disabled={visitsLoading}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {visits.recent.length === 0 ? (
+                  <p className="empty-row">No visitors recorded yet.</p>
+                ) : (
+                  visits.recent.map(visit => (
+                    <div key={`${visit.visited_at}-${visit.ip}-${visit.path}`} className="visit-row">
+                      <span className="visit-ip">{visit.ip}</span>
+                      <span className="visit-path" title={visit.path}>{visit.path}</span>
+                      <span className="visit-date">
+                        {new Date(visit.visited_at).toLocaleString()}
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </section>
+
       <style jsx>{`
         .analytics-page {
           max-width: 1200px;
@@ -239,9 +381,147 @@ export default function AnalyticsPage() {
           font-size: 1.2rem;
         }
 
+        .visits-section {
+          margin-top: 3rem;
+        }
+
+        .section-head {
+          margin-bottom: 1.5rem;
+        }
+
+        .section-head h2 {
+          margin: 0 0 0.25rem 0;
+          color: #8be9fd;
+          font-size: 1.8rem;
+        }
+
+        .section-note {
+          margin: 0;
+          color: #6272a4;
+          font-size: 0.85rem;
+        }
+
+        .visits-error {
+          background: rgba(255, 85, 85, 0.12);
+          border: 1px solid rgba(255, 85, 85, 0.35);
+          color: #ff5555;
+          padding: 0.9rem 1.1rem;
+          border-radius: 10px;
+          font-size: 0.9rem;
+          margin: 0 0 1.5rem 0;
+        }
+
+        .visits-loading {
+          color: #6272a4;
+          font-size: 1.1rem;
+        }
+
+        .recent-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.5rem;
+        }
+
+        .recent-head h3 {
+          margin: 0;
+        }
+
+        .limit-picker {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .limit-label {
+          color: #6272a4;
+          font-size: 0.8rem;
+          margin-right: 0.25rem;
+        }
+
+        .limit-picker button {
+          background: rgba(68, 71, 90, 0.5);
+          border: 1px solid #44475a;
+          color: #f8f8f2;
+          border-radius: 6px;
+          padding: 0.3rem 0.7rem;
+          font-size: 0.8rem;
+          cursor: pointer;
+          font-family: inherit;
+          transition: all 0.2s ease;
+        }
+
+        .limit-picker button:hover:not(:disabled) {
+          border-color: #bd93f9;
+        }
+
+        .limit-picker button:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        .limit-active {
+          background: #bd93f9 !important;
+          color: #282a36 !important;
+          font-weight: 700;
+          border-color: #bd93f9 !important;
+        }
+
+        .visit-row {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 0.85rem 1rem;
+          background: rgba(40, 42, 54, 0.5);
+          border-radius: 8px;
+          margin-bottom: 0.75rem;
+          font-size: 0.9rem;
+        }
+
+        .visit-path {
+          flex: 1;
+          min-width: 0;
+          color: #f8f8f2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .visit-ip {
+          font-family: 'JetBrains Mono', 'Fira Code', monospace;
+          color: #50fa7b;
+          font-size: 0.82rem;
+          flex-shrink: 0;
+        }
+
+        .visit-metrics {
+          display: flex;
+          gap: 0.9rem;
+          color: #6272a4;
+          font-size: 0.82rem;
+          flex-shrink: 0;
+        }
+
+        .visit-date {
+          color: #6272a4;
+          font-size: 0.78rem;
+          flex-shrink: 0;
+        }
+
+        .empty-row {
+          color: #6272a4;
+          font-size: 0.9rem;
+        }
+
         @media (max-width: 768px) {
           .analytics-grid {
             grid-template-columns: 1fr;
+          }
+
+          .visit-row {
+            flex-wrap: wrap;
           }
         }
       `}</style>

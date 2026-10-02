@@ -97,3 +97,15 @@ memory/
 
 # Error pics or data assets that shouldn't be committed
 data/
+
+# Qoder CLI settings and MCP config — machine-specific, never commit
+.qoder/
+
+# Local agent / editor tooling state — may carry machine identifiers
+.claude/
+.cursor/
+.marscode/
+.playwright-mcp/
+
+# Local database dumps — contain visitor PII (emails, names, IPs), never commit
+supabase/backup/

@@ -8,6 +8,8 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SiteBackground } from '@/components/SiteBackground';
+import { SiteChrome } from '@/components/SiteChrome';
+import { VisitTracker } from '@/components/VisitTracker';
 import { WebMCPProvider } from '@/components/WebMCPProvider';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -139,13 +141,20 @@ export default function RootLayout({
 
         <ThemeProvider defaultTheme="dark" storageKey="theme">
           <WebMCPProvider />
-          <Navbar />
+          <VisitTracker />
+          <SiteChrome>
+            <Navbar />
+          </SiteChrome>
           <main className="flex-grow">
             {children}
           </main>
-          <Footer />
+          <SiteChrome>
+            <Footer />
+          </SiteChrome>
           <Toaster />
-          <ScrollToTop />
+          <SiteChrome>
+            <ScrollToTop />
+          </SiteChrome>
         </ThemeProvider>
         <script
           type="application/ld+json"
