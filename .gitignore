@@ -109,3 +109,6 @@ data/
 
 # Local database dumps — contain visitor PII (emails, names, IPs), never commit
 supabase/backup/
+
+# Personal working files: screenshots, design mocks, Lighthouse exports
+data/
