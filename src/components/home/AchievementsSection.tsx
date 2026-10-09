@@ -384,7 +384,7 @@ export function AchievementsSection({
         <div className="mt-10 text-center">
           <Link
             href="/achievements"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] font-mono tracking-wide"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-primary-solid px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary-solid/90 hover:scale-[1.02] active:scale-[0.98] font-mono tracking-wide"
           >
             &gt; View All Achievements &lt;
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
