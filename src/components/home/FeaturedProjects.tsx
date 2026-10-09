@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink, Flame } from 'lucide-react';
@@ -10,13 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/components/providers/theme-provider';
 
 export function FeaturedProjects() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const { theme, mounted } = useTheme();
   const isRetro = mounted && theme === 'anime-retro';
 
   return (

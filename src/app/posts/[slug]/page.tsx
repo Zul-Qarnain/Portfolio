@@ -1,40 +1,84 @@
-import { createServerSupabaseClient } from '@/lib/supabase';
-import { getPublishedPostBySlug } from '@/lib/posts';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { CalendarDays, Clock, Eye, ArrowLeft } from 'lucide-react';
+import { createServerSupabaseClient } from '@/lib/supabase';
+import { getPublishedPostBySlug, getPublishedPosts } from '@/lib/posts';
+import { absoluteUrl, siteUrl } from '@/lib/seo';
+import { breadcrumbSchema, blogPostingSchema, jsonLd } from '@/lib/schema';
+import { plainExcerpt, prepareArticle, relatedPosts } from '@/lib/article';
 import BlogContent from '@/components/BlogContent';
 
 interface PostProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 }
 
-// Function to increment view count
-async function incrementViewCount(postId: string) {
+export const dynamic = 'force-dynamic';
+
+async function incrementViewCount(postId: string, currentViews: number) {
   try {
     const supabase = await createServerSupabaseClient();
-    
-    // Get current view count
-    const { data: currentPost } = await supabase
+    await supabase
       .from('blog_posts')
-      .select('views_count')
-      .eq('id', postId)
-      .single();
-
-    if (currentPost) {
-      // Increment view count
-      await supabase
-        .from('blog_posts')
-        .update({ 
-          views_count: (currentPost.views_count || 0) + 1 
-        })
-        .eq('id', postId);
-    }
+      .update({ views_count: currentViews + 1 })
+      .eq('id', postId);
   } catch (error) {
     console.error('Error incrementing view count:', error);
   }
+}
+
+const longDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPublishedPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const url = `/posts/${slug}`;
+  // Fall back to the opening of the article rather than repeating the title,
+  // which would make the snippet duplicate the headline.
+  const description = post.meta_description?.trim() || plainExcerpt(post.content);
+  const image = post.featured_image_url || `${siteUrl()}/mypic-square.jpeg`;
+
+  return {
+    title: post.title,
+    description,
+    keywords: post.tags?.length ? post.tags.join(', ') : post.meta_keywords,
+    robots: { index: true, follow: true },
+    alternates: { canonical: url },
+    // Page-level openGraph replaces the root layout's block outright, so every
+    // field has to be restated here.
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description,
+      url: absoluteUrl(url),
+      siteName: 'Mohammad Shihab Hossain',
+      locale: 'en_US',
+      publishedTime: post.published_at ?? undefined,
+      modifiedTime: post.updated_at ?? undefined,
+      tags: post.tags?.length ? post.tags : undefined,
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: [image],
+    },
+  };
 }
 
 const PostPage = async ({ params }: PostProps) => {
@@ -45,151 +89,266 @@ const PostPage = async ({ params }: PostProps) => {
     notFound();
   }
 
+  const [prepared, allPosts] = await Promise.all([
+    Promise.resolve(prepareArticle(post.content)),
+    getPublishedPosts().catch(() => []),
+  ]);
+
   if (post.id) {
-    await incrementViewCount(post.id);
+    await incrementViewCount(post.id, post.views_count ?? 0);
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
+  const description = post.meta_description?.trim() || plainExcerpt(post.content);
+  const trail = [
+    { name: 'Home', path: '/' },
+    { name: 'Posts', path: '/posts' },
+    { name: post.title, path: `/posts/${post.slug}` },
+  ];
 
-  const formatTags = (tags: string[]) => {
-    if (!tags || tags.length === 0) return 'Technology, Programming';
-    return tags.join(', ');
-  };
+  const jsonLdBlocks = [
+    blogPostingSchema({
+      title: post.title,
+      slug: post.slug,
+      description,
+      content: prepared.html,
+      publishedAt: post.published_at,
+      updatedAt: post.updated_at,
+      tags: post.tags,
+      featuredImageUrl: post.featured_image_url || undefined,
+    }),
+    breadcrumbSchema(trail),
+  ];
+
+  const related = relatedPosts(allPosts, post, 3);
 
   return (
-    <div className="flex flex-col items-center py-8 px-4 font-body">
-      <div className="w-full max-w-[760px]">
-        {/* Back arrow and category section */}
-        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
-          <Link href="/posts" className="hover:underline">&larr; Back to Posts</Link>
-          <span className="mx-2">|</span>
-          <span>{formatTags(post.tags)}</span>
-        </div>
+    <div className="container mx-auto max-w-3xl px-4 py-10 font-body md:py-14">
+      {jsonLdBlocks.map((block, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(block) }}
+        />
+      ))}
 
-        {/* Post Title and Date */}
-        <div className="text-center mb-8">
-          <p className="text-base text-gray-500 dark:text-gray-400 mb-2">
-            {formatDate(post.published_at!)}
+      <nav aria-label="Breadcrumb" className="mb-6">
+        <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+          {trail.map((crumb, i) => (
+            <li key={crumb.path} className="flex items-center gap-1.5">
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {i === trail.length - 1 ? (
+                <span aria-current="page" className="line-clamp-1 font-medium text-foreground">
+                  {crumb.name}
+                </span>
+              ) : (
+                <Link
+                  href={crumb.path}
+                  className="transition-colors hover:text-primary hover:underline"
+                >
+                  {crumb.name}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <header className="mb-8 border-b border-white/10 pb-8">
+        <Link
+          href="/posts"
+          className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+          All posts
+        </Link>
+
+        {post.tags?.length > 0 && (
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-primary">
+            {post.tags[0]}
           </p>
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 text-gray-900 dark:text-gray-100">
-            {post.title}
-          </h1>
-          <div className="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-            {post.reading_time && <span>{post.reading_time} min read</span>}
-            {post.views_count && <span>• {post.views_count} views</span>}
-          </div>
-        </div>
-
-        {/* Featured Image */}
-        {post.featured_image_url && (
-          <div className="relative w-full aspect-video overflow-hidden rounded-lg mb-8">
-            <Image
-              src={post.featured_image_url}
-              alt={post.title}
-              fill
-              style={{ objectFit: 'cover' }}
-              className="object-cover"
-            />
-          </div>
         )}
 
-        {/* Post Content with Syntax Highlighting */}
-        <div className="mt-6 mb-12">
-          <BlogContent content={post.content} />
+        <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl">
+          {post.title}
+        </h1>
+
+        {description && (
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+            {description}
+          </p>
+        )}
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+          {post.published_at && (
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays className="h-4 w-4" aria-hidden="true" />
+              <time dateTime={post.published_at}>{longDate(post.published_at)}</time>
+            </span>
+          )}
+          {prepared.wordCount > 0 && (
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-4 w-4" aria-hidden="true" />
+              {Math.max(1, Math.round(prepared.wordCount / 200))} min read
+            </span>
+          )}
+          {(post.views_count ?? 0) > 0 && (
+            <span className="inline-flex items-center gap-1.5">
+              <Eye className="h-4 w-4" aria-hidden="true" />
+              {post.views_count} views
+            </span>
+          )}
         </div>
 
-        {/* Tags Section */}
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <span className="text-sm font-semibold text-gray-600 dark:text-gray-400 mr-2">Tags:</span>
-            {post.tags.map((tag: string, index: number) => (
-              <span
-                key={index}
-                className="inline-block bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm px-3 py-1 rounded-full"
+        {post.updated_at && post.published_at && post.updated_at !== post.published_at && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            Last updated <time dateTime={post.updated_at}>{longDate(post.updated_at)}</time>
+          </p>
+        )}
+      </header>
+
+      {post.featured_image_url && (
+        <figure className="mb-8 overflow-hidden rounded-2xl border border-white/10 shadow-lg">
+          <Image
+            src={post.featured_image_url}
+            alt={post.title}
+            width={1200}
+            height={630}
+            priority
+            className="aspect-video w-full object-cover"
+          />
+        </figure>
+      )}
+
+      {prepared.headings.length >= 3 && (
+        <nav
+          aria-label="Table of contents"
+          className="mb-8 rounded-2xl border border-white/10 bg-card/50 p-5 backdrop-blur-md"
+        >
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-foreground">
+            Contents
+          </h2>
+          <ol className="space-y-1.5 text-sm">
+            {prepared.headings.map((heading) => (
+              <li
+                key={heading.id}
+                className={heading.level === 3 ? 'pl-4' : undefined}
               >
-                #{tag}
-              </span>
+                <a
+                  href={`#${heading.id}`}
+                  className="text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+                >
+                  {heading.text}
+                </a>
+              </li>
             ))}
-          </div>
-        )}
+          </ol>
+        </nav>
+      )}
 
-        {/* Social Sharing Buttons */}
-        <div className="flex justify-center space-x-4 my-8">
-          <a 
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.slug}`)}`}
+      <BlogContent content={prepared.html} />
+
+      {post.tags && post.tags.length > 0 && (
+        <footer className="mt-10 border-t border-white/10 pt-6">
+          <h2 className="sr-only">Tags</h2>
+          <ul className="flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <li key={tag}>
+                <Link
+                  href="/posts"
+                  className="inline-block rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary/20"
+                >
+                  {tag}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </footer>
+      )}
+
+      <section
+        aria-labelledby="share-heading"
+        className="mt-8 flex flex-wrap items-center gap-3"
+      >
+        <h2 id="share-heading" className="text-sm font-semibold text-muted-foreground">
+          Share this post
+        </h2>
+        <div className="flex items-center gap-2">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(absoluteUrl(`/posts/${post.slug}`))}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+            className="rounded-lg border border-white/10 bg-card/50 px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-            </svg>
+            X
           </a>
-          <a 
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.slug}`)}`}
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(absoluteUrl(`/posts/${post.slug}`))}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-500"
+            className="rounded-lg border border-white/10 bg-card/50 px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-            </svg>
+            LinkedIn
           </a>
         </div>
+      </section>
 
-        {/* About the Author section */}
-        <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6 mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-inner">
-          <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-300 dark:bg-gray-600 flex-shrink-0">
-            <Image
-              src="/panjabi.jpeg"
-              alt="Author Avatar"
-              width={96}
-              height={96}
-              className="object-cover w-full h-full"
-            />
-          </div>
+      <section
+        aria-labelledby="author-heading"
+        className="mt-8 rounded-2xl border border-white/10 bg-card/50 p-6 backdrop-blur-md"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+          <Image
+            src="/panjabi.jpeg"
+            alt=""
+            width={80}
+            height={80}
+            className="h-20 w-20 shrink-0 rounded-full object-cover"
+          />
           <div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">About the Author</h3>
-            <p className="text-base text-gray-700 dark:text-gray-300">
-              Mohammad Shihab Hossain is an undergraduate Computer Science student at American International University-Bangladesh. He is combining his formal education in computer science with self-taught expertise in Artificial Intelligence, Cybersecurity, and Quantum Computing, actively engaging in research and hands-on learning in these cutting-edge fields.
+            <h2 id="author-heading" className="mb-1.5 text-lg font-bold text-foreground">
+              Written by Mohammad Shihab Hossain
+            </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Computer Science student at American International University-Bangladesh, writing
+              about artificial intelligence, cybersecurity and software engineering from the
+              perspective of someone still learning them.
             </p>
+            <Link
+              href="/contact"
+              className="mt-3 inline-block text-sm font-semibold text-primary transition-colors hover:underline"
+            >
+              Get in touch
+            </Link>
           </div>
         </div>
-      </div>
+      </section>
+
+      {related.length > 0 && (
+        <section aria-labelledby="related-heading" className="mt-10">
+          <h2 id="related-heading" className="mb-4 text-xl font-bold text-foreground">
+            Keep reading
+          </h2>
+          <ul className="space-y-3">
+            {related.map((item) => (
+              <li key={item.slug}>
+                <Link
+                  href={`/posts/${item.slug}`}
+                  className="group block rounded-2xl border border-white/10 bg-card/50 p-4 backdrop-blur-md transition-all hover:border-primary/40 hover:bg-card/75"
+                >
+                  <h3 className="font-semibold text-foreground group-hover:text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                    {item.meta_description?.trim() || plainExcerpt(item.content, 110)}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 };
 
 export default PostPage;
-
-// Generate metadata for SEO
-export async function generateMetadata({ params }: PostProps) {
-  const { slug } = await params;
-  const post = await getPublishedPostBySlug(slug);
-
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    };
-  }
-
-  return {
-    title: post.title,
-    description: post.meta_description || post.title,
-    alternates: {
-      canonical: `/posts/${slug}`,
-    },
-    openGraph: {
-      title: post.title,
-      description: post.meta_description || post.title,
-      images: post.featured_image_url ? [post.featured_image_url] : [],
-    },
-  };
-}

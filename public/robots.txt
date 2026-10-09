@@ -12,7 +12,9 @@
 # ------------------------------------------------------------------------------
 User-agent: *
 Allow: /
-Disallow: /adminpacha/  # Keep admin dashboard private
+Disallow: /adminpacha  # Keep admin dashboard private
+# Internal endpoints are not pages; crawling them wastes budget.
+Disallow: /api/
 
 # ------------------------------------------------------------------------------
 # SECTION 2: AI AGENTS & LLMs (Allowed for training, search, and assistant context)
@@ -22,39 +24,39 @@ Disallow: /adminpacha/  # Keep admin dashboard private
 
 User-agent: GPTBot
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: ChatGPT-User
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: CCBot
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: FacebookBot
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 User-agent: cohere-ai
 Allow: /
-Disallow: /adminpacha/
+Disallow: /adminpacha
 
 # ------------------------------------------------------------------------------
 # SECTION 3: CONTENT SIGNALS (AI Permissions)

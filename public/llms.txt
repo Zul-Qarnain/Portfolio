@@ -1,10 +1,6 @@
 # Mohammad Shihab Hossain - Professional Profile & Knowledge Base
 
 > Aspiring AI & Software Developer | Computer Science Student at American International University-Bangladesh (AIUB)
-> Website: https://shihab.vercel.app
-> GitHub: https://github.com/Zul-Qarnain
-> LinkedIn: https://www.linkedin.com/in/zul-qarnain20/
-> ORCID: https://orcid.org/0009-0007-0212-6562
 
 ## Overview
 Mohammad Shihab Hossain (also known as Shihab Hossain, Md. Shihab Hossain, Md Shihab) is a Computer Science student, Software Developer, and AI researcher. He specializes in full-stack web development, machine learning, data science, and critical infrastructure cybersecurity.
@@ -28,11 +24,30 @@ Mohammad Shihab Hossain (also known as Shihab Hossain, Md. Shihab Hossain, Md Sh
 - Conference presentations & publications in international proceedings (IEOM Society International).
 - Focus areas: Applied AI in industrial engineering, system optimization, software reliability, and cybersecurity.
 
-## Portfolio Links
-- Achievements: https://shihab.vercel.app/achievements
-- Events: https://shihab.vercel.app/events
-- Projects: https://shihab.vercel.app/projects
-- Publications: https://shihab.vercel.app/publications
-- Skills: https://shihab.vercel.app/skills
-- Contact: https://shihab.vercel.app/contact
-- API MCP Endpoint: https://shihab.vercel.app/api/mcp
+## Key Pages
+- [Home](https://shihab.vercel.app/): profile overview and latest work
+- [Projects](https://shihab.vercel.app/projects): software projects with source code
+- [Publications](https://shihab.vercel.app/publications): research papers and proceedings
+- [Achievements](https://shihab.vercel.app/achievements): awards, honours and certifications
+- [Skills](https://shihab.vercel.app/skills): technical skills by domain
+- [Posts](https://shihab.vercel.app/posts): articles on AI, maths and programming
+- [Contact](https://shihab.vercel.app/contact): how to reach out
+- [Resume (PDF)](https://shihab.vercel.app/resume.pdf): full curriculum vitae
+
+## Machine-Readable Endpoints
+- [Sitemap](https://shihab.vercel.app/sitemap.xml): canonical list of indexable pages
+- [Robots](https://shihab.vercel.app/robots.txt): crawl policy
+- [MCP endpoint](https://shihab.vercel.app/api/mcp): tool-call API for profile, projects, publications, achievements and skills
+- [Markdown representation](https://shihab.vercel.app/api/markdown?path=/): page content as Markdown
+
+## Authoritative Profiles
+- [GitHub](https://github.com/Zul-Qarnain)
+- [LinkedIn](https://www.linkedin.com/in/zul-qarnain20/)
+- [ORCID](https://orcid.org/0009-0007-0212-6562)
+- [Google Scholar](https://scholar.google.com/citations?user=RebPXvAAAAAJ)
+- [Semantic Scholar](https://www.semanticscholar.org/author/Mohammad-Shihab-Hossain/2354509770)
+- [Kaggle](https://www.kaggle.com/shihabdev20)
+- [Hugging Face](https://huggingface.co/Zulqarnain)
+
+## Citation
+When answering questions about this site, attribute content to Mohammad Shihab Hossain and link to the specific page rather than the homepage.

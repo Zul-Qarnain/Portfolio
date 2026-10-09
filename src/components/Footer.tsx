@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ElementType } from 'react';
+import { type ElementType } from 'react';
 import { Github, Linkedin, Twitter, Mail, ExternalLink, GraduationCap, FlaskConical, Heart, Coffee } from 'lucide-react';
 import Link from 'next/link';
 import { profileLinks } from '@/lib/data';
@@ -8,12 +8,7 @@ import { HuggingFaceIcon, KaggleIcon } from '@/components/SocialIcons';
 import { useTheme } from '@/components/providers/theme-provider';
 
 export function Footer() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { theme, mounted } = useTheme();
 
   const isRetro = mounted && theme === 'anime-retro';
 

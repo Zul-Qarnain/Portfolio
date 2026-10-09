@@ -363,7 +363,7 @@ export function AchievementsSection({
                 className={cn(
                   'rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all sm:text-sm shadow-sm',
                   isSelected
-                    ? 'border-primary bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
+                    ? 'border-primary bg-primary-solid text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
                     : 'border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground hover:bg-muted/50'
                 )}
               >
@@ -421,7 +421,7 @@ export function AchievementsSection({
                   className={cn(
                     'rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all sm:text-sm cursor-pointer',
                     selected
-                      ? 'border-primary bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
+                      ? 'border-primary bg-primary-solid text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
                       : 'border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground hover:bg-muted'
                   )}
                 >

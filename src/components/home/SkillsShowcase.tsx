@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Code2, Brain, LineChart, Layers, Database, Wrench } from 'lucide-react';
 import { skillCategoryOrder, skillsData, type Skill } from '@/lib/data';
@@ -37,13 +36,7 @@ function SkillChip({ skill, isRetro }: { skill: Skill; isRetro: boolean }) {
 }
 
 export function SkillsShowcase() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const { theme, mounted } = useTheme();
   const isRetro = mounted && theme === 'anime-retro';
 
   const grouped = skillCategoryOrder.map((category) => ({
@@ -55,7 +48,7 @@ export function SkillsShowcase() {
   return (
     <section id="skills" className="section-container scroll-mt-20">
       <div className="mb-10 max-w-2xl">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-primary/80">
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-primary">
           Stack
         </p>
         <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">

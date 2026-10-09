@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ElementType } from 'react';
+import { type ElementType } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -37,13 +37,7 @@ const statIcons: Record<string, ElementType> = {
 };
 
 export function HeroSection() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const { theme, mounted } = useTheme();
   const isRetro = mounted && theme === 'anime-retro';
 
   return (
@@ -71,7 +65,7 @@ export function HeroSection() {
                 Mohammad Shihab Hossain
               </span>
             </h1>
-            <p className="text-base font-semibold text-primary/90 md:text-lg">
+            <p className="text-base font-semibold text-primary md:text-lg">
               Problem Solver | Full Stack Developer | Tech Enthusiast
             </p>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base lg:mx-0">
@@ -89,10 +83,12 @@ export function HeroSection() {
                   : 'bg-gradient-to-r from-violet-600 to-indigo-600 shadow-violet-500/25 hover:shadow-violet-500/40'
               }`}
             >
-              <Link href={resumeUrl} target="_blank" rel="noopener noreferrer">
+              {/* Plain anchor: <Link> treats /resume.pdf as an app route and
+                  prefetches a non-existent RSC payload for it. */}
+              <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
                 <Download className="h-4 w-4" />
                 {isRetro ? '> View My Work <' : 'View My CV'}
-              </Link>
+              </a>
             </Button>
             <Button asChild variant="outline" className="rounded-xl border-white/20 bg-card/60 backdrop-blur-md hover:bg-card/90 hover:border-primary/40 shadow-sm">
               <Link href="/contact">
@@ -146,6 +142,7 @@ export function HeroSection() {
                 itemProp="image"
                 className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 priority
+                fetchPriority="high"
                 sizes="(max-width: 768px) 224px, (max-width: 1280px) 256px, 288px"
               />
             </div>

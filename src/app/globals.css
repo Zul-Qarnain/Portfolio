@@ -20,6 +20,7 @@ html {
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
     --primary: 262 83% 58%;
+    --primary-solid: 262 83% 58%;
     --primary-foreground: 0 0% 100%;
     --secondary: 262 30% 96%;
     --secondary-foreground: 262 47% 28%;
@@ -59,7 +60,11 @@ html {
     --card-foreground: 210 20% 98%;
     --popover: 222 20% 10%;
     --popover-foreground: 210 20% 98%;
-    --primary: 262 83% 64%;
+    /* Violet cannot clear 4.5:1 as text-on-dark and as a white-text surface at
+       the same time, so the two roles are split: --primary is the text/accent
+       role, --primary-solid is the filled surface behind --primary-foreground. */
+    --primary: 262 83% 72%;
+    --primary-solid: 262 83% 54%;
     --primary-foreground: 0 0% 100%;
     --secondary: 222 16% 14%;
     --secondary-foreground: 210 20% 98%;
@@ -98,6 +103,7 @@ html {
     --popover: 268 60% 8%;
     --popover-foreground: 280 100% 98%;
     --primary: 272 90% 65%; /* #a855f7 Vivid Neon Purple */
+    --primary-solid: 272 90% 45%;
     --primary-foreground: 0 0% 100%;
     --secondary: 285 90% 75%; /* #c084fc Electric Lilac/Magenta */
     --secondary-foreground: 265 70% 4%;

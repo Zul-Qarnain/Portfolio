@@ -11,6 +11,7 @@ import { SiteBackground } from '@/components/SiteBackground';
 import { SiteChrome } from '@/components/SiteChrome';
 import { VisitTracker } from '@/components/VisitTracker';
 import { WebMCPProvider } from '@/components/WebMCPProvider';
+import { siteUrl } from '@/lib/seo';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", display: "swap" });
@@ -18,8 +19,10 @@ const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], variable: "--font-so
 const pressStart2P = Press_Start_2P({ weight: "400", subsets: ["latin"], variable: "--font-press-start-2p", display: "swap" });
 const vt323 = VT323({ weight: "400", subsets: ["latin"], variable: "--font-vt323", display: "swap" });
 
+const SITE = siteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shihab.vercel.app'),
+  metadataBase: new URL(SITE),
   title: {
     default: 'Mohammad Shihab Hossain',
     template: '%s | Mohammad Shihab Hossain',
@@ -41,7 +44,7 @@ export const metadata: Metadata = {
     'Machine Learning',
     'Data Science',
   ],
-  authors: [{ name: 'Mohammad Shihab Hossain', url: 'https://shihab.vercel.app' }],
+  authors: [{ name: 'Mohammad Shihab Hossain', url: SITE }],
   creator: 'Mohammad Shihab Hossain',
   publisher: 'Mohammad Shihab Hossain',
   robots: {
@@ -55,9 +58,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: '/',
-  },
+  // No canonical here: App Router merges layout metadata into every route that
+  // does not declare its own, so a canonical of "/" here made sub-pages (and
+  // redirects such as /anime-demo) claim the homepage as their canonical URL.
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -72,17 +75,17 @@ export const metadata: Metadata = {
     description: 'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer. Discover his latest projects, research publications, and expertise in machine learning, full-stack web development, and problem solving.',
     type: 'website',
     locale: 'en_US',
-    url: 'https://shihab.vercel.app',
+    url: SITE,
     siteName: 'Mohammad Shihab Hossain',
     images: [
       {
-        url: 'https://shihab.vercel.app/mypic-square.jpeg',
+        url: `${SITE}/mypic-square.jpeg`,
         width: 1023,
         height: 1023,
         alt: 'Mohammad Shihab Hossain',
       },
       {
-        url: 'https://shihab.vercel.app/mypic.jpeg',
+        url: `${SITE}/mypic.jpeg`,
         width: 1023,
         height: 1537,
         alt: 'Mohammad Shihab Hossain (Portrait)',
@@ -93,7 +96,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Mohammad Shihab Hossain - AI & Software Developer',
     description: 'Explore the professional portfolio of Mohammad Shihab Hossain. Projects, research publications, achievements, and technical expertise.',
-    images: ['https://shihab.vercel.app/mypic-square.jpeg'],
+    images: [`${SITE}/mypic-square.jpeg`],
   },
 };
 
@@ -110,9 +113,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* Direct Google Search Thumbnail Link Signals */}
-        <meta name="thumbnail" content="https://shihab.vercel.app/mypic-square.jpeg" />
-        <link rel="image_src" href="https://shihab.vercel.app/mypic-square.jpeg" />
-        <link rel="thumbnail" href="https://shihab.vercel.app/mypic-square.jpeg" />
+        <meta name="thumbnail" content={`${SITE}/mypic-square.jpeg`} />
+        <link rel="image_src" href={`${SITE}/mypic-square.jpeg`} />
 
         {/* Script to prevent flash of incorrect theme */}
         <script dangerouslySetInnerHTML={{
@@ -156,95 +158,6 @@ export default function RootLayout({
             <ScrollToTop />
           </SiteChrome>
         </ThemeProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "ProfilePage",
-                  "@id": "https://shihab.vercel.app/#profilepage",
-                  "url": "https://shihab.vercel.app/",
-                  "name": "Mohammad Shihab Hossain - Personal Portfolio",
-                  "primaryImageOfPage": {
-                    "@type": "ImageObject",
-                    "@id": "https://shihab.vercel.app/#primaryimage",
-                    "url": "https://shihab.vercel.app/mypic-square.jpeg",
-                    "contentUrl": "https://shihab.vercel.app/mypic-square.jpeg",
-                    "caption": "Mohammad Shihab Hossain",
-                    "width": 1023,
-                    "height": 1023
-                  },
-                  "mainEntity": {
-                    "@type": "Person",
-                    "@id": "https://shihab.vercel.app/#person",
-                    "name": "Mohammad Shihab Hossain",
-                    "alternateName": [
-                      "shihab hossain",
-                      "Md. Shihab Hossain",
-                      "Shihab hossain",
-                      "Shihab Hossain",
-                      "Mohammad Shihab",
-                      "Md. Shihab",
-                      "Md Shihab Hossain",
-                      "Md Shihab",
-                      "Shihab",
-                      "shihab.dev"
-                    ],
-                    "url": "https://shihab.vercel.app",
-                    "image": {
-                      "@type": "ImageObject",
-                      "@id": "https://shihab.vercel.app/#primaryimage",
-                      "url": "https://shihab.vercel.app/mypic-square.jpeg",
-                      "contentUrl": "https://shihab.vercel.app/mypic-square.jpeg",
-                      "caption": "Mohammad Shihab Hossain",
-                      "width": 1023,
-                      "height": 1023
-                    },
-                    "jobTitle": "Computer Science Student & Software Developer",
-                    "worksFor": {
-                      "@type": "Organization",
-                      "name": "American International University-Bangladesh"
-                    },
-                    "alumniOf": "American International University-Bangladesh",
-                    "sameAs": [
-                      "https://github.com/Zul-Qarnain",
-                      "https://www.linkedin.com/in/zul-qarnain20/",
-                      "https://orcid.org/0009-0007-0212-6562",
-                      "https://www.researchgate.net/profile/Mohammad-Hossian-2",
-                      "https://aiub.academia.edu/MohammadShihabHossian",
-                      "https://scholar.google.com/citations?user=RebPXvAAAAAJ",
-                      "https://www.semanticscholar.org/author/Mohammad-Shihab-Hossain/2354509770",
-                      "https://stackoverflow.com/users/14467410/mohammod-shihab-hossain",
-                      "https://sciprofiles.com/profile/mdshihab",
-                      "https://loop.frontiersin.org/people/3299583/overview",
-                      "https://dev.to/zulqarnain_15",
-                      "https://medium.com/@mdshihab.dev",
-                      "https://www.kaggle.com/shihabdev20",
-                      "https://huggingface.co/Zulqarnain",
-                      "https://www.credly.com/users/shihab",
-                      "https://gitlab.com/Zul-Qarnain02",
-                      "https://gravatar.com/zulqarnain20",
-                      "https://linktr.ee/shihab.dev",
-                      "https://about.me/mdshihab.dev",
-                      "https://index.ieomsociety.org/index.cfm/author/view/ID/3B8DAFF4-CD92-2CE9-624E9D4FBE3B654C"
-                    ]
-                  }
-                },
-                {
-                  "@type": "WebSite",
-                  "@id": "https://shihab.vercel.app/#website",
-                  "url": "https://shihab.vercel.app",
-                  "name": "Mohammad Shihab Hossain",
-                  "publisher": {
-                    "@id": "https://shihab.vercel.app/#person"
-                  }
-                }
-              ]
-            })
-          }}
-        />
       </body>
     </html>
   );

@@ -10,57 +10,77 @@ import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { AchievementsSection } from '@/components/home/AchievementsSection';
 import ContactFormLoader from '@/components/contact/ContactFormLoader';
 import { publicationsData, eventsData } from '@/lib/data';
+import { getPublishedPosts } from '@/lib/posts';
+import { plainExcerpt } from '@/lib/article';
+import { jsonLd, profilePageSchema } from '@/lib/schema';
+import { Newspaper } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Mohammad Shihab Hossain',
   description:
     'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer.',
+  alternates: {
+    canonical: '/',
+  },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Rendered on the server so the links exist in the initial HTML that
+  // Googlebot reads, without shipping client JS for the section.
+  const posts = await getPublishedPosts().catch(() => []);
+
   return (
     <div className="min-h-screen text-foreground">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Person',
-            name: 'Mohammad Shihab Hossain',
-            url: 'https://shihab.vercel.app',
-            image: 'https://shihab.vercel.app/mypic-square.jpeg',
-            sameAs: [
-              'https://github.com/Zul-Qarnain',
-              'https://www.linkedin.com/in/zul-qarnain20/',
-              'https://www.kaggle.com/shihabdev20',
-              'https://huggingface.co/Zulqarnain',
-            ],
-            jobTitle: 'Computer Science Student & Software Developer',
-            worksFor: {
-              '@type': 'Organization',
-              name: 'American International University-Bangladesh',
-            },
-            description: 'Problem Solver, Full Stack Developer, and Tech Enthusiast.',
-            alternateName: [
-              'shihab hossain',
-              'Md. Shihab Hossain',
-              'Shihab hossain',
-              'Shihab Hossain',
-              'Mohammad Shihab',
-              'Md. Shihab',
-              'Md Shihab Hossain',
-              'Md Shihab',
-              'Shihab',
-              'shihab.dev',
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(profilePageSchema()) }}
       />
 
       <HeroSection />
       <InfoCards />
       <SkillsShowcase />
       <FeaturedProjects />
+
+      {posts.length > 0 && (
+        <section id="writing" className="section-container">
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
+              Latest Writing
+            </h2>
+            <Link
+              href="/posts"
+              className="group inline-flex items-center gap-1.5 text-sm font-bold text-primary transition-colors hover:underline"
+            >
+              All posts
+              <ChevronRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {posts.slice(0, 4).map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/posts/${post.slug}`}
+                  className="group flex h-full flex-col rounded-2xl border border-white/10 bg-card/50 p-5 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card/75"
+                >
+                  <span className="mb-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                    <Newspaper className="h-3.5 w-3.5" aria-hidden="true" />
+                    {post.tags?.[0] || 'Article'}
+                  </span>
+                  <h3 className="font-bold leading-snug text-foreground group-hover:text-primary">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                    {post.meta_description?.trim() || plainExcerpt(post.content, 140)}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <AchievementsSection events={eventsData} variant="preview" />
 

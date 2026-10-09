@@ -17,12 +17,7 @@ import { useTheme } from '@/components/providers/theme-provider';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { theme, mounted } = useTheme();
 
   const isRetro = mounted && theme === 'anime-retro';
 

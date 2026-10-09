@@ -1,15 +1,9 @@
 "use client";
 
 import { useTheme } from "@/components/providers/theme-provider";
-import { useEffect, useState } from "react";
 
 export function SiteBackground() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { theme, mounted } = useTheme();
 
   const isRetro = mounted && theme === "anime-retro";
 

@@ -5,52 +5,62 @@ interface BlogContentProps {
   content: string;
 }
 
+const HLJS_VERSION = '11.9.0';
+
 export default function BlogContent({ content }: BlogContentProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const loadHighlightJs = async () => {
-      // Load Atom One Dark CSS theme if it's not already injected
+    // Highlight.js is roughly 120 KiB from cdnjs. Articles without code samples
+    // should not pay for it.
+    if (!/<pre[\s>]/i.test(content)) return;
+
+    let cancelled = false;
+
+    const highlight = async () => {
       if (!document.getElementById('hljs-theme')) {
         const link = document.createElement('link');
         link.id = 'hljs-theme';
         link.rel = 'stylesheet';
-        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css';
+        link.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${HLJS_VERSION}/styles/atom-one-dark.min.css`;
         document.head.appendChild(link);
       }
 
-      // Load Highlight.js core script if not available globally
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (!(window as any).hljs) {
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
-        script.async = true;
-        document.body.appendChild(script);
-
-        await new Promise((resolve) => {
-          script.onload = resolve;
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${HLJS_VERSION}/highlight.min.js`;
+          script.async = true;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error('highlight.js failed to load'));
+          document.body.appendChild(script);
         });
       }
 
-      // Execute highlighting on all pre code blocks
+      if (cancelled) return;
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (contentRef.current && (window as any).hljs) {
-        const codeBlocks = contentRef.current.querySelectorAll('pre code');
-        codeBlocks.forEach((block) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (window as any).hljs.highlightElement(block as HTMLElement);
-        });
-      }
+      const hljs = (window as any).hljs;
+      if (!hljs || !contentRef.current) return;
+
+      contentRef.current
+        .querySelectorAll('pre code')
+        .forEach((block) => hljs.highlightElement(block as HTMLElement));
     };
 
-    loadHighlightJs();
+    highlight().catch((error) => console.warn('Syntax highlighting skipped:', error));
+
+    return () => {
+      cancelled = true;
+    };
   }, [content]);
 
   return (
-    <div 
+    <div
       ref={contentRef}
-      className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 leading-relaxed text-lg"
-      dangerouslySetInnerHTML={{ __html: content }} 
+      className="prose prose-lg dark:prose-invert max-w-none leading-relaxed"
+      dangerouslySetInnerHTML={{ __html: content }}
     />
   );
 }

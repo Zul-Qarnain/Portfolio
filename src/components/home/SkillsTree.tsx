@@ -56,7 +56,7 @@ export function SkillsTree() {
         className={cn(
           "z-10 flex items-center gap-2 px-8 py-4 rounded-full text-xl font-bold transition-all duration-300 border-2",
           isRootExpanded 
-            ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_rgba(var(--primary),0.5)]" 
+            ? "bg-primary-solid text-primary-foreground border-primary shadow-[0_0_20px_rgba(var(--primary),0.5)]" 
             : "bg-card text-card-foreground border-primary/50 hover:border-primary hover:shadow-lg"
         )}
       >

@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { GraduationCap, MapPin, Briefcase, Mail } from 'lucide-react';
 import { contactEmail, educationData, experienceData, locationData, workExperienceData, researchExperienceData } from '@/lib/data';
 import { useTheme } from '@/components/providers/theme-provider';
@@ -30,17 +29,14 @@ const cards = [
 ];
 
 export function InfoCards() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const { theme, mounted } = useTheme();
   const isRetro = mounted && theme === 'anime-retro';
 
   return (
     <section id="about" className="section-container !py-8 md:!py-10">
+      {/* Landmark heading: without it the card <h3>s follow the page <h1>
+          directly, which is a skip-level heading-order violation. */}
+      <h2 className="sr-only">About Mohammad Shihab Hossain</h2>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => {
           const Icon = card.icon;
@@ -130,7 +126,7 @@ export function InfoCards() {
             <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
               isRetro
                 ? 'border-purple-400/50 bg-purple-500/20 text-purple-300'
-                : 'bg-violet-500/10 text-violet-500 border-violet-500/20'
+                : 'bg-violet-500/10 text-violet-400 border-violet-500/20'
             }`}>
               <GraduationCap className="h-5 w-5" />
             </div>
@@ -143,14 +139,14 @@ export function InfoCards() {
             <div key={res.id} className="space-y-2">
               <div className="flex flex-wrap items-baseline justify-between gap-1">
                 <h4 className="text-sm font-bold text-foreground">{res.role}</h4>
-                <span className="rounded-full bg-violet-500/10 px-2.5 py-0.5 text-xs font-semibold text-violet-500">
+                <span className="rounded-full bg-violet-500/10 px-2.5 py-0.5 text-xs font-semibold text-violet-400">
                   {res.period}
                 </span>
               </div>
               <p className="text-xs font-medium text-muted-foreground">{res.domain}</p>
               <ul className="mt-2.5 space-y-1.5 text-xs leading-relaxed text-muted-foreground list-disc list-inside">
                 {res.bullets.map((bullet, idx) => (
-                  <li key={idx} className="marker:text-violet-500">{bullet}</li>
+                  <li key={idx} className="marker:text-violet-400">{bullet}</li>
                 ))}
               </ul>
             </div>

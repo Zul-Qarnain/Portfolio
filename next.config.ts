@@ -65,9 +65,25 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/(.*).(ico|png|jpg|jpeg|svg|webp|avif|pdf|txt)',
+        // Unhashed filenames can be replaced, so long TTL without immutable.
+        source: '/:all*(ico|png|jpg|jpeg|svg|webp|avif|pdf|gif)',
         headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+          },
+        ],
+      },
+      {
+        // Crawler-facing files must not be pinned for a year: robots.txt and
+        // llms.txt need to take effect promptly after they change. Scoped to
+        // these two paths so it cannot fight the sitemap route's own ISR header.
+        source: '/:file(robots|llms).txt',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
+          },
         ],
       },
     ];
