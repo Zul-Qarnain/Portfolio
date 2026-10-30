@@ -1,17 +1,16 @@
 import type { Metadata } from 'next';
 import PostsSearchClient from '@/components/posts/PostsSearchClient';
 import { getPublishedPosts } from '@/lib/posts';
+import { staticPageMetadata } from '@/lib/seo';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = staticPageMetadata({
   title: 'Posts',
   description:
     'Articles on Machine Learning, Advanced Math, and Programming by Mohammad Shihab Hossain.',
-  alternates: {
-    canonical: '/posts',
-  },
-};
+  path: '/posts',
+});
 
 export default async function PostsPage() {
   const posts = await getPublishedPosts();

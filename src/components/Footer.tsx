@@ -16,8 +16,32 @@ export function Footer() {
     Github, Linkedin, Twitter, Mail, GraduationCap, FlaskConical, Kaggle: KaggleIcon, HuggingFace: HuggingFaceIcon
   };
 
+  // Sitewide crawl path to every indexable page. The header nav points
+  // Skills/Projects/Publications at homepage anchors, so without this the
+  // standalone pages are reachable only from the homepage body + sitemap.
+  const exploreLinks = [
+    { href: '/projects', label: 'Projects' },
+    { href: '/skills', label: 'Skills' },
+    { href: '/publications', label: 'Publications' },
+    { href: '/achievements', label: 'Achievements' },
+    { href: '/posts', label: 'Posts' },
+    { href: '/contact', label: 'Contact' },
+  ];
+
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-background/60 backdrop-blur-xl py-8 mt-auto">
+      <div className="container mx-auto px-6 flex flex-col items-center gap-5 relative z-10">
+        <nav aria-label="Explore" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {exploreLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm text-muted-foreground transition-colors hover:text-primary hover:underline"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
         <div>
           <p className={`text-sm text-muted-foreground ${isRetro ? 'font-mono text-purple-300' : ''}`}>
@@ -55,6 +79,7 @@ export function Footer() {
             );
           })}
         </div>
+      </div>
       </div>
 
       {/* RETRO TORII SILHOUETTE OVERLAY (MATCHING ANIME.PNG) */}

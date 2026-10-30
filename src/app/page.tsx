@@ -16,7 +16,9 @@ import { jsonLd, profilePageSchema } from '@/lib/schema';
 import { Newspaper } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Mohammad Shihab Hossain',
+  title: {
+    absolute: 'Mohammad Shihab Hossain | AI & Software Developer',
+  },
   description:
     'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer.',
   alternates: {

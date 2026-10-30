@@ -23,8 +23,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // /events is intentionally absent: it renders a filtered view of
-  // /achievements and self-canonicalises to /achievements?category=event, so
-  // listing it would submit a duplicate URL.
+  // /achievements and carries a noindex (see src/app/events/page.tsx), so
+  // listing it would submit a URL we ask Google not to index.
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,

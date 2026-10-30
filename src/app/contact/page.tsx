@@ -3,14 +3,13 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { Mail } from 'lucide-react';
 import ContactFormLoader from '@/components/contact/ContactFormLoader'; // Import the new client component
+import { staticPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = staticPageMetadata({
   title: 'Contact Me',
   description: 'Get in touch with me. Send a message through the contact form for inquiries, collaborations, or just to say hi.',
-  alternates: {
-    canonical: '/contact',
-  },
-};
+  path: '/contact',
+});
 
 export default function ContactPage() {
   return (

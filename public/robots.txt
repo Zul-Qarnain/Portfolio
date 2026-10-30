@@ -65,7 +65,8 @@ Disallow: /adminpacha
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 # ------------------------------------------------------------------------------
-# SITEMAP & HOST
+# SITEMAP
 # ------------------------------------------------------------------------------
-Host: https://shihab.vercel.app
+# (No Host: directive — Google never supported it and Bing dropped it;
+# the canonical host is declared via <loc>/canonicals and the sitemap.)
 Sitemap: https://shihab.vercel.app/sitemap.xml

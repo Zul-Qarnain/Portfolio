@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 const FALLBACK_SITE_URL = 'https://shihab.vercel.app';
 
 /**
@@ -12,4 +14,46 @@ export function siteUrl(): string {
 export function absoluteUrl(path = '/'): string {
   if (path.startsWith('http')) return path;
   return `${siteUrl()}${path.replace(/\/+$/, '') || ''}`;
+}
+
+/**
+ * Metadata for a static page. A page-level `openGraph` block replaces the
+ * root layout's outright, so every field is restated here with this page's
+ * own URL — otherwise sub-pages inherit the homepage's og:url/og:title,
+ * which confuses link unfurlers and AI systems reading the page.
+ */
+export function staticPageMetadata({
+  title,
+  description,
+  path,
+}: {
+  title: string;
+  description: string;
+  path: string;
+}): Metadata {
+  const url = absoluteUrl(path);
+  const base = siteUrl();
+  const fullTitle = `${title} | Mohammad Shihab Hossain`;
+  const image = `${base}/mypic-square.jpeg`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      title: fullTitle,
+      description,
+      url,
+      siteName: 'Mohammad Shihab Hossain',
+      locale: 'en_US',
+      images: [{ url: image, width: 1023, height: 1023, alt: 'Mohammad Shihab Hossain' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description,
+      images: [image],
+    },
+  };
 }

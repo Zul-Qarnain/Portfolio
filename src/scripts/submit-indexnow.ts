@@ -36,12 +36,14 @@ async function getPostUrls(): Promise<string[]> {
 async function main() {
     console.log('🚀 Starting IndexNow submission...');
 
+    // Mirrors src/app/sitemap.ts static entries (excludes /events: noindex).
     const staticRoutes = [
         `https://${HOST}/`,
         `https://${HOST}/posts`,
-        `https://${HOST}/publications`,
         `https://${HOST}/projects`,
-        `https://${HOST}/events`,
+        `https://${HOST}/skills`,
+        `https://${HOST}/publications`,
+        `https://${HOST}/achievements`,
         `https://${HOST}/contact`,
     ];
 

@@ -1,14 +1,13 @@
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { projectsData } from '@/lib/data';
 import type { Metadata } from 'next';
+import { staticPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = staticPageMetadata({
   title: 'Projects',
   description: 'Discover a selection of my projects, showcasing my skills in software development and problem-solving.',
-  alternates: {
-    canonical: '/projects',
-  },
-};
+  path: '/projects',
+});
 
 export default function ProjectsPage() {
   return (

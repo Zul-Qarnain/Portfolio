@@ -112,3 +112,7 @@ supabase/backup/
 
 # Personal working files: screenshots, design mocks, Lighthouse exports
 data/
+
+# Google OAuth client secrets — never commit
+client_secret_*.json
+client_secret_649724170457-sdv1p1t6r8r37eiirkohldreubdef3a3.apps.googleusercontent.com.json

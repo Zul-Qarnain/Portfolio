@@ -1,14 +1,13 @@
 import { PublicationItem } from '@/components/publications/PublicationItem';
 import { publicationsData } from '@/lib/data';
 import type { Metadata } from 'next';
+import { staticPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = staticPageMetadata({
   title: 'Publications',
   description: 'Explore a curated list of my published research and conference papers.',
-  alternates: {
-    canonical: '/publications',
-  },
-};
+  path: '/publications',
+});
 
 export default function PublicationsPage() {
   return (
