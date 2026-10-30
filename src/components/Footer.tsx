@@ -66,9 +66,9 @@ export function Footer() {
             return (
               <Link 
                 key={link.name} 
-                href={link.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
+                href={link.url}
+                target="_blank"
+                rel="me noopener noreferrer"
                 className={`flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-card/40 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-card/70 transition-all ${
                   isRetro ? 'hover:border-purple-400 hover:text-purple-300 hover:shadow-[0_0_12px_rgba(168,85,247,0.5)]' : ''
                 }`}

@@ -17,7 +17,17 @@ const SITE_ID = '/#website';
 
 const profile = {
   name: 'Mohammad Shihab Hossain',
+  description:
+    'Mohammad Shihab Hossain (Shihab Hossain) is a Computer Science undergraduate at American International University-Bangladesh and an aspiring AI and software developer working across machine learning, full-stack web development, and cybersecurity.',
   jobTitle: 'Computer Science Student & Software Developer',
+  knowsAbout: [
+    'Artificial Intelligence',
+    'Machine Learning',
+    'Full-Stack Web Development',
+    'Cybersecurity',
+    'Data Science',
+    'Software Engineering',
+  ],
   alumniOf: 'American International University-Bangladesh',
   worksFor: {
     '@type': 'Organization',

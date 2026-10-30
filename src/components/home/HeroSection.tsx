@@ -69,7 +69,8 @@ export function HeroSection() {
               Problem Solver | Full Stack Developer | Tech Enthusiast
             </p>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base lg:mx-0">
-              I build scalable web applications and AI-powered tools with a focus on clean
+              I&apos;m Shihab Hossain, a Computer Science undergraduate at AIUB. I build
+              scalable web applications and AI-powered tools with a focus on clean
               architecture, accessibility, and real-world impact.
             </p>
           </div>
@@ -106,7 +107,7 @@ export function HeroSection() {
                   key={link.name}
                   href={link.url}
                   target={link.url.startsWith('mailto:') ? undefined : '_blank'}
-                  rel="noopener noreferrer"
+                  rel={link.url.startsWith('mailto:') ? 'noopener noreferrer' : 'me noopener noreferrer'}
                   aria-label={link.ariaLabel}
                   className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-card/60 text-foreground shadow-md backdrop-blur-md transition-all hover:-translate-y-1 hover:border-primary/50 hover:bg-card/90 hover:text-primary hover:shadow-lg hover:shadow-primary/20"
                 >
