@@ -42,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/publications`, lastModified: BUILT_AT, changeFrequency: 'weekly' as const, priority: 0.8 },
     { url: `${baseUrl}/achievements`, lastModified: BUILT_AT, changeFrequency: 'weekly' as const, priority: 0.8 },
     { url: `${baseUrl}/contact`, lastModified: BUILT_AT, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/docs/api`, lastModified: BUILT_AT, changeFrequency: 'monthly' as const, priority: 0.5 },
   ];
 
   return [...staticPages, ...postUrls];

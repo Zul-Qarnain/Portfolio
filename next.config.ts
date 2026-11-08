@@ -75,6 +75,17 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // ARD requires the AI catalog to be fetchable cross-origin.
+        source: '/.well-known/ai-catalog.json',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
         // Crawler-facing files must not be pinned for a year: robots.txt and
         // llms.txt need to take effect promptly after they change. Scoped to
         // these two paths so it cannot fight the sitemap route's own ISR header.

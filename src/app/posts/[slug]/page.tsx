@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { after } from 'next/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarDays, Clock, Eye, ArrowLeft } from 'lucide-react';
@@ -70,7 +71,11 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
       publishedTime: post.published_at ?? undefined,
       modifiedTime: post.updated_at ?? undefined,
       tags: post.tags?.length ? post.tags : undefined,
-      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+      images: [
+        post.featured_image_url
+          ? { url: image, width: 1200, height: 630, alt: post.title }
+          : { url: image, width: 1023, height: 1023, alt: post.title },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -94,8 +99,11 @@ const PostPage = async ({ params }: PostProps) => {
     getPublishedPosts().catch(() => []),
   ]);
 
+  // Deferred with `after()` so the Supabase write never delays the article HTML.
   if (post.id) {
-    await incrementViewCount(post.id, post.views_count ?? 0);
+    const postId = post.id;
+    const currentViews = post.views_count ?? 0;
+    after(() => incrementViewCount(postId, currentViews));
   }
 
   const description = post.meta_description?.trim() || plainExcerpt(post.content);
@@ -299,7 +307,7 @@ const PostPage = async ({ params }: PostProps) => {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
           <Image
             src="/panjabi.jpeg"
-            alt=""
+            alt="Portrait of Mohammad Shihab Hossain"
             width={80}
             height={80}
             className="h-20 w-20 shrink-0 rounded-full object-cover"

@@ -39,6 +39,10 @@ Mohammad Shihab Hossain (also known as Shihab Hossain, Md. Shihab Hossain, Md Sh
 - [Robots](https://shihab.vercel.app/robots.txt): crawl policy
 - [MCP endpoint](https://shihab.vercel.app/api/mcp): tool-call API for profile, projects, publications, achievements and skills
 - [Markdown representation](https://shihab.vercel.app/api/markdown?path=/): page content as Markdown
+- [RSS feed](https://shihab.vercel.app/feed.xml): latest articles
+- [API documentation](https://shihab.vercel.app/docs/api): public API and agent endpoints
+- [Agent capability catalog](https://shihab.vercel.app/.well-known/ai-catalog.json): ARD manifest of site capabilities
+- [Agent auth notes](https://shihab.vercel.app/auth.md): authentication (public endpoints need none)
 
 ## Authoritative Profiles
 - [GitHub](https://github.com/Zul-Qarnain)

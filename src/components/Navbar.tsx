@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState, type MouseEvent } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -40,6 +40,15 @@ function scrollToHash(href: string) {
 export function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
 
   if (pathname?.startsWith('/adminpacha')) {
     return null;
@@ -101,6 +110,8 @@ export function Navbar() {
             className="xl:hidden border border-white/10 bg-card/40 backdrop-blur-md"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
@@ -108,7 +119,7 @@ export function Navbar() {
       </div>
 
       {isMenuOpen && (
-        <div className="border-t border-white/10 bg-background/90 backdrop-blur-2xl px-4 py-4 xl:hidden shadow-2xl animate-fade-in-up">
+        <div id="mobile-nav" className="border-t border-white/10 bg-background/90 backdrop-blur-2xl px-4 py-4 xl:hidden shadow-2xl animate-fade-in-up">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {navItems.map((item) => (
               <Link

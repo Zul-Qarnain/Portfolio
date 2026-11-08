@@ -1,0 +1,103 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "domain": "shihab.vercel.app",
+    "name": "Mohammad Shihab Hossain — Portfolio"
+  },
+  "entries": [
+    {
+      "id": "urn:air:shihab.vercel.app:profile:overview",
+      "displayName": "Profile overview",
+      "type": "text/html",
+      "url": "https://shihab.vercel.app/",
+      "description": "Professional profile, bio, skills snapshot, featured projects and latest writing of Mohammad Shihab Hossain.",
+      "representativeQueries": [
+        "Who is Mohammad Shihab Hossain?",
+        "Shihab Hossain bio and background",
+        "Shihab Hossain portfolio overview"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:projects:catalog",
+      "displayName": "Projects catalog",
+      "type": "text/html",
+      "url": "https://shihab.vercel.app/projects",
+      "description": "Software projects with tech stacks and source code links.",
+      "representativeQueries": [
+        "What projects has Shihab Hossain built?",
+        "Shihab Hossain GitHub projects",
+        "Show me his machine learning projects"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:publications:catalog",
+      "displayName": "Research publications",
+      "type": "text/html",
+      "url": "https://shihab.vercel.app/publications",
+      "description": "Research papers and conference proceedings by Mohammad Shihab Hossain.",
+      "representativeQueries": [
+        "What has Shihab Hossain published?",
+        "Shihab Hossain research papers",
+        "IEOM conference presentation Shihab Hossain"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:achievements:catalog",
+      "displayName": "Achievements and certifications",
+      "type": "text/html",
+      "url": "https://shihab.vercel.app/achievements",
+      "description": "Awards, honours, certifications and event highlights.",
+      "representativeQueries": [
+        "What awards has Shihab Hossain won?",
+        "Shihab Hossain certifications",
+        "Dean's Award Shihab Hossain AIUB"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:posts:rss",
+      "displayName": "Writing (RSS feed)",
+      "type": "application/rss+xml",
+      "url": "https://shihab.vercel.app/feed.xml",
+      "description": "Articles on AI, machine learning, mathematics and programming.",
+      "representativeQueries": [
+        "Shihab Hossain blog posts",
+        "Latest article by Shihab Hossain",
+        "AI vs Jobs article"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:mcp:server",
+      "displayName": "Portfolio MCP server",
+      "type": "application/json",
+      "url": "https://shihab.vercel.app/api/mcp",
+      "description": "JSON-RPC MCP endpoint exposing get-profile, get-projects, get-publications, get-achievements and get-skills tools. POST {\"method\": \"tools/call\", \"params\": {\"name\": \"<tool>\"}}.",
+      "representativeQueries": [
+        "Query the portfolio MCP server",
+        "Get Shihab Hossain skills via MCP",
+        "List MCP tools for this portfolio"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:api:openapi",
+      "displayName": "API description (OpenAPI)",
+      "type": "application/vnd.oai.openapi+json;version=3.0",
+      "url": "https://shihab.vercel.app/.well-known/openapi.json",
+      "description": "Machine-readable description of the site's public endpoints.",
+      "representativeQueries": [
+        "What APIs does this portfolio expose?",
+        "OpenAPI spec for shihab.vercel.app"
+      ]
+    },
+    {
+      "id": "urn:air:shihab.vercel.app:docs:api",
+      "displayName": "API documentation",
+      "type": "text/html",
+      "url": "https://shihab.vercel.app/docs/api",
+      "description": "Human-readable documentation for the public API and agent endpoints.",
+      "representativeQueries": [
+        "How do I use the portfolio API?",
+        "Portfolio API documentation"
+      ]
+    }
+  ]
+}

@@ -13,7 +13,7 @@ export function FeaturedProjects() {
   const isRetro = mounted && theme === 'anime-retro';
 
   return (
-    <section id="projects" className="section-container">
+    <section id="projects" className="section-container scroll-mt-20">
       <SectionHeader title="Featured Projects" href="/projects" linkLabel={isRetro ? 'View all →' : 'View All Projects'} />
       <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {projectsData.map((project) => (

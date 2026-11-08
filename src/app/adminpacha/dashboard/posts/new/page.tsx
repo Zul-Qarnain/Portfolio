@@ -134,11 +134,7 @@ export default function NewPostPage() {
       // Trigger sitemap regeneration
       if (status === 'published') {
         try {
-          await fetch('/api/sitemap/regenerate', { 
-            method: 'POST',
-            credentials: 'include'
-          });
-          await fetch('/api/seo/ping-google', { 
+          await fetch('/api/seo/ping-google', {
             method: 'POST',
             credentials: 'include'
           });
@@ -211,7 +207,7 @@ export default function NewPostPage() {
             disabled={saving}
           />
           <small className="input-hint">
-            📍 Your post will be available at: /blog/{post.slug || 'your-slug'}
+            📍 Your post will be available at: /posts/{post.slug || 'your-slug'}
           </small>
         </div>
 
@@ -235,7 +231,7 @@ export default function NewPostPage() {
           <label className="form-label">Content</label>
           <RichTextEditor
             content={post.content}
-            onChange={(content: string) => setPost({ ...post, content })}
+            onChange={(content: string) => setPost((prev) => ({ ...prev, content }))}
             placeholder="Start writing your amazing blog post..."
           />
         </div>

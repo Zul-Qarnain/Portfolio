@@ -137,11 +137,7 @@ export default function EditPostPage() {
       // Trigger sitemap regeneration if published
       if (status === 'published') {
         try {
-          await fetch('/api/sitemap/regenerate', { 
-            method: 'POST',
-            credentials: 'include'
-          });
-          await fetch('/api/seo/ping-google', { 
+          await fetch('/api/seo/ping-google', {
             method: 'POST',
             credentials: 'include'
           });
@@ -415,7 +411,7 @@ export default function EditPostPage() {
                 <label className="form-label">Content</label>
                 <RichTextEditor
                   content={post.content}
-                  onChange={(content: string) => setPost({ ...post, content })}
+                  onChange={(content: string) => setPost((prev) => (prev ? { ...prev, content } : prev))}
                   placeholder="Start writing your amazing blog post..."
                 />
               </div>

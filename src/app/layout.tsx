@@ -116,6 +116,11 @@ export default function RootLayout({
         <meta name="thumbnail" content={`${SITE}/mypic-square.jpeg`} />
         <link rel="image_src" href={`${SITE}/mypic-square.jpeg`} />
 
+        {/* Browser UI tint + feed discovery */}
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0c0e13" media="(prefers-color-scheme: dark)" />
+        <link rel="alternate" type="application/rss+xml" title="Mohammad Shihab Hossain — Writing" href={`${SITE}/feed.xml`} />
+
         {/* Script to prevent flash of incorrect theme */}
         <script dangerouslySetInnerHTML={{
           __html: `(function() {
@@ -125,6 +130,9 @@ export default function RootLayout({
         }} />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${sourceCodePro.variable} ${pressStart2P.variable} ${vt323.variable} font-body antialiased flex flex-col min-h-screen relative overflow-x-hidden`}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary-solid focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground">
+          Skip to content
+        </a>
         <SiteBackground />
 
         {/* Google Analytics (lazy loaded for maximum page performance) */}
@@ -147,7 +155,7 @@ export default function RootLayout({
           <SiteChrome>
             <Navbar />
           </SiteChrome>
-          <main className="flex-grow">
+          <main id="main-content" className="flex-grow">
             {children}
           </main>
           <SiteChrome>

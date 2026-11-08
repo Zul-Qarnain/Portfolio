@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     absolute: 'Mohammad Shihab Hossain | AI & Software Developer',
   },
   description:
-    'Explore the professional portfolio of Mohammad Shihab Hossain, an aspiring AI & Software Developer.',
+    'Portfolio of Mohammad Shihab Hossain — AI & software developer. Projects, research publications, achievements, skills, and articles on machine learning and full-stack development.',
   alternates: {
     canonical: '/',
   },
@@ -44,7 +44,7 @@ export default async function HomePage() {
       <FeaturedProjects />
 
       {posts.length > 0 && (
-        <section id="writing" className="section-container">
+        <section id="writing" className="section-container scroll-mt-20">
           <div className="mb-8 flex items-end justify-between gap-4">
             <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
               Latest Writing
@@ -86,7 +86,7 @@ export default async function HomePage() {
 
       <AchievementsSection events={eventsData} variant="preview" />
 
-      <section id="publications" className="section-container">
+      <section id="publications" className="section-container scroll-mt-20">
         <div className="mb-8 flex items-end justify-between gap-4">
           <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">Publications</h2>
           <Link href="/publications" className="group inline-flex items-center gap-1 text-sm font-bold text-primary hover:underline">
@@ -118,7 +118,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="contact" className="section-container mb-16">
+      <section id="contact" className="section-container scroll-mt-20 mb-16">
         <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-card/50 p-8 shadow-xl backdrop-blur-2xl md:p-12">
           <div className="mb-8 text-center">
             <h2 className="mb-2 text-3xl font-extrabold">Let&apos;s Connect</h2>

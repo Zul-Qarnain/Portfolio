@@ -375,7 +375,7 @@ section {
 }
 
 .glass-card {
-  @apply bg-card/60 backdrop-blur-xl border border-white/10 dark:border-white/10 shadow-lg transition-all duration-300;
+  @apply bg-card/60 backdrop-blur-xl border border-border dark:border-white/10 shadow-lg transition-all duration-300;
 }
 
 .glass-card:hover {

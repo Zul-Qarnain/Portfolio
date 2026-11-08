@@ -33,7 +33,7 @@ export function InfoCards() {
   const isRetro = mounted && theme === 'anime-retro';
 
   return (
-    <section id="about" className="section-container !py-8 md:!py-10">
+    <section id="about" className="section-container scroll-mt-20 !py-8 md:!py-10">
       {/* Landmark heading: without it the card <h3>s follow the page <h1>
           directly, which is a skip-level heading-order violation. */}
       <h2 className="sr-only">About Mohammad Shihab Hossain</h2>

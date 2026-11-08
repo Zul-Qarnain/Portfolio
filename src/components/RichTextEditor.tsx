@@ -5,7 +5,8 @@ import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Youtube from '@tiptap/extension-youtube';
 import TextAlign from '@tiptap/extension-text-align';
-import { useState } from 'react';
+import Placeholder from '@tiptap/extension-placeholder';
+import { useEffect, useRef, useState } from 'react';
 import { 
   Bold, 
   Italic, 
@@ -26,6 +27,8 @@ import {
   Trash2,
   Link2Off,
   Code,
+  Quote,
+  SquareCode,
   Sparkles
 } from 'lucide-react';
 
@@ -79,19 +82,29 @@ interface RichTextEditorProps {
   placeholder?: string;
 }
 
-export default function RichTextEditor({ 
-  content, 
-  onChange, 
+export default function RichTextEditor({
+  content,
+  onChange,
+  placeholder = 'Start writing your amazing blog post...',
 }: RichTextEditorProps) {
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');
+  // Tracks the last HTML this editor instance emitted, so the sync effect
+  // below can tell parent-driven changes (markdown import, post reload)
+  // apart from our own keystrokes and never fight the cursor.
+  const lastEmittedHtml = useRef<string>(content);
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit.configure({
         heading: {
           levels: [1, 2, 3],
         },
+      }),
+      Placeholder.configure({
+        placeholder,
+        emptyEditorClass: 'is-editor-empty',
       }),
       CustomImage.configure({
         HTMLAttributes: {
@@ -114,7 +127,9 @@ export default function RichTextEditor({
     ],
     content,
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      const html = editor.getHTML();
+      lastEmittedHtml.current = html;
+      onChange(html);
     },
     editorProps: {
       attributes: {
@@ -122,6 +137,16 @@ export default function RichTextEditor({
       },
     },
   });
+
+  // Picks up content that arrives or changes after mount (async post
+  // load, markdown import). Skips when the HTML already matches what the
+  // editor holds or what it last emitted, so typing never resets the cursor.
+  useEffect(() => {
+    if (!editor) return;
+    const next = content || '';
+    if (next === editor.getHTML() || next === lastEmittedHtml.current) return;
+    editor.commands.setContent(next);
+  }, [editor, content]);
 
   const addImage = (): void => {
     if (imageUrl && editor) {
@@ -189,6 +214,16 @@ export default function RichTextEditor({
     }
   };
 
+  // Close the image dialog with Escape.
+  useEffect(() => {
+    if (!isImageModalOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsImageModalOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isImageModalOpen]);
+
   if (!editor) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-[#0b0f19] border border-[#1e293b] rounded-xl text-[#475569]">
@@ -211,8 +246,8 @@ export default function RichTextEditor({
         </div>
       </div>
 
-      {/* Editor Minimalist Toolbar */}
-      <div className="editor-toolbar flex flex-wrap gap-1.5 p-2 border-b border-[#1e293b] bg-[#0b0f19] select-none">
+      {/* Editor Minimalist Toolbar (sticks while scrolling long posts) */}
+      <div className="editor-toolbar sticky top-0 z-10 flex flex-wrap gap-1.5 p-2 border-b border-[#1e293b] bg-[#0b0f19] select-none">
         
         {/* History Group */}
         <div className="toolbar-group flex items-center bg-[#0f172a] border border-[#1e293b] rounded-lg p-0.5 mr-0.5">
@@ -348,6 +383,26 @@ export default function RichTextEditor({
           </button>
         </div>
 
+        {/* Quote & Code Block Group */}
+        <div className="toolbar-group flex items-center bg-[#0f172a] border border-[#1e293b] rounded-lg p-0.5 mr-0.5">
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleBlockquote().run()}
+            className={`toolbar-btn ${editor.isActive('blockquote') ? 'active' : ''}`}
+            title="Quote"
+          >
+            <Quote className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+            className={`toolbar-btn ${editor.isActive('codeBlock') ? 'active' : ''}`}
+            title="Code Block"
+          >
+            <SquareCode className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
         {/* Embeds & Media Links Group */}
         <div className="toolbar-group flex items-center bg-[#0f172a] border border-[#1e293b] rounded-lg p-0.5">
           <button
@@ -480,11 +535,21 @@ export default function RichTextEditor({
 
       {/* Modern Popover Image Dialog */}
       {isImageModalOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#030712]/80 backdrop-blur-md animate-fade-in">
-          <div className="bg-[#0b0f19] border border-[#1e293b] p-6 rounded-xl shadow-2xl w-full max-w-md animate-scale-up relative">
-            <div className="absolute top-4 right-4 text-[#475569] hover:text-[#f8fafc] cursor-pointer" onClick={() => setIsImageModalOpen(false)}>
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#030712]/80 backdrop-blur-md animate-fade-in"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) setIsImageModalOpen(false);
+          }}
+        >
+          <div className="bg-[#0b0f19] border border-[#1e293b] p-6 rounded-xl shadow-2xl w-full max-w-md animate-scale-up relative" role="dialog" aria-modal="true" aria-label="Embed image URL">
+            <button
+              type="button"
+              onClick={() => setIsImageModalOpen(false)}
+              aria-label="Close image dialog"
+              className="absolute top-4 right-4 text-[#475569] hover:text-[#f8fafc] transition-colors"
+            >
               ✕
-            </div>
+            </button>
             
             <h3 className="text-base font-bold mb-1 text-[#f8fafc] flex items-center gap-2">
               <ImageIcon className="w-4 h-4 text-[#3b82f6]" /> Embed Image URL
@@ -496,6 +561,10 @@ export default function RichTextEditor({
               placeholder="https://example.com/image.jpg"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') addImage();
+              }}
+              autoFocus
               className="w-full p-3 bg-[#0f172a] border border-[#1e293b] rounded-lg text-[#e2e8f0] mb-4 focus:outline-none focus:border-[#3b82f6] text-xs font-mono"
             />
             
@@ -675,6 +744,14 @@ export default function RichTextEditor({
           height: 0;
           pointer-events: none;
           font-style: italic;
+        }
+
+        /* Responsive embedded video */
+        .rich-text-editor div[data-youtube-video] iframe {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 16 / 9;
+          border-radius: 8px;
         }
 
         /* Minimalist toolbar styling */

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-interface MCPTool {
+interface WebMCPToolDef {
   name: string;
   description: string;
   inputSchema: {
@@ -13,9 +13,12 @@ interface MCPTool {
 }
 
 declare global {
-  interface Navigator {
+  interface Document {
     modelContext?: {
-      provideContext: (tools: MCPTool[]) => void;
+      registerTool: (
+        tool: WebMCPToolDef,
+        options?: { signal?: AbortSignal },
+      ) => Promise<void>;
     };
   }
 }
@@ -29,42 +32,54 @@ async function callMcpApi(toolName: string) {
   return await res.json();
 }
 
+const TOOLS: WebMCPToolDef[] = [
+  {
+    name: 'get-profile',
+    description:
+      'Get professional profile, bio, and social links for Mohammad Shihab Hossain',
+    inputSchema: { type: 'object', properties: {} },
+    execute: () => callMcpApi('get-profile'),
+  },
+  {
+    name: 'get-projects',
+    description: "Get portfolio projects with tech stack and GitHub links",
+    inputSchema: { type: 'object', properties: {} },
+    execute: () => callMcpApi('get-projects'),
+  },
+  {
+    name: 'get-publications',
+    description: 'Get research publications and academic papers',
+    inputSchema: { type: 'object', properties: {} },
+    execute: () => callMcpApi('get-publications'),
+  },
+  {
+    name: 'get-achievements',
+    description: 'Get awards, honors, and technical certifications',
+    inputSchema: { type: 'object', properties: {} },
+    execute: () => callMcpApi('get-achievements'),
+  },
+  {
+    name: 'get-skills',
+    description: 'Get technical skills categorized by domain',
+    inputSchema: { type: 'object', properties: {} },
+    execute: () => callMcpApi('get-skills'),
+  },
+];
+
 export function WebMCPProvider() {
   useEffect(() => {
-    if (typeof window !== 'undefined' && navigator.modelContext) {
-      navigator.modelContext.provideContext([
-        {
-          name: 'get-profile',
-          description: 'Get professional profile, bio, and social links for Mohammad Shihab Hossain',
-          inputSchema: { type: 'object', properties: {} },
-          execute: () => callMcpApi('get-profile'),
-        },
-        {
-          name: 'get-projects',
-          description: 'Get portfolio projects with tech stack and GitHub links',
-          inputSchema: { type: 'object', properties: {} },
-          execute: () => callMcpApi('get-projects'),
-        },
-        {
-          name: 'get-publications',
-          description: 'Get research publications and academic papers',
-          inputSchema: { type: 'object', properties: {} },
-          execute: () => callMcpApi('get-publications'),
-        },
-        {
-          name: 'get-achievements',
-          description: 'Get awards, honors, and technical certifications',
-          inputSchema: { type: 'object', properties: {} },
-          execute: () => callMcpApi('get-achievements'),
-        },
-        {
-          name: 'get-skills',
-          description: 'Get technical skills categorized by domain',
-          inputSchema: { type: 'object', properties: {} },
-          execute: () => callMcpApi('get-skills'),
-        },
-      ]);
+    const modelContext = document.modelContext;
+    if (!modelContext) return;
+    const controller = new AbortController();
+    for (const tool of TOOLS) {
+      modelContext
+        .registerTool(tool, { signal: controller.signal })
+        .catch(() => {
+          // WebMCP is progressive enhancement: a missing or rejecting
+          // implementation must never break the page.
+        });
     }
+    return () => controller.abort();
   }, []);
 
   return null;

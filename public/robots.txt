@@ -12,7 +12,8 @@
 # ------------------------------------------------------------------------------
 User-agent: *
 Allow: /
-Disallow: /adminpacha  # Keep admin dashboard private
+# Keep the admin dashboard private.
+Disallow: /adminpacha
 # Internal endpoints are not pages; crawling them wastes budget.
 Disallow: /api/
 
@@ -23,6 +24,19 @@ Disallow: /api/
 # to provide accurate answers and citations about Mohammad Shihab Hossain.
 
 User-agent: GPTBot
+Allow: /
+Disallow: /adminpacha
+
+# Search crawlers (OAI-SearchBot, Claude-SearchBot, PerplexityBot) fetch the
+# pages AI assistants cite in answers, so they must be allowed for this
+# portfolio to appear in AI answers. Training crawlers (GPTBot, ClaudeBot,
+# Google-Extended) collect model training data; blocking them would not
+# affect AI search visibility, but they are allowed too.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /adminpacha
+
+User-agent: Claude-SearchBot
 Allow: /
 Disallow: /adminpacha
 
