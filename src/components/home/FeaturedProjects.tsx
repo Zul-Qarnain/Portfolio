@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink, Flame } from 'lucide-react';
 import { projectsData } from '@/lib/data';
+import { ProjectDetailsDialog } from '@/components/projects/ProjectDetailsDialog';
 import { SectionHeader } from '@/components/home/SectionHeader';
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/components/providers/theme-provider';
@@ -68,19 +69,22 @@ export function FeaturedProjects() {
                   </Badge>
                 ))}
               </div>
-              <Link
-                href={project.liveUrl || project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 text-sm font-bold transition-all ${
-                  isRetro
-                    ? 'font-mono text-purple-400 hover:text-purple-300 hover:underline drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]'
-                    : 'text-primary hover:underline'
-                }`}
-              >
-                {isRetro ? 'View Project →' : 'Live Demo'}
-                {!isRetro && <ExternalLink className="h-3.5 w-3.5" />}
-              </Link>
+              <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2">
+                <ProjectDetailsDialog project={project} />
+                <Link
+                  href={project.liveUrl || project.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1.5 text-sm font-bold transition-all ${
+                    isRetro
+                      ? 'font-mono text-purple-400 hover:text-purple-300 hover:underline drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]'
+                      : 'text-primary hover:underline'
+                  }`}
+                >
+                  {isRetro ? 'View Project →' : 'Live Demo'}
+                  {!isRetro && <ExternalLink className="h-3.5 w-3.5" />}
+                </Link>
+              </div>
             </div>
           </article>
         ))}
