@@ -298,6 +298,7 @@ export const projectsData: Project[] = [
     techStack: ['PyTorch', 'TabNet', 'React', 'TypeScript', 'TailwindCSS'],
     githubLink: 'https://www.spaceappschallenge.org/2025/find-a-team/virsys/?tab=project',
     liveUrl: 'https://www.spaceappschallenge.org/2025/find-a-team/virsys/?tab=project',
+    image: '/events/nasa-space-apps-2025.jpg',
     icon: 'Sparkles',
   },
   {
