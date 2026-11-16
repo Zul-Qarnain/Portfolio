@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { ProjectDetailsDialog } from '@/components/projects/ProjectDetailsDialog';
 import type { Project } from '@/lib/data';
 
 interface ProjectCardProps {
@@ -41,16 +42,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
             ))}
           </div>
         )}
-        <Link
-          href={project.liveUrl || project.githubLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
-          aria-label={`View ${project.title} project details`}
-        >
-          Live Demo
-          <ExternalLink className="h-3.5 w-3.5" />
-        </Link>
+        <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2">
+          <ProjectDetailsDialog project={project} />
+          <Link
+            href={project.liveUrl || project.githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
+            aria-label={`View ${project.title} project details`}
+          >
+            Live Demo
+            <ExternalLink className="h-3.5 w-3.5" />
+          </Link>
+        </div>
       </div>
     </article>
   );
