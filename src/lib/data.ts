@@ -306,9 +306,20 @@ export interface Event {
 
 export const eventsData: Event[] = [
   {
+    id: 'nasa-space-apps-2026-event',
+    title: 'NASA International Space Apps Challenge 2026',
+    images: ['/events/nasa-space-apps-2026.png'],
+    imageHint: 'NASA Space Apps Challenge 2026 - Team Orion',
+    date: 'October 2026',
+    location: 'Barisal, Bangladesh (NASA International Space Apps Challenge)',
+    description: 'Participated in the NASA Space Apps Challenge 2026 with Team Orion, building ORION — an AI-assisted crop-rotation decision-support platform for Bangladeshi farmers.',
+    story: 'Participated in the NASA International Space Apps Challenge 2026 under the "Field Shift: Adapting Farms with NASA Data" challenge. Our six-member team, Orion, built ORION — a bilingual (Bangla and English) agricultural intelligence platform that helps farmers explore climate-informed Aman → Rabi → pre-monsoon crop rotations across all 64 districts of Bangladesh.\n\nThe platform combines ~45 years of NASA POWER weather observations with GPM IMERG precipitation and MERRA-2 climate data, plus SRDI soil-salinity and FAO crop references, into ranked rotation strategies with "See Why" explanations, climate-scenario simulation, and a LightGBM monsoon-onset outlook model — shipped with 262 passing pytest and 692 passing Vitest tests.',
+    link: 'https://www.spaceappschallenge.org/2026/find-a-team/orion_2026/?tab=project',
+  },
+  {
     id: 'nasa-space-apps-2025-event',
     title: 'NASA International Space Apps Challenge 2025',
-    images: [],
+    images: ['/events/nasa-space-apps-2025.jpg'],
     imageHint: 'NASA Space Apps Challenge 2025 - Team Virsys',
     date: 'October 2025',
     location: 'NASA International Space Apps Challenge',
