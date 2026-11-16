@@ -300,6 +300,26 @@ export const projectsData: Project[] = [
     liveUrl: 'https://www.spaceappschallenge.org/2025/find-a-team/virsys/?tab=project',
     icon: 'Sparkles',
   },
+  {
+    id: '7',
+    title: 'Setu — Guarded Cross-Border Finance Agent',
+    description: 'Hackathon project: a guarded cross-border finance agent designed for South Asian students in China — safe, transparent money flows with student-friendly onboarding.',
+    techStack: ['TypeScript'],
+    githubLink: 'https://github.com/Zul-Qarnain/setu-fintechathon',
+    liveUrl: 'https://github.com/Zul-Qarnain/setu-fintechathon',
+    image: 'https://opengraph.githubassets.com/1/Zul-Qarnain/setu-fintechathon',
+    icon: 'Landmark',
+  },
+  {
+    id: '8',
+    title: 'Awesome MCP Servers — Curated List',
+    description: 'A concise, continuously updated curated list of MCP servers — browser control, web search, automation and more — maintained as a bookmarkable reference for AI-agent builders.',
+    techStack: ['MCP', 'Markdown'],
+    githubLink: 'https://github.com/Zul-Qarnain/awesome-mcp-list_frok',
+    liveUrl: 'https://github.com/Zul-Qarnain/awesome-mcp-list_frok',
+    image: 'https://opengraph.githubassets.com/1/Zul-Qarnain/awesome-mcp-list_frok',
+    icon: 'List',
+  },
 ];
 
 export interface Event {
